@@ -25,10 +25,10 @@
 <p>4. 元素（Element）：</p>
 <p>  开始标签、结束标签与内容相结合，便是一个完整的元素。</p>
 
-<h3>Attribute</h3>
+<h2>Attribute</h2>
 <p>属性包含的是不想在真正的内容中出现的和元素有关的额外信息。</p>
-<h3>Nested</h3>
+<h2>Nested</h2>
 <p>将一个元素置于其他元素之中——称作嵌套。</p>
-<h3>void element</h3>
+<h2>void element</h2>
 <p>不包含任何内容的元素称为空元素，如"<"img/">"。</p>
 </section>
