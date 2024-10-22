@@ -1,0 +1,15 @@
+h1{
+    margin:auto;
+    text-align:center;
+    padding:15px;
+  }
+  
+  #image{
+    width:80%;
+    height:60%*weight;
+    max-width:100%;
+    display: block;
+    margin: auto;
+  }
+  
+  
