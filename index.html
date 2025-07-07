@@ -2,42 +2,503 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width , initial-scale=1.0">
-    <title>Collections Demo Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Collection | Dark Theme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      :root {
+        --primary: #1a1a2e;
+        --secondary: #16213e;
+        --accent: #0f3460;
+        --highlight: #e94560;
+        --text: #f0f0f0;
+        --text-secondary: #a0a0a0;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-hover: rgba(255, 255, 255, 0.1);
+      }
+      
+      body {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--text);
+        min-height: 100vh;
+        padding: 2rem;
+        position: relative;
+        overflow-x: hidden;
+      }
+      
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(233, 69, 96, 0.1), transparent 25%),
+                    radial-gradient(circle at bottom left, rgba(15, 52, 96, 0.1), transparent 25%);
+        z-index: -1;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+        position: relative;
+      }
+      
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: var(--highlight);
+        border-radius: 2px;
+      }
+      
+      h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+      
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .category {
+        margin: 3rem 0 1.5rem;
+        display: flex;
+        align-items: center;
+      }
+      
+      .category h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--highlight);
+        margin-right: 1rem;
+      }
+      
+      .category-line {
+        flex-grow: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      
+      .project-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        background: var(--card-hover);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .project-icon {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, var(--accent), #1a1a2e);
+      }
+      
+      .project-icon i {
+        font-size: 3rem;
+        color: var(--highlight);
+      }
+      
+      .project-content {
+        padding: 1.5rem;
+      }
+      
+      .project-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+      }
+      
+      .project-content p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        height: 40px;
+        overflow: hidden;
+      }
+      
+      .project-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background: transparent;
+        color: var(--highlight);
+        text-decoration: none;
+        border-radius: 30px;
+        border: 1px solid var(--highlight);
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+      
+      .project-link:hover {
+        background: var(--highlight);
+        color: white;
+        transform: scale(1.05);
+      }
+      
+      footer {
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+      
+      footer p {
+        margin-bottom: 0.5rem;
+      }
+      
+      .footer-links a {
+        color: var(--text-secondary);
+        margin: 0 0.5rem;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      
+      .footer-links a:hover {
+        color: var(--highlight);
+      }
+      
+      @media (max-width: 768px) {
+        .projects-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+        
+        h1 {
+          font-size: 2.5rem;
+        }
+        
+        .subtitle {
+          font-size: 1rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        body {
+          padding: 1rem;
+        }
+        
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        h1 {
+          font-size: 2rem;
+        }
+      }
+      
+      .floating {
+        animation: floating 8s ease-in-out infinite;
+      }
+      
+      @keyframes floating {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+      }
+      
+      .grid-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 20px 20px;
+        z-index: -2;
+        pointer-events: none;
+      }
+    </style>
   </head>
   <body>
-    <main>
+    <div class="grid-pattern"></div>
+    <div class="container">
       <header>
-        <h1 text-align="center">Project Collection</h1>
+        <h1>Project Collection</h1>
+        <p class="subtitle">A curated gallery of HTML/CSS projects showcasing modern web development techniques</p>
       </header>
-      <h2>Here are the html pages you have made: </h2>
-      <ul>
-        <li><a href="HTML-files/Cat-photos.html">Cat photos</a></li>
-        <li><a href="HTML-files/Coffee-menu.html">Coffee menu</a></li>
-        <li><a href="HTML-files/Register-form.html">Registration form</a></li>
-        <li><a href="HTML-files/Colored-markers.html">Colored markers</a></li>
-        <li><a href="HTML-files/Survey-form.html">Survey form</a></li>
-        <hr>
-        <li><a href="HTML-files/Cat-photoGallery.html">Cat photoGallery</a></li>
-        <li><a href="HTML-files/Nutrition-label.html">Nutrition label</a></li>
-        <li><a href="HTML-files/Quiz.html">Quiz</a></li>
-        <li><a href="HTML-files/Rothko-painting.html">Rothko painting</a></li>
-        <li><a href="HTML-files/Tribute-page.html">Tribute page</a></li>
-        <hr>
-        <li><a href="HTML-files/Balance-sheet.html">Balance sheet</a></li>
-        <li><a href="HTML-files/Cat-painting.html">Cat painting</a></li>
-        <li><a href="HTML-files/Piano.html">Piano</a></li>
-        <hr>
-        <li><a href="HTML-files/City-skyline.html">City skyline</a></li>
-        <li><a href="HTML-files/Magazine.html">Magazine</a></li>
-        <hr>
-        <li><a href="HTML-files/Ferris-wheel.html">Ferris-wheel</a></li>
-        <li><a href="HTML-files/Penguin.html">penguin</a></li>
+      
+      <main>
+        <div class="category">
+          <h2>Foundation Projects</h2>
+          <div class="category-line"></div>
+        </div>
         
-      </ul>
-    </main>
-    
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-cat floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Cat Photos</h3>
+              <p>A gallery of adorable feline friends</p>
+              <a href="HTML-files/Cat-photos.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-coffee floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Coffee Menu</h3>
+              <p>A delicious selection of coffee drinks</p>
+              <a href="HTML-files/Coffee-menu.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-user-edit floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Registration Form</h3>
+              <p>A clean user registration interface</p>
+              <a href="HTML-files/Register-form.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-palette floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Colored Markers</h3>
+              <p>Exploring CSS color techniques</p>
+              <a href="HTML-files/Colored-markers.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-poll floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Survey Form</h3>
+              <p>User feedback collection form</p>
+              <a href="HTML-files/Survey-form.html" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category">
+          <h2>Intermediate Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-images floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Cat Photo Gallery</h3>
+              <p>Advanced gallery layout with feline focus</p>
+              <a href="HTML-files/Cat-photoGallery.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-apple-alt floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Nutrition Label</h3>
+              <p>Food nutrition information display</p>
+              <a href="HTML-files/Nutrition-label.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-question-circle floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Quiz</h3>
+              <p>Interactive quiz interface</p>
+              <a href="HTML-files/Quiz.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-paint-brush floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Rothko Painting</h3>
+              <p>CSS art reproduction</p>
+              <a href="HTML-files/Rothko-painting.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-star floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Tribute Page</h3>
+              <p>Honoring notable figures</p>
+              <a href="HTML-files/Tribute-page.html" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category">
+          <h2>Advanced Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-file-invoice-dollar floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Balance Sheet</h3>
+              <p>Financial data presentation</p>
+              <a href="HTML-files/Balance-sheet.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-paw floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Cat Painting</h3>
+              <p>Artistic CSS illustration</p>
+              <a href="HTML-files/Cat-painting.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-music floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Piano</h3>
+              <p>Interactive musical interface</p>
+              <a href="HTML-files/Piano.html" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category">
+          <h2>Expert Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-city floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>City Skyline</h3>
+              <p>Urban landscape with CSS</p>
+              <a href="HTML-files/City-skyline.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-newspaper floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Magazine</h3>
+              <p>Publication layout design</p>
+              <a href="HTML-files/Magazine.html" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="category">
+          <h2>Animation Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-ferris-wheel floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Ferris Wheel</h3>
+              <p>CSS animation showcase</p>
+              <a href="HTML-files/Ferris-wheel.html" class="project-link">View Project</a>
+            </div>
+          </div>
+          
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-snowflake floating"></i>
+            </div>
+            <div class="project-content">
+              <h3>Penguin</h3>
+              <p>Animated character design</p>
+              <a href="HTML-files/Penguin.html" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <footer>
+        <p>From freeCodeCamp</p>
+        <div class="footer-links">
+          <a href="#"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#"><i class="fab fa-codepen"></i> CodePen</a>
+          <a href="#"><i class="fab fa-free-code-camp"></i> freeCodeCamp</a>
+        </div>
+        <p>Designed with ❤️ | 2023</p>
+      </footer>
+    </div>
   </body>
-
-  <footer><p>From freeCodeCamp</p></footer>
 </html>
