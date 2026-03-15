@@ -100,6 +100,7 @@ const KnowledgeGraphSite = (() => {
 
   function updateThemeButton() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const btn = document.querySelector('[data-theme-toggle]');
     const icon = document.querySelector('[data-theme-toggle] i');
     const label = document.querySelector('[data-theme-label]');
     if (icon) {
@@ -107,6 +108,10 @@ const KnowledgeGraphSite = (() => {
     }
     if (label) {
       label.textContent = isDark ? t('themeLight') : t('themeDark');
+    }
+    if (btn) {
+      btn.setAttribute('aria-label', isDark ? t('themeLight') : t('themeDark'));
+      btn.setAttribute('title', isDark ? t('themeLight') : t('themeDark'));
     }
   }
 
@@ -133,8 +138,13 @@ const KnowledgeGraphSite = (() => {
     });
 
     const langLabel = document.querySelector('[data-lang-label]');
+    const langButton = document.querySelector('[data-lang-toggle]');
     if (langLabel) {
       langLabel.textContent = t('langLabel');
+    }
+    if (langButton) {
+      langButton.setAttribute('aria-label', currentLang === 'zh' ? 'Switch to English' : '切换到中文');
+      langButton.setAttribute('title', currentLang === 'zh' ? 'Switch to English' : '切换到中文');
     }
 
     updateThemeButton();
