@@ -41,29 +41,27 @@
       <section class="hero-block">
         <span class="hero-kicker" data-i18n-zh="可阅读笔记 + 可检索数据" data-i18n-en="Readable notes + retrievable data"><i class="fas fa-book-open"></i> 可阅读笔记 + 可检索数据</span>
         <h1 class="hero-title" data-i18n-zh="Knowledge 像博客一样被阅读，<span class='accent'>也像数据一样被检索。</span>" data-i18n-en="Read Knowledge like a blog, <span class='accent'>query it like data.</span>">Knowledge 像博客一样被阅读，<span class="accent">也像数据一样被检索。</span></h1>
-        <p class="hero-subtitle" data-i18n-zh="这个页面直接读取 <code>graph/knowledge-graph.json</code>，将知识节点以文章列表方式呈现。左侧是文章列表，右侧是当前节点详情，适合人读，也适合 agent 检索与推理。" data-i18n-en="This page reads <code>graph/knowledge-graph.json</code> and renders knowledge nodes as article-like entries. The left side is a post list and the right side is a focused detail panel for both human reading and agent retrieval.">这个页面直接读取 <code>graph/knowledge-graph.json</code>，将知识节点以文章列表方式呈现。左侧是文章列表，右侧是当前节点详情，适合人读，也适合 agent 检索与推理。</p>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2 data-i18n-zh="知识学科分点" data-i18n-en="Knowledge Domains">知识学科分点</h2>
-          <p data-i18n-zh="先按学科建立主干，再逐步填充节点。" data-i18n-en="Build the main structure by discipline first, then fill detailed nodes.">先按学科建立主干，再逐步填充节点。</p>
-        </div>
-        <div class="taxonomy-grid">
-          <article class="taxonomy-card"><h3 data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</h3><p data-i18n-zh="认识论、科学哲学、意识与智能本体问题。" data-i18n-en="Epistemology, philosophy of science, consciousness and ontology of intelligence.">认识论、科学哲学、意识与智能本体问题。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="数学" data-i18n-en="Mathematics">数学</h3><p data-i18n-zh="线性代数、概率统计、优化、信息论。" data-i18n-en="Linear algebra, probability and statistics, optimization, information theory.">线性代数、概率统计、优化、信息论。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="物理学" data-i18n-en="Physics">物理学</h3><p data-i18n-zh="复杂系统、动力学、统计物理与计算建模。" data-i18n-en="Complex systems, dynamics, statistical physics and computational modeling.">复杂系统、动力学、统计物理与计算建模。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="金融学" data-i18n-en="Finance">金融学</h3><p data-i18n-zh="风险、市场微观结构、量化策略与决策。" data-i18n-en="Risk, market microstructure, quantitative strategy and decision-making.">风险、市场微观结构、量化策略与决策。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</h3><p data-i18n-zh="大脑机制、神经编码、学习与记忆过程。" data-i18n-en="Brain mechanisms, neural coding, learning and memory.">大脑机制、神经编码、学习与记忆过程。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</h3><p data-i18n-zh="认知偏差、行为决策、学习动机与人格差异。" data-i18n-en="Cognitive biases, behavioral decision-making, motivation and personality.">认知偏差、行为决策、学习动机与人格差异。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="计算机科学" data-i18n-en="Computer Science">计算机科学</h3><p data-i18n-zh="算法、系统、软件工程、机器学习与智能体。" data-i18n-en="Algorithms, systems, software engineering, machine learning and agents.">算法、系统、软件工程、机器学习与智能体。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="控制理论" data-i18n-en="Control Theory">控制理论</h3><p data-i18n-zh="反馈、稳定性、最优控制与系统辨识。" data-i18n-en="Feedback, stability, optimal control and system identification.">反馈、稳定性、最优控制与系统辨识。</p></article>
-          <article class="taxonomy-card"><h3 data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</h3><p data-i18n-zh="语义、语法、语用与人机语言交互。" data-i18n-en="Semantics, syntax, pragmatics and human-machine language interaction.">语义、语法、语用与人机语言交互。</p></article>
-        </div>
+        <p class="hero-subtitle" data-i18n-zh="这个页面直接读取 <code>graph/knowledge-graph.json</code>。左侧为学科分类侧边栏，中部为知识文章列表，右侧为当前节点详情，适合人读，也适合 agent 检索与推理。" data-i18n-en="This page reads <code>graph/knowledge-graph.json</code>. The left sidebar shows knowledge domains, the center presents post-like nodes, and the right panel focuses on node details for both human reading and agent retrieval.">这个页面直接读取 <code>graph/knowledge-graph.json</code>。左侧为学科分类侧边栏，中部为知识文章列表，右侧为当前节点详情，适合人读，也适合 agent 检索与推理。</p>
       </section>
 
       <section class="knowledge-layout" data-knowledge-explorer>
-        <div>
+        <aside class="panel knowledge-sidebar">
+          <h3 data-i18n-zh="知识分类" data-i18n-en="Knowledge Domains">知识分类</h3>
+          <p class="muted" data-i18n-zh="按学科建立知识主干，作为后续扩展入口。" data-i18n-en="Use domains as the backbone for future node expansion.">按学科建立知识主干，作为后续扩展入口。</p>
+          <ul class="mini-list taxonomy-list">
+            <li><strong data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</strong><span data-i18n-zh="认识论、科学哲学、意识本体" data-i18n-en="Epistemology, philosophy of science, consciousness ontology">认识论、科学哲学、意识本体</span></li>
+            <li><strong data-i18n-zh="数学" data-i18n-en="Mathematics">数学</strong><span data-i18n-zh="线性代数、概率统计、优化、信息论" data-i18n-en="Linear algebra, probability, optimization, information theory">线性代数、概率统计、优化、信息论</span></li>
+            <li><strong data-i18n-zh="物理学" data-i18n-en="Physics">物理学</strong><span data-i18n-zh="复杂系统、动力学、统计物理" data-i18n-en="Complex systems, dynamics, statistical physics">复杂系统、动力学、统计物理</span></li>
+            <li><strong data-i18n-zh="金融学" data-i18n-en="Finance">金融学</strong><span data-i18n-zh="风险、市场微观结构、量化决策" data-i18n-en="Risk, market microstructure, quantitative decisions">风险、市场微观结构、量化决策</span></li>
+            <li><strong data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</strong><span data-i18n-zh="神经编码、学习与记忆机制" data-i18n-en="Neural coding, learning and memory mechanisms">神经编码、学习与记忆机制</span></li>
+            <li><strong data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</strong><span data-i18n-zh="认知偏差、行为决策、动机" data-i18n-en="Cognitive bias, behavioral decisions, motivation">认知偏差、行为决策、动机</span></li>
+            <li><strong data-i18n-zh="计算机科学" data-i18n-en="Computer Science">计算机科学</strong><span data-i18n-zh="算法、系统、软件工程、智能体" data-i18n-en="Algorithms, systems, software engineering, agents">算法、系统、软件工程、智能体</span></li>
+            <li><strong data-i18n-zh="控制理论" data-i18n-en="Control Theory">控制理论</strong><span data-i18n-zh="反馈、稳定性、最优控制" data-i18n-en="Feedback, stability, optimal control">反馈、稳定性、最优控制</span></li>
+            <li><strong data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</strong><span data-i18n-zh="语义、语法、语用、人机交互" data-i18n-en="Semantics, syntax, pragmatics, HCI language">语义、语法、语用、人机交互</span></li>
+          </ul>
+        </aside>
+
+        <div class="knowledge-main">
           <div class="toolbar">
             <input class="search-input" type="search" placeholder="搜索标题、标签、别名、关键词..." data-i18n-ph-zh="搜索标题、标签、别名、关键词..." data-i18n-ph-en="Search title, tags, aliases, keywords..." data-node-search>
             <div class="filter-group" aria-label="Knowledge type filters">
@@ -74,14 +72,16 @@
             </div>
           </div>
 
-          <div class="post-list loading-state" data-node-list>
-            正在加载知识节点...
+          <div class="knowledge-content-grid">
+            <div class="post-list loading-state" data-node-list>
+              正在加载知识节点...
+            </div>
+
+            <aside class="detail-panel" data-node-detail>
+              正在加载节点详情...
+            </aside>
           </div>
         </div>
-
-        <aside class="detail-panel" data-node-detail>
-          正在加载节点详情...
-        </aside>
       </section>
     </main>
 
