@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Knowledge page for the personal knowledge graph.">
+    <title>Knowledge | Personal Knowledge Graph</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/site.css">
+    <script defer src="scripts/site.js"></script>
+  </head>
+  <body data-page="knowledge">
+    <header class="site-header">
+      <div class="site-nav">
+        <a class="brand" href="index.html">
+          <span class="brand-title">Knowledge Graph</span>
+          <span class="brand-subtitle">Explore intelligence, one note at a time.</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="index.html" data-nav="home">HOME</a>
+          <a href="knowledge.html" data-nav="knowledge">Knowledge</a>
+          <a href="projects.html" data-nav="projects">Project</a>
+          <a href="contact.html" data-nav="contact">CONTACT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero-block">
+        <span class="hero-kicker"><i class="fas fa-book-open"></i> Knowledge as readable notes + retrievable data</span>
+        <h1 class="hero-title">Knowledge 像博客一样被阅读，<span class="accent">也像数据一样被检索。</span></h1>
+        <p class="hero-subtitle">这个页面直接读取 <code>graph/knowledge-graph.json</code>，将知识节点以文章列表的方式呈现。左侧是博客式文章列表，右侧是当前节点的详情卡片，适合人阅读，也适合 agent 后续做检索、总结和推理。</p>
+      </section>
+
+      <section class="knowledge-layout" data-knowledge-explorer>
+        <div>
+          <div class="toolbar">
+            <input class="search-input" type="search" placeholder="搜索标题、标签、别名、关键词..." data-node-search>
+            <div class="filter-group" aria-label="Knowledge type filters">
+              <button class="filter-chip is-active" type="button" data-filter="all">All</button>
+              <button class="filter-chip" type="button" data-filter="concept">Concept</button>
+              <button class="filter-chip" type="button" data-filter="skill">Skill</button>
+              <button class="filter-chip" type="button" data-filter="reference">Reference</button>
+            </div>
+          </div>
+
+          <div class="post-list loading-state" data-node-list>
+            Loading knowledge nodes...
+          </div>
+        </div>
+
+        <aside class="detail-panel" data-node-detail>
+          Loading node details...
+        </aside>
+      </section>
+    </main>
+
+    <footer class="page-shell footer">
+      <span>Knowledge page powered by the graph JSON + Markdown node files.</span>
+      <span><a class="inline-link" href="graph/README.md">Graph guide</a></span>
+    </footer>
+  </body>
+</html>

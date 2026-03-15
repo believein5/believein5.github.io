@@ -1,350 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Knowledge Graph Hub</title>
+    <meta name="description" content="A blog-like portal for exploring knowledge, projects, and the road toward understanding intelligence.">
+    <title>HOME | Personal Knowledge Graph</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      :root {
-        --bg-1: #0f172a;
-        --bg-2: #111827;
-        --panel: rgba(255, 255, 255, 0.06);
-        --panel-hover: rgba(255, 255, 255, 0.1);
-        --line: rgba(255, 255, 255, 0.12);
-        --text: #e5eefc;
-        --muted: #94a3b8;
-        --accent: #38bdf8;
-        --accent-2: #a78bfa;
-        --success: #34d399;
-      }
-
-      body {
-        min-height: 100vh;
-        color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 28%),
-          radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.14), transparent 30%),
-          linear-gradient(135deg, var(--bg-1), var(--bg-2));
-        padding: 2rem;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .hero {
-        text-align: center;
-        padding: 3rem 1rem 2.5rem;
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.45rem 0.9rem;
-        border-radius: 999px;
-        border: 1px solid rgba(56, 189, 248, 0.35);
-        color: var(--accent);
-        margin-bottom: 1rem;
-        font-size: 0.95rem;
-      }
-
-      h1 {
-        font-size: clamp(2.5rem, 6vw, 4.4rem);
-        line-height: 1.05;
-        margin-bottom: 1rem;
-      }
-
-      .gradient-text {
-        background: linear-gradient(90deg, var(--accent), #ffffff, var(--accent-2));
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .subtitle {
-        max-width: 820px;
-        margin: 0 auto 1.5rem;
-        color: var(--muted);
-        font-size: 1.08rem;
-        line-height: 1.8;
-      }
-
-      .hero-actions {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-top: 1.2rem;
-      }
-
-      .button,
-      .button-secondary {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.9rem 1.15rem;
-        border-radius: 999px;
-        text-decoration: none;
-        transition: transform 0.2s ease, background 0.2s ease;
-      }
-
-      .button {
-        background: linear-gradient(90deg, var(--accent), #60a5fa);
-        color: #08111f;
-        font-weight: 700;
-      }
-
-      .button-secondary {
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.03);
-      }
-
-      .button:hover,
-      .button-secondary:hover {
-        transform: translateY(-2px);
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 1rem;
-      }
-
-      .panel {
-        background: var(--panel);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 1.3rem;
-        backdrop-filter: blur(10px);
-      }
-
-      .panel:hover {
-        background: var(--panel-hover);
-      }
-
-      .panel h2,
-      .panel h3 {
-        margin-bottom: 0.8rem;
-      }
-
-      .panel p,
-      .panel li {
-        color: var(--muted);
-        line-height: 1.7;
-      }
-
-      .overview {
-        grid-column: span 7;
-      }
-
-      .quick-links {
-        grid-column: span 5;
-      }
-
-      .two-column {
-        grid-column: span 6;
-      }
-
-      .kpi-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.8rem;
-        margin-top: 1rem;
-      }
-
-      .kpi {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 0.9rem;
-        background: rgba(255, 255, 255, 0.02);
-      }
-
-      .kpi strong {
-        display: block;
-        font-size: 1.5rem;
-        color: #fff;
-      }
-
-      .mini-list {
-        list-style: none;
-        display: grid;
-        gap: 0.8rem;
-      }
-
-      .mini-list li {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 0.9rem;
-      }
-
-      .mini-list a {
-        color: var(--text);
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      .code-chip {
-        display: inline-block;
-        margin-top: 0.35rem;
-        padding: 0.2rem 0.55rem;
-        border-radius: 999px;
-        background: rgba(52, 211, 153, 0.12);
-        color: var(--success);
-        font-size: 0.85rem;
-      }
-
-      .sample-graph {
-        position: relative;
-        min-height: 280px;
-        overflow: hidden;
-      }
-
-      .node {
-        position: absolute;
-        padding: 0.55rem 0.85rem;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(15, 23, 42, 0.82);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-      }
-
-      .node.concept { color: #fcd34d; }
-      .node.skill { color: #38bdf8; }
-      .node.project { color: #a78bfa; }
-
-      .sample-graph svg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      footer {
-        margin-top: 2rem;
-        padding: 1rem 0 0;
-        border-top: 1px solid var(--line);
-        text-align: center;
-        color: var(--muted);
-      }
-
-      @media (max-width: 900px) {
-        .overview,
-        .quick-links,
-        .two-column {
-          grid-column: 1 / -1;
-        }
-      }
-
-      @media (max-width: 640px) {
-        body {
-          padding: 1rem;
-        }
-
-        .hero {
-          padding-top: 2rem;
-        }
-
-        .kpi-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles/site.css">
+    <script defer src="scripts/site.js"></script>
   </head>
-  <body>
-    <div class="container">
-      <header class="hero">
-        <div class="eyebrow"><i class="fas fa-diagram-project"></i> Human-readable • Agent-trainable</div>
-        <h1><span class="gradient-text">Personal Knowledge Graph</span> Hub</h1>
-        <p class="subtitle">This homepage is now the entry point for a personal knowledge graph. It separates durable knowledge assets from practice projects, so humans can browse concepts clearly and agents can retrieve structured facts, links, examples, and verification steps with less guesswork.</p>
+  <body data-page="home">
+    <header class="site-header">
+      <div class="site-nav">
+        <a class="brand" href="index.html">
+          <span class="brand-title">Knowledge Graph</span>
+          <span class="brand-subtitle">ALL THE WAY TO Understand the world and the INTELLIGENCE</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="index.html" data-nav="home">HOME</a>
+          <a href="knowledge.html" data-nav="knowledge">Knowledge</a>
+          <a href="projects.html" data-nav="projects">Project</a>
+          <a href="contact.html" data-nav="contact">CONTACT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero-block">
+        <span class="hero-kicker"><i class="fas fa-compass"></i> 对智能的探索之路</span>
+        <h1 class="hero-title">ALL THE WAY TO<br><span class="accent">Understand the world and the INTELLIGENCE</span></h1>
+        <p class="hero-subtitle">这里不只是作品展示页，而是一个更像博客首页的个人知识入口：记录我如何从 HTML、CSS、项目实践，一步步走向“理解世界”与“理解智能”。知识页负责沉淀概念与方法，项目页负责保留实践证据，图谱数据则为后续 agent 检索、总结和训练提供结构化基础。</p>
         <div class="hero-actions">
-          <a class="button" href="graph/knowledge-graph.json"><i class="fas fa-code-branch"></i> Open graph data</a>
-          <a class="button-secondary" href="archive/projects.html"><i class="fas fa-box-archive"></i> Browse project archive</a>
-          <a class="button-secondary" href="graph/README.md"><i class="fas fa-book-open"></i> Read graph guide</a>
+          <a class="button" href="knowledge.html"><i class="fas fa-book"></i> Enter Knowledge</a>
+          <a class="button-secondary" href="projects.html"><i class="fas fa-laptop-code"></i> Browse Projects</a>
+          <a class="button-secondary" href="graph/knowledge-graph.json"><i class="fas fa-code-branch"></i> Graph Snapshot</a>
         </div>
-      </header>
+      </section>
 
-      <main class="grid">
-        <section class="panel overview">
-          <h2>What lives here now</h2>
-          <p>The homepage no longer lists all practice projects directly. Instead, it points to the durable knowledge layer: a graph schema, a graph snapshot, and node documents written for both human study and future agent retrieval pipelines.</p>
-          <div class="kpi-grid">
-            <div class="kpi">
-              <strong>1</strong>
-              <span>graph schema</span>
+      <section class="content-grid">
+        <div>
+          <section class="section">
+            <div class="section-header">
+              <div>
+                <h2>Latest Knowledge Notes</h2>
+                <p>像博客文章一样浏览最近的知识节点。</p>
+              </div>
+              <a class="inline-link" href="knowledge.html">See all notes</a>
             </div>
-            <div class="kpi">
-              <strong>5</strong>
-              <span>starter nodes</span>
+            <div class="post-list loading-state" data-latest-knowledge>
+              Loading latest knowledge notes...
             </div>
-            <div class="kpi">
-              <strong>1</strong>
-              <span>project archive</span>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <aside class="panel quick-links">
-          <h2>Core files</h2>
-          <ul class="mini-list">
-            <li>
-              <a href="graph/schema.json">graph/schema.json</a>
-              <div class="code-chip">contract</div>
-            </li>
-            <li>
-              <a href="graph/knowledge-graph.json">graph/knowledge-graph.json</a>
-              <div class="code-chip">snapshot</div>
-            </li>
-            <li>
-              <a href="graph/nodes/semantic-html.md">graph/nodes/*.md</a>
-              <div class="code-chip">node docs</div>
-            </li>
-            <li>
-              <a href="archive/projects.html">archive/projects.html</a>
-              <div class="code-chip">legacy projects</div>
-            </li>
-          </ul>
+          <section class="section">
+            <div class="section-header">
+              <div>
+                <h2>Three Routes of the Site</h2>
+                <p>首页像博客入口，内容按角色拆分得更清楚。</p>
+              </div>
+            </div>
+            <div class="post-list">
+              <article class="post-card">
+                <h3>Knowledge</h3>
+                <p>用文章列表和详情面板来承载概念、技能、误区与验证步骤。它是“可阅读”的知识层，也是 agent 的第一层检索入口。</p>
+                <a class="inline-link" href="knowledge.html">Open Knowledge →</a>
+              </article>
+              <article class="post-card">
+                <h3>Project</h3>
+                <p>把原本散落的 HTML/CSS 作品集集中到单独页面，作为学习轨迹中的实践证据，而不是继续挤在首页当主角。</p>
+                <a class="inline-link" href="projects.html">Open Project →</a>
+              </article>
+              <article class="post-card">
+                <h3>Graph Data</h3>
+                <p><code>graph/schema.json</code> 与 <code>graph/knowledge-graph.json</code> 负责维持站点底层结构，后续无论是做搜索、推荐还是 agent 检索，都靠这层数据说话。</p>
+                <a class="inline-link" href="graph/README.md">Read graph guide →</a>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sidebar-stack">
+          <section class="panel">
+            <h3>At a glance</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <strong data-stat="nodes">0</strong>
+                <span class="muted">graph nodes</span>
+              </div>
+              <div class="stat-item">
+                <strong data-stat="edges">0</strong>
+                <span class="muted">graph edges</span>
+              </div>
+              <div class="stat-item">
+                <strong data-stat="projects">0</strong>
+                <span class="muted">project nodes</span>
+              </div>
+              <div class="stat-item">
+                <strong>4</strong>
+                <span class="muted">top nav routes</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h3>Core resources</h3>
+            <div class="resource-grid">
+              <div class="resource-item">
+                <strong>Schema</strong>
+                <p>约束节点与边的数据格式。</p>
+                <a class="inline-link" href="graph/schema.json">Open →</a>
+              </div>
+              <div class="resource-item">
+                <strong>Snapshot</strong>
+                <p>当前图谱快照，适合程序读取。</p>
+                <a class="inline-link" href="graph/knowledge-graph.json">Open →</a>
+              </div>
+              <div class="resource-item">
+                <strong>Nodes</strong>
+                <p>每个节点一份 Markdown 文档。</p>
+                <a class="inline-link" href="graph/nodes/semantic-html.md">Open →</a>
+              </div>
+              <div class="resource-item">
+                <strong>Contact</strong>
+                <p>放你的账号与外部平台入口。</p>
+                <a class="inline-link" href="contact.html">Open →</a>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h3>Site intent</h3>
+            <ul class="mini-list">
+              <li>像博客一样展示“最近在学什么、在想什么”。</li>
+              <li>像知识库一样沉淀“概念、技能、误区与验证”。</li>
+              <li>像作品集一样保存“做过什么项目、证明了什么能力”。</li>
+              <li>像数据产品一样为 agent 留出稳定的检索接口。</li>
+            </ul>
+          </section>
         </aside>
+      </section>
+    </main>
 
-        <section class="panel two-column">
-          <h3>Why this structure works</h3>
-          <ul class="mini-list">
-            <li>Humans can read node Markdown like study notes.</li>
-            <li>Agents can traverse JSON nodes and edges deterministically.</li>
-            <li>Projects are preserved as evidence, not mixed into the homepage information architecture.</li>
-            <li>Future scripts can export to JSONL, embeddings, or graph visualization libraries.</li>
-          </ul>
-        </section>
-
-        <section class="panel two-column sample-graph" aria-label="Example knowledge graph preview">
-          <h3>Starter graph preview</h3>
-          <svg viewBox="0 0 600 240" aria-hidden="true">
-            <line x1="120" y1="65" x2="300" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
-            <line x1="300" y1="60" x2="480" y2="70" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
-            <line x1="300" y1="60" x2="255" y2="180" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
-            <line x1="480" y1="70" x2="385" y2="180" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
-          </svg>
-          <div class="node concept" style="top: 2.5rem; left: 1rem;">semantic-html</div>
-          <div class="node skill" style="top: 2.2rem; left: 13.5rem;">css-flexbox</div>
-          <div class="node skill" style="top: 2.8rem; right: 1rem;">css-animation</div>
-          <div class="node project" style="bottom: 1rem; left: 10rem;">cat-photo-gallery</div>
-          <div class="node project" style="bottom: 1rem; right: 6rem;">ferris-wheel</div>
-        </section>
-      </main>
-
-      <footer>
-        <p>Next step: expand nodes, add search/filter, and optionally render the graph from JSON automatically.</p>
-      </footer>
-    </div>
+    <footer class="page-shell footer">
+      <span>HOME now behaves like a blog-style portal for your exploration of intelligence.</span>
+      <span><a class="inline-link" href="knowledge.html">Continue reading in Knowledge</a></span>
+    </footer>
   </body>
 </html>
