@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "title": "CSP00 Personal Knowledge Graph",
+    "version": "0.1.0",
+    "updatedAt": "2026-03-15",
+    "description": "A starter knowledge graph designed for both human reading and agent retrieval.",
+    "language": "zh-CN",
+    "owner": "csp00"
+  },
+  "nodes": [
+    {
+      "id": "semantic-html",
+      "title": "Semantic HTML",
+      "type": "concept",
+      "summary": "Use meaningful HTML elements to improve structure, accessibility, and machine understanding.",
+      "difficulty": "beginner",
+      "tags": ["html", "semantics", "accessibility"],
+      "aliases": ["语义化 HTML"],
+      "learningObjective": "Be able to choose appropriate HTML elements for content sections, forms, and media.",
+      "commonErrors": [
+        "Using div for headings, sections, and navigation",
+        "Missing labels and alt text"
+      ],
+      "verificationSteps": [
+        "Check whether headings and sections form a clear document outline",
+        "Check whether form controls have labels"
+      ],
+      "retrievalKeywords": ["semantic html", "语义化html", "header main section article"],
+      "projectLinks": ["HTML-files/Cat-photos.html", "HTML-files/Quiz.html"],
+      "sourcePath": "graph/nodes/semantic-html.md"
+    },
+    {
+      "id": "css-flexbox",
+      "title": "CSS Flexbox",
+      "type": "skill",
+      "summary": "A one-dimensional layout system for alignment, spacing, and wrapping.",
+      "difficulty": "beginner",
+      "tags": ["css", "layout", "flexbox"],
+      "aliases": ["弹性布局"],
+      "learningObjective": "Build responsive rows and galleries with flex containers and flex items.",
+      "commonErrors": [
+        "Setting flex properties on the wrong element",
+        "Confusing justify-content with align-items"
+      ],
+      "verificationSteps": [
+        "Resize the viewport and confirm the layout wraps correctly",
+        "Check horizontal and vertical alignment independently"
+      ],
+      "retrievalKeywords": ["css flexbox", "flex-wrap", "justify-content", "align-items"],
+      "projectLinks": ["HTML-files/Cat-photoGallery.html"],
+      "sourcePath": "graph/nodes/css-flexbox.md"
+    },
+    {
+      "id": "css-animation",
+      "title": "CSS Animation",
+      "type": "skill",
+      "summary": "Animate UI elements and CSS art using keyframes, transforms, and timing functions.",
+      "difficulty": "intermediate",
+      "tags": ["css", "animation", "transform"],
+      "aliases": ["CSS 动画"],
+      "learningObjective": "Create continuous and state-based animations for decorative or instructional interfaces.",
+      "commonErrors": [
+        "Animating layout properties instead of transform when possible",
+        "Forgetting transform-origin"
+      ],
+      "verificationSteps": [
+        "Confirm the motion is smooth and loops as expected",
+        "Verify the animation still makes sense when reduced motion is preferred"
+      ],
+      "retrievalKeywords": ["css animation", "@keyframes", "transform-origin", "动画"],
+      "projectLinks": ["HTML-files/Ferris-wheel.html", "HTML-files/Penguin.html"],
+      "sourcePath": "graph/nodes/css-animation.md"
+    },
+    {
+      "id": "project-cat-photo-gallery",
+      "title": "Cat Photo Gallery",
+      "type": "project",
+      "summary": "A gallery project used to practice flexbox, image sizing, and wrapping behavior.",
+      "difficulty": "beginner",
+      "tags": ["project", "html", "css", "gallery"],
+      "aliases": ["猫咪图片画廊"],
+      "learningObjective": "Connect layout knowledge to a concrete visual gallery page.",
+      "commonErrors": [
+        "Images stretching because width and height are not constrained",
+        "Items not wrapping on small screens"
+      ],
+      "verificationSteps": [
+        "Open the page and resize the viewport",
+        "Check that gallery items keep consistent proportions"
+      ],
+      "retrievalKeywords": ["cat photo gallery", "gallery project", "图片画廊"],
+      "projectLinks": ["HTML-files/Cat-photoGallery.html"],
+      "sourcePath": "graph/nodes/project-cat-photo-gallery.md"
+    },
+    {
+      "id": "project-ferris-wheel",
+      "title": "Ferris Wheel",
+      "type": "project",
+      "summary": "A CSS animation project that demonstrates rotation, timing, and transform-based motion.",
+      "difficulty": "intermediate",
+      "tags": ["project", "css", "animation"],
+      "aliases": ["摩天轮动画"],
+      "learningObjective": "Translate animation principles into a playful, inspectable artifact.",
+      "commonErrors": [
+        "Cabins rotating incorrectly",
+        "Incorrect absolute positioning for spokes and cabins"
+      ],
+      "verificationSteps": [
+        "Ensure the wheel rotates continuously",
+        "Check whether cabins maintain a readable orientation"
+      ],
+      "retrievalKeywords": ["ferris wheel", "摩天轮", "keyframes demo"],
+      "projectLinks": ["HTML-files/Ferris-wheel.html"],
+      "sourcePath": "graph/nodes/project-ferris-wheel.md"
+    }
+  ],
+  "edges": [
+    {
+      "source": "semantic-html",
+      "target": "project-cat-photo-gallery",
+      "type": "applies_to",
+      "reason": "Semantic structure still matters even in simple gallery pages.",
+      "weight": 0.6
+    },
+    {
+      "source": "css-flexbox",
+      "target": "project-cat-photo-gallery",
+      "type": "implements",
+      "reason": "The project uses flexbox for image arrangement and wrapping.",
+      "weight": 0.95
+    },
+    {
+      "source": "css-animation",
+      "target": "project-ferris-wheel",
+      "type": "implements",
+      "reason": "The project is built around keyframes and transform animation.",
+      "weight": 0.98
+    },
+    {
+      "source": "css-flexbox",
+      "target": "css-animation",
+      "type": "related_to",
+      "reason": "Both are core CSS skills often combined in UI work.",
+      "weight": 0.4
+    },
+    {
+      "source": "semantic-html",
+      "target": "css-flexbox",
+      "type": "prerequisite_of",
+      "reason": "A clear document structure should come before layout refinement.",
+      "weight": 0.55
+    },
+    {
+      "source": "project-cat-photo-gallery",
+      "target": "css-flexbox",
+      "type": "validated_by",
+      "reason": "The project can be used as evidence that flexbox concepts were practiced.",
+      "weight": 0.88
+    },
+    {
+      "source": "project-ferris-wheel",
+      "target": "css-animation",
+      "type": "validated_by",
+      "reason": "The project demonstrates working knowledge of animation timing and transforms.",
+      "weight": 0.9
+    }
+  ]
+}

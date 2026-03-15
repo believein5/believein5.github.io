@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Archive | Knowledge Graph</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #0f172a;
+        --secondary: #111827;
+        --accent: #1d4ed8;
+        --highlight: #38bdf8;
+        --text: #e5eefc;
+        --text-secondary: #9ca3af;
+        --card-bg: rgba(255, 255, 255, 0.04);
+        --card-hover: rgba(255, 255, 255, 0.08);
+      }
+
+      body {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--text);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 0.8rem;
+        color: white;
+      }
+
+      .subtitle {
+        max-width: 760px;
+        margin: 0 auto 1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .top-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1.2rem;
+      }
+
+      .link-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1rem;
+        border-radius: 999px;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .category {
+        margin: 2.5rem 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .category h2 {
+        color: var(--highlight);
+        font-size: 1.3rem;
+      }
+
+      .category-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: transform 0.25s ease, background 0.25s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        background: var(--card-hover);
+      }
+
+      .project-icon {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, rgba(29, 78, 216, 0.8), rgba(15, 23, 42, 0.9));
+      }
+
+      .project-icon i {
+        font-size: 2.5rem;
+        color: white;
+      }
+
+      .project-content {
+        padding: 1.2rem;
+      }
+
+      .project-content h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      .project-content p {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        min-height: 2.6rem;
+      }
+
+      .project-link {
+        color: var(--highlight);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      footer {
+        margin-top: 3rem;
+        text-align: center;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 2.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Project Archive</h1>
+        <p class="subtitle">These HTML/CSS practice projects are preserved as artifacts. The homepage now focuses on the personal knowledge graph, while this page keeps the original exercises easy to browse.</p>
+        <div class="top-links">
+          <a class="link-pill" href="../index.html"><i class="fas fa-diagram-project"></i> Back to Knowledge Graph Home</a>
+          <a class="link-pill" href="../graph/knowledge-graph.json"><i class="fas fa-code-branch"></i> Open Graph Data</a>
+        </div>
+      </header>
+
+      <main>
+        <div class="category">
+          <h2>Foundation Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card"><div class="project-icon"><i class="fas fa-cat"></i></div><div class="project-content"><h3>Cat Photos</h3><p>A gallery of adorable feline friends</p><a href="../HTML-files/Cat-photos.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-coffee"></i></div><div class="project-content"><h3>Coffee Menu</h3><p>A delicious selection of coffee drinks</p><a href="../HTML-files/Coffee-menu.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-user-edit"></i></div><div class="project-content"><h3>Registration Form</h3><p>A clean user registration interface</p><a href="../HTML-files/Register-form.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-palette"></i></div><div class="project-content"><h3>Colored Markers</h3><p>Exploring CSS color techniques</p><a href="../HTML-files/Colored-markers.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-poll"></i></div><div class="project-content"><h3>Survey Form</h3><p>User feedback collection form</p><a href="../HTML-files/Survey-form.html" class="project-link">Open project</a></div></div>
+        </div>
+
+        <div class="category">
+          <h2>Intermediate Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card"><div class="project-icon"><i class="fas fa-images"></i></div><div class="project-content"><h3>Cat Photo Gallery</h3><p>Advanced gallery layout with feline focus</p><a href="../HTML-files/Cat-photoGallery.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-apple-alt"></i></div><div class="project-content"><h3>Nutrition Label</h3><p>Food nutrition information display</p><a href="../HTML-files/Nutrition-label.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-question-circle"></i></div><div class="project-content"><h3>Quiz</h3><p>Interactive quiz interface</p><a href="../HTML-files/Quiz.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-paint-brush"></i></div><div class="project-content"><h3>Rothko Painting</h3><p>CSS art reproduction</p><a href="../HTML-files/Rothko-painting.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-star"></i></div><div class="project-content"><h3>Tribute Page</h3><p>Honoring notable figures</p><a href="../HTML-files/Tribute-page.html" class="project-link">Open project</a></div></div>
+        </div>
+
+        <div class="category">
+          <h2>Advanced Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card"><div class="project-icon"><i class="fas fa-file-invoice-dollar"></i></div><div class="project-content"><h3>Balance Sheet</h3><p>Financial data presentation</p><a href="../HTML-files/Balance-sheet.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-paw"></i></div><div class="project-content"><h3>Cat Painting</h3><p>Artistic CSS illustration</p><a href="../HTML-files/Cat-painting.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-music"></i></div><div class="project-content"><h3>Piano</h3><p>Interactive musical interface</p><a href="../HTML-files/Piano.html" class="project-link">Open project</a></div></div>
+        </div>
+
+        <div class="category">
+          <h2>Expert Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card"><div class="project-icon"><i class="fas fa-city"></i></div><div class="project-content"><h3>City Skyline</h3><p>Urban landscape with CSS</p><a href="../HTML-files/City-skyline.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-newspaper"></i></div><div class="project-content"><h3>Magazine</h3><p>Publication layout design</p><a href="../HTML-files/Magazine.html" class="project-link">Open project</a></div></div>
+        </div>
+
+        <div class="category">
+          <h2>Animation Projects</h2>
+          <div class="category-line"></div>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card"><div class="project-icon"><i class="fas fa-ferris-wheel"></i></div><div class="project-content"><h3>Ferris Wheel</h3><p>CSS animation showcase</p><a href="../HTML-files/Ferris-wheel.html" class="project-link">Open project</a></div></div>
+          <div class="project-card"><div class="project-icon"><i class="fas fa-snowflake"></i></div><div class="project-content"><h3>Penguin</h3><p>Animated character design</p><a href="../HTML-files/Penguin.html" class="project-link">Open project</a></div></div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Archived practice projects from the original freeCodeCamp-style collection.</p>
+      </footer>
+    </div>
+  </body>
+</html>

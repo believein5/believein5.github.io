@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/knowledge-graph.schema.json",
+  "title": "Personal Knowledge Graph Schema",
+  "description": "Schema for a human-readable and agent-trainable personal knowledge graph.",
+  "type": "object",
+  "required": ["meta", "nodes", "edges"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["title", "version", "updatedAt", "description"],
+      "properties": {
+        "title": { "type": "string" },
+        "version": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date" },
+        "description": { "type": "string" },
+        "language": { "type": "string" },
+        "owner": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "nodes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/node" }
+    },
+    "edges": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/edge" }
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "type",
+        "summary",
+        "tags",
+        "difficulty",
+        "learningObjective",
+        "retrievalKeywords"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "concept",
+            "skill",
+            "project",
+            "bug-pattern",
+            "tooling",
+            "reference"
+          ]
+        },
+        "summary": { "type": "string" },
+        "difficulty": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "learningObjective": { "type": "string" },
+        "commonErrors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "verificationSteps": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "retrievalKeywords": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "projectLinks": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "sourcePath": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "edge": {
+      "type": "object",
+      "required": ["source", "target", "type", "reason"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "target": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "prerequisite_of",
+            "builds",
+            "applies_to",
+            "implements",
+            "example_of",
+            "related_to",
+            "confused_with",
+            "validated_by"
+          ]
+        },
+        "reason": { "type": "string" },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
