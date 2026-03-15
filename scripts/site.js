@@ -1,5 +1,58 @@
 const KnowledgeGraphSite = (() => {
   let cachedGraph = null;
+  let currentLang = 'zh';
+
+  const STORAGE_KEYS = {
+    theme: 'kg-theme',
+    lang: 'kg-lang'
+  };
+
+  const UI = {
+    zh: {
+      themeLight: '白天',
+      themeDark: '黑夜',
+      langLabel: 'EN',
+      readInKnowledge: '进入 Knowledge',
+      noKnowledgeNodes: '暂无知识节点。',
+      loadingLatest: '正在加载最新知识节点...',
+      noMatchNode: '没有匹配节点，请尝试其他筛选或关键词。',
+      learningObjective: '学习目标',
+      commonErrors: '常见错误',
+      verificationSteps: '验证步骤',
+      relatedEvidence: '关联项目证据',
+      sourceNode: '节点源文件',
+      openMarkdown: '打开 Markdown 节点',
+      noneRecorded: '暂无记录。',
+      noEvidence: '暂无关联项目证据。',
+      noNodesFound: '没有找到节点，请尝试更宽泛的关键词。',
+      graphLoadError: '暂时无法加载图谱数据。',
+      aliases: '别名'
+    },
+    en: {
+      themeLight: 'Light',
+      themeDark: 'Dark',
+      langLabel: '中文',
+      readInKnowledge: 'Read in Knowledge',
+      noKnowledgeNodes: 'No knowledge nodes yet.',
+      loadingLatest: 'Loading latest knowledge notes...',
+      noMatchNode: 'No matching node. Try another filter or search keyword.',
+      learningObjective: 'Learning objective',
+      commonErrors: 'Common errors',
+      verificationSteps: 'Verification steps',
+      relatedEvidence: 'Related project evidence',
+      sourceNode: 'Source node file',
+      openMarkdown: 'Open Markdown node',
+      noneRecorded: 'None recorded yet.',
+      noEvidence: 'No linked project evidence yet.',
+      noNodesFound: 'No nodes found. Try a broader keyword.',
+      graphLoadError: 'Unable to load graph data right now.',
+      aliases: 'Aliases'
+    }
+  };
+
+  function t(key) {
+    return UI[currentLang][key] ?? UI.en[key] ?? key;
+  }
 
   async function loadGraph() {
     if (cachedGraph) {
@@ -31,6 +84,94 @@ const KnowledgeGraphSite = (() => {
     });
   }
 
+  function getStoredTheme() {
+    const theme = localStorage.getItem(STORAGE_KEYS.theme);
+    if (theme === 'dark' || theme === 'light') {
+      return theme;
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEYS.theme, theme);
+    updateThemeButton();
+  }
+
+  function updateThemeButton() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const icon = document.querySelector('[data-theme-toggle] i');
+    const label = document.querySelector('[data-theme-label]');
+    if (icon) {
+      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (label) {
+      label.textContent = isDark ? t('themeLight') : t('themeDark');
+    }
+  }
+
+  function getStoredLang() {
+    const lang = localStorage.getItem(STORAGE_KEYS.lang);
+    return lang === 'en' ? 'en' : 'zh';
+  }
+
+  function applyLanguage() {
+    document.documentElement.setAttribute('lang', currentLang === 'zh' ? 'zh-CN' : 'en');
+
+    document.querySelectorAll('[data-i18n-zh][data-i18n-en]').forEach((element) => {
+      const value = currentLang === 'zh' ? element.dataset.i18nZh : element.dataset.i18nEn;
+      if (value !== undefined) {
+        element.innerHTML = value;
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-ph-zh][data-i18n-ph-en]').forEach((element) => {
+      const value = currentLang === 'zh' ? element.dataset.i18nPhZh : element.dataset.i18nPhEn;
+      if (value !== undefined) {
+        element.setAttribute('placeholder', value);
+      }
+    });
+
+    const langLabel = document.querySelector('[data-lang-label]');
+    if (langLabel) {
+      langLabel.textContent = t('langLabel');
+    }
+
+    updateThemeButton();
+  }
+
+  function setLanguage(lang) {
+    currentLang = lang === 'en' ? 'en' : 'zh';
+    localStorage.setItem(STORAGE_KEYS.lang, currentLang);
+    applyLanguage();
+
+    if (cachedGraph) {
+      renderLatestKnowledge(cachedGraph.nodes);
+      renderKnowledgeExplorer(cachedGraph);
+    }
+  }
+
+  function initControls() {
+    setTheme(getStoredTheme());
+    currentLang = getStoredLang();
+    applyLanguage();
+
+    const themeButton = document.querySelector('[data-theme-toggle]');
+    if (themeButton) {
+      themeButton.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setTheme(now);
+      });
+    }
+
+    const langButton = document.querySelector('[data-lang-toggle]');
+    if (langButton) {
+      langButton.addEventListener('click', () => {
+        setLanguage(currentLang === 'zh' ? 'en' : 'zh');
+      });
+    }
+  }
+
   function renderLatestKnowledge(nodes) {
     const container = document.querySelector('[data-latest-knowledge]');
     if (!container) {
@@ -38,7 +179,7 @@ const KnowledgeGraphSite = (() => {
     }
     const latest = nodes.filter((node) => node.type !== 'project').slice(0, 4);
     if (latest.length === 0) {
-      container.innerHTML = '<div class="empty-state">No knowledge nodes yet.</div>';
+      container.innerHTML = `<div class="empty-state">${t('noKnowledgeNodes')}</div>`;
       return;
     }
     container.innerHTML = latest.map((node) => `
@@ -49,7 +190,7 @@ const KnowledgeGraphSite = (() => {
           <span class="badge">${escapeHtml(node.type)}</span>
           <span class="badge">${escapeHtml(node.difficulty)}</span>
         </div>
-        <a class="inline-link" href="knowledge.html?node=${encodeURIComponent(node.id)}">Read in Knowledge <span aria-hidden="true">→</span></a>
+        <a class="inline-link" href="knowledge.html?node=${encodeURIComponent(node.id)}">${t('readInKnowledge')} <span aria-hidden="true">→</span></a>
       </article>
     `).join('');
   }
@@ -100,7 +241,7 @@ const KnowledgeGraphSite = (() => {
 
     function renderDetail(node) {
       if (!node) {
-        detail.innerHTML = '<div class="empty-state">No matching node. Try another filter or search keyword.</div>';
+        detail.innerHTML = `<div class="empty-state">${t('noMatchNode')}</div>`;
         return;
       }
 
@@ -116,27 +257,27 @@ const KnowledgeGraphSite = (() => {
         </div>
         <h3>${escapeHtml(node.title)}</h3>
         <p>${escapeHtml(node.summary)}</p>
-        ${aliases ? `<p class="muted"><strong>Aliases:</strong> ${escapeHtml(aliases)}</p>` : ''}
+        ${aliases ? `<p class="muted"><strong>${t('aliases')}:</strong> ${escapeHtml(aliases)}</p>` : ''}
         <div class="post-meta">${tags}</div>
         <div class="detail-section">
-          <h4>Learning objective</h4>
-          <p>${escapeHtml(node.learningObjective || 'No learning objective yet.')}</p>
+          <h4>${t('learningObjective')}</h4>
+          <p>${escapeHtml(node.learningObjective || t('noneRecorded'))}</p>
         </div>
         <div class="detail-section">
-          <h4>Common errors</h4>
-          <ul class="mini-list">${errors || '<li>None recorded yet.</li>'}</ul>
+          <h4>${t('commonErrors')}</h4>
+          <ul class="mini-list">${errors || `<li>${t('noneRecorded')}</li>`}</ul>
         </div>
         <div class="detail-section">
-          <h4>Verification steps</h4>
-          <ul class="mini-list">${steps || '<li>No verification steps yet.</li>'}</ul>
+          <h4>${t('verificationSteps')}</h4>
+          <ul class="mini-list">${steps || `<li>${t('noneRecorded')}</li>`}</ul>
         </div>
         <div class="detail-section">
-          <h4>Related project evidence</h4>
-          <ul class="link-list">${projectLinks || '<li class="muted">No linked project evidence yet.</li>'}</ul>
+          <h4>${t('relatedEvidence')}</h4>
+          <ul class="link-list">${projectLinks || `<li class="muted">${t('noEvidence')}</li>`}</ul>
         </div>
         <div class="detail-section">
-          <h4>Source node file</h4>
-          <a class="inline-link" href="${escapeHtml(node.sourcePath || '#')}">Open Markdown node <span aria-hidden="true">→</span></a>
+          <h4>${t('sourceNode')}</h4>
+          <a class="inline-link" href="${escapeHtml(node.sourcePath || '#')}">${t('openMarkdown')} <span aria-hidden="true">→</span></a>
         </div>
       `;
     }
@@ -148,7 +289,7 @@ const KnowledgeGraphSite = (() => {
       }
 
       if (visibleNodes.length === 0) {
-        list.innerHTML = '<div class="empty-state">No nodes found. Try a broader keyword.</div>';
+        list.innerHTML = `<div class="empty-state">${t('noNodesFound')}</div>`;
         renderDetail(null);
         return;
       }
@@ -199,7 +340,14 @@ const KnowledgeGraphSite = (() => {
   }
 
   async function init() {
+    initControls();
     setActiveNav();
+
+    const latest = document.querySelector('[data-latest-knowledge]');
+    if (latest) {
+      latest.innerHTML = t('loadingLatest');
+    }
+
     try {
       const graph = await loadGraph();
       renderHomeStats(graph);
@@ -209,7 +357,7 @@ const KnowledgeGraphSite = (() => {
       console.error(error);
       document.querySelectorAll('[data-latest-knowledge], [data-node-list], [data-node-detail]').forEach((element) => {
         if (element) {
-          element.innerHTML = '<div class="empty-state">Unable to load graph data right now.</div>';
+          element.innerHTML = `<div class="empty-state">${t('graphLoadError')}</div>`;
         }
       });
     }

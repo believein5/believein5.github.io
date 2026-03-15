@@ -13,24 +13,36 @@
     <header class="site-header">
       <div class="site-nav">
         <a class="brand" href="index.html">
-          <span class="brand-title">Knowledge Graph</span>
-          <span class="brand-subtitle">Find me beyond this website.</span>
+          <span class="brand-title" data-i18n-zh="Knowledge Graph" data-i18n-en="Knowledge Graph">Knowledge Graph</span>
+          <span class="brand-subtitle" data-i18n-zh="在网站之外，也能找到我。" data-i18n-en="Find me beyond this website.">在网站之外，也能找到我。</span>
         </a>
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="index.html" data-nav="home">HOME</a>
-          <a href="knowledge.html" data-nav="knowledge">Knowledge</a>
-          <a href="projects.html" data-nav="projects">Project</a>
-          <a href="contact.html" data-nav="contact">CONTACT</a>
-        </nav>
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
+            <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
+            <a href="contact.html" data-nav="contact" data-i18n-zh="CONTACT" data-i18n-en="CONTACT">CONTACT</a>
+          </nav>
+          <div class="nav-controls">
+            <button class="icon-btn" type="button" data-theme-toggle>
+              <i class="fas fa-moon" aria-hidden="true"></i>
+              <span data-theme-label>Dark</span>
+            </button>
+            <button class="icon-btn" type="button" data-lang-toggle>
+              <i class="fas fa-language" aria-hidden="true"></i>
+              <span data-lang-label>EN</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="page-shell">
       <section class="hero-block">
-        <span class="hero-kicker"><i class="fas fa-paper-plane"></i> Contact & external accounts</span>
-        <h1 class="hero-title">让这个站点不止停留在页面，<span class="accent">也连接到真实的你。</span></h1>
-        <p class="hero-subtitle">这里放你的联系方式、GitHub、Bilibili、博客或其他平台账号。为了先把结构搭起来，我放了可替换的占位链接；你只需要把它们换成自己的真实地址即可。</p>
-        <div class="hero-note">提示：当前链接是占位示例。后续把 <code>your-username</code> 和邮箱替换掉即可上线，不会再出现“联系方式失踪”这种悬疑剧情。</div>
+        <span class="hero-kicker" data-i18n-zh="联系方式与外部账号" data-i18n-en="Contact & external accounts"><i class="fas fa-paper-plane"></i> 联系方式与外部账号</span>
+        <h1 class="hero-title" data-i18n-zh="让这个站点不止停留在页面，<span class='accent'>也连接到真实的你。</span>" data-i18n-en="Let this site connect to your real presence, <span class='accent'>not just static pages.</span>">让这个站点不止停留在页面，<span class="accent">也连接到真实的你。</span></h1>
+        <p class="hero-subtitle" data-i18n-zh="这里放你的联系方式、GitHub、Bilibili、博客或其他平台账号。为了先把结构搭起来，我放了可替换的占位链接；你只需要把它们换成自己的真实地址即可。" data-i18n-en="Put your contact channels here: GitHub, Bilibili, blog, and other accounts. Placeholder links are included so you can replace them with your real addresses later.">这里放你的联系方式、GitHub、Bilibili、博客或其他平台账号。为了先把结构搭起来，我放了可替换的占位链接；你只需要把它们换成自己的真实地址即可。</p>
+        <div class="hero-note" data-i18n-zh="提示：当前链接是占位示例。后续把 <code>your-username</code> 和邮箱替换掉即可上线。" data-i18n-en="Note: links are placeholders. Replace <code>your-username</code> and email with your real accounts before publishing.">提示：当前链接是占位示例。后续把 <code>your-username</code> 和邮箱替换掉即可上线。</div>
       </section>
 
       <section class="contact-grid">
@@ -58,8 +70,8 @@
     </main>
 
     <footer class="page-shell footer">
-      <span>Contact page ready. Replace placeholders with real accounts when you are ready.</span>
-      <span><a class="inline-link" href="index.html">Back to HOME</a></span>
+      <span data-i18n-zh="Contact 页面已就绪：替换占位链接即可使用。" data-i18n-en="Contact page ready. Replace placeholders with real accounts when you are ready.">Contact 页面已就绪：替换占位链接即可使用。</span>
+      <span><a class="inline-link" href="index.html" data-i18n-zh="返回 HOME" data-i18n-en="Back to HOME">返回 HOME</a></span>
     </footer>
   </body>
 </html>

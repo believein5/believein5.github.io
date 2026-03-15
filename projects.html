@@ -13,32 +13,44 @@
     <header class="site-header">
       <div class="site-nav">
         <a class="brand" href="index.html">
-          <span class="brand-title">Knowledge Graph</span>
-          <span class="brand-subtitle">Practice artifacts and web portfolio.</span>
+          <span class="brand-title" data-i18n-zh="Knowledge Graph" data-i18n-en="Knowledge Graph">Knowledge Graph</span>
+          <span class="brand-subtitle" data-i18n-zh="实践产物与 web 作品集。" data-i18n-en="Practice artifacts and web portfolio.">实践产物与 web 作品集。</span>
         </a>
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="index.html" data-nav="home">HOME</a>
-          <a href="knowledge.html" data-nav="knowledge">Knowledge</a>
-          <a href="projects.html" data-nav="projects">Project</a>
-          <a href="contact.html" data-nav="contact">CONTACT</a>
-        </nav>
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
+            <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
+            <a href="contact.html" data-nav="contact" data-i18n-zh="CONTACT" data-i18n-en="CONTACT">CONTACT</a>
+          </nav>
+          <div class="nav-controls">
+            <button class="icon-btn" type="button" data-theme-toggle>
+              <i class="fas fa-moon" aria-hidden="true"></i>
+              <span data-theme-label>Dark</span>
+            </button>
+            <button class="icon-btn" type="button" data-lang-toggle>
+              <i class="fas fa-language" aria-hidden="true"></i>
+              <span data-lang-label>EN</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="page-shell">
       <section class="hero-block">
-        <span class="hero-kicker"><i class="fas fa-laptop-code"></i> Practice artifacts</span>
-        <h1 class="hero-title">Project 是知识的落地证据，<span class="accent">不是被遗忘的附件。</span></h1>
-        <p class="hero-subtitle">这里集中展示 HTML/CSS 作品集。它们现在从首页独立出来，成为一个更清晰的 web portfolio 区域，同时也继续作为知识图谱中的“实践证明”。</p>
+        <span class="hero-kicker" data-i18n-zh="实践产物" data-i18n-en="Practice artifacts"><i class="fas fa-laptop-code"></i> 实践产物</span>
+        <h1 class="hero-title" data-i18n-zh="Project 是知识的落地证据，<span class='accent'>不是被遗忘的附件。</span>" data-i18n-en="Projects are evidence of learning, <span class='accent'>not forgotten attachments.</span>">Project 是知识的落地证据，<span class="accent">不是被遗忘的附件。</span></h1>
+        <p class="hero-subtitle" data-i18n-zh="这里集中展示 HTML/CSS 作品集。它们从首页独立出来，成为更清晰的 web portfolio 区域，同时继续作为知识图谱中的实践证明。" data-i18n-en="This page centralizes your HTML/CSS portfolio. Projects are separated from HOME for clarity while still serving as practical evidence in the knowledge graph.">这里集中展示 HTML/CSS 作品集。它们从首页独立出来，成为更清晰的 web portfolio 区域，同时继续作为知识图谱中的实践证明。</p>
       </section>
 
       <section class="section">
         <div class="section-header">
-          <h2>Foundation</h2>
-          <p>从 HTML 基础、表单到简单样式的起点。</p>
+          <h2 data-i18n-zh="Foundation" data-i18n-en="Foundation">Foundation</h2>
+          <p data-i18n-zh="从 HTML 基础、表单到简单样式的起点。" data-i18n-en="Starting from HTML basics, forms, and simple styling.">从 HTML 基础、表单到简单样式的起点。</p>
         </div>
         <div class="project-grid">
-          <article class="project-card"><h3>Cat Photos</h3><p>基础 HTML 页面，练习结构、图片、链接与表单。</p><div class="project-meta"><span class="badge">HTML</span><span class="badge">beginner</span></div><a class="project-link" href="HTML-files/Cat-photos.html">Open project →</a></article>
+          <article class="project-card"><h3>Cat Photos</h3><p data-i18n-zh="基础 HTML 页面，练习结构、图片、链接与表单。" data-i18n-en="A basic HTML page to practice structure, images, links, and forms.">基础 HTML 页面，练习结构、图片、链接与表单。</p><div class="project-meta"><span class="badge">HTML</span><span class="badge">beginner</span></div><a class="project-link" href="HTML-files/Cat-photos.html" data-i18n-zh="打开项目 →" data-i18n-en="Open project →">打开项目 →</a></article>
           <article class="project-card"><h3>Coffee Menu</h3><p>菜单式页面，练习文本布局、背景图和价格对齐。</p><div class="project-meta"><span class="badge">CSS</span><span class="badge">layout</span></div><a class="project-link" href="HTML-files/Coffee-menu.html">Open project →</a></article>
           <article class="project-card"><h3>Registration Form</h3><p>以表单为中心的页面，练习输入控件、fieldset 和统一样式。</p><div class="project-meta"><span class="badge">form</span><span class="badge">ui</span></div><a class="project-link" href="HTML-files/Register-form.html">Open project →</a></article>
           <article class="project-card"><h3>Colored Markers</h3><p>用渐变与阴影模拟彩色马克笔的纯 CSS 练习。</p><div class="project-meta"><span class="badge">css-art</span><span class="badge">color</span></div><a class="project-link" href="HTML-files/Colored-markers.html">Open project →</a></article>
@@ -75,8 +87,8 @@
     </main>
 
     <footer class="page-shell footer">
-      <span>Project page: a dedicated home for the web portfolio.</span>
-      <span><a class="inline-link" href="graph/knowledge-graph.json">Open graph snapshot</a></span>
+      <span data-i18n-zh="Project 页面是 web 作品集的独立主场。" data-i18n-en="Project page: a dedicated home for the web portfolio.">Project 页面是 web 作品集的独立主场。</span>
+      <span><a class="inline-link" href="graph/knowledge-graph.json" data-i18n-zh="打开图谱快照" data-i18n-en="Open graph snapshot">打开图谱快照</a></span>
     </footer>
   </body>
 </html>

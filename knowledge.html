@@ -13,29 +13,41 @@
     <header class="site-header">
       <div class="site-nav">
         <a class="brand" href="index.html">
-          <span class="brand-title">Knowledge Graph</span>
-          <span class="brand-subtitle">Explore intelligence, one note at a time.</span>
+          <span class="brand-title" data-i18n-zh="Knowledge Graph" data-i18n-en="Knowledge Graph">Knowledge Graph</span>
+          <span class="brand-subtitle" data-i18n-zh="一次一个知识点，逐步探索智能。" data-i18n-en="Explore intelligence, one note at a time.">一次一个知识点，逐步探索智能。</span>
         </a>
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="index.html" data-nav="home">HOME</a>
-          <a href="knowledge.html" data-nav="knowledge">Knowledge</a>
-          <a href="projects.html" data-nav="projects">Project</a>
-          <a href="contact.html" data-nav="contact">CONTACT</a>
-        </nav>
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
+            <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
+            <a href="contact.html" data-nav="contact" data-i18n-zh="CONTACT" data-i18n-en="CONTACT">CONTACT</a>
+          </nav>
+          <div class="nav-controls">
+            <button class="icon-btn" type="button" data-theme-toggle>
+              <i class="fas fa-moon" aria-hidden="true"></i>
+              <span data-theme-label>Dark</span>
+            </button>
+            <button class="icon-btn" type="button" data-lang-toggle>
+              <i class="fas fa-language" aria-hidden="true"></i>
+              <span data-lang-label>EN</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="page-shell">
       <section class="hero-block">
-        <span class="hero-kicker"><i class="fas fa-book-open"></i> Knowledge as readable notes + retrievable data</span>
-        <h1 class="hero-title">Knowledge 像博客一样被阅读，<span class="accent">也像数据一样被检索。</span></h1>
-        <p class="hero-subtitle">这个页面直接读取 <code>graph/knowledge-graph.json</code>，将知识节点以文章列表的方式呈现。左侧是博客式文章列表，右侧是当前节点的详情卡片，适合人阅读，也适合 agent 后续做检索、总结和推理。</p>
+        <span class="hero-kicker" data-i18n-zh="可阅读笔记 + 可检索数据" data-i18n-en="Readable notes + retrievable data"><i class="fas fa-book-open"></i> 可阅读笔记 + 可检索数据</span>
+        <h1 class="hero-title" data-i18n-zh="Knowledge 像博客一样被阅读，<span class='accent'>也像数据一样被检索。</span>" data-i18n-en="Read Knowledge like a blog, <span class='accent'>query it like data.</span>">Knowledge 像博客一样被阅读，<span class="accent">也像数据一样被检索。</span></h1>
+        <p class="hero-subtitle" data-i18n-zh="这个页面直接读取 <code>graph/knowledge-graph.json</code>，将知识节点以文章列表方式呈现。左侧是文章列表，右侧是当前节点详情，适合人读，也适合 agent 检索与推理。" data-i18n-en="This page reads <code>graph/knowledge-graph.json</code> and renders knowledge nodes as article-like entries. The left side is a post list and the right side is a focused detail panel for both human reading and agent retrieval.">这个页面直接读取 <code>graph/knowledge-graph.json</code>，将知识节点以文章列表方式呈现。左侧是文章列表，右侧是当前节点详情，适合人读，也适合 agent 检索与推理。</p>
       </section>
 
       <section class="knowledge-layout" data-knowledge-explorer>
         <div>
           <div class="toolbar">
-            <input class="search-input" type="search" placeholder="搜索标题、标签、别名、关键词..." data-node-search>
+            <input class="search-input" type="search" placeholder="搜索标题、标签、别名、关键词..." data-i18n-ph-zh="搜索标题、标签、别名、关键词..." data-i18n-ph-en="Search title, tags, aliases, keywords..." data-node-search>
             <div class="filter-group" aria-label="Knowledge type filters">
               <button class="filter-chip is-active" type="button" data-filter="all">All</button>
               <button class="filter-chip" type="button" data-filter="concept">Concept</button>
@@ -45,19 +57,19 @@
           </div>
 
           <div class="post-list loading-state" data-node-list>
-            Loading knowledge nodes...
+            正在加载知识节点...
           </div>
         </div>
 
         <aside class="detail-panel" data-node-detail>
-          Loading node details...
+          正在加载节点详情...
         </aside>
       </section>
     </main>
 
     <footer class="page-shell footer">
-      <span>Knowledge page powered by the graph JSON + Markdown node files.</span>
-      <span><a class="inline-link" href="graph/README.md">Graph guide</a></span>
+      <span data-i18n-zh="Knowledge 页面由图谱 JSON 与 Markdown 节点文件驱动。" data-i18n-en="Knowledge page powered by graph JSON and Markdown node files.">Knowledge 页面由图谱 JSON 与 Markdown 节点文件驱动。</span>
+      <span><a class="inline-link" href="graph/README.md" data-i18n-zh="图谱说明" data-i18n-en="Graph guide">图谱说明</a></span>
     </footer>
   </body>
 </html>
