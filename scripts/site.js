@@ -4,7 +4,8 @@ const KnowledgeGraphSite = (() => {
 
   const STORAGE_KEYS = {
     theme: 'kg-theme',
-    lang: 'kg-lang'
+    lang: 'kg-lang',
+    knowledgeSidebarCollapsed: 'kg-knowledge-sidebar-collapsed'
   };
 
   const UI = {
@@ -26,7 +27,9 @@ const KnowledgeGraphSite = (() => {
       noEvidence: '暂无关联项目证据。',
       noNodesFound: '没有找到节点，请尝试更宽泛的关键词。',
       graphLoadError: '暂时无法加载图谱数据。',
-      aliases: '别名'
+      aliases: '别名',
+      collapseSidebar: '收起侧边栏',
+      expandSidebar: '展开侧边栏'
     },
     en: {
       themeLight: 'Light',
@@ -46,8 +49,25 @@ const KnowledgeGraphSite = (() => {
       noEvidence: 'No linked project evidence yet.',
       noNodesFound: 'No nodes found. Try a broader keyword.',
       graphLoadError: 'Unable to load graph data right now.',
-      aliases: 'Aliases'
+      aliases: 'Aliases',
+      collapseSidebar: 'Collapse sidebar',
+      expandSidebar: 'Expand sidebar'
     }
+  };
+
+  const DOMAIN_KEYWORDS = {
+    'all': [],
+    'semantic-html': ['semantic', 'semantics', 'html', 'accessibility', '语义'],
+    'css-layout': ['css', 'layout', 'flexbox', '布局'],
+    'css-animation': ['css', 'animation', 'transform', 'keyframes', '动画'],
+    'psychology': ['psychology', '认知', '行为', 'bias'],
+    'neuroscience': ['neuroscience', 'neural', 'brain', '神经'],
+    'finance': ['finance', 'risk', 'market', '金融'],
+    'mathematics': ['mathematics', 'math', 'probability', 'optimization', '数学'],
+    'physics': ['physics', 'dynamics', 'complex', '物理'],
+    'control': ['control', 'feedback', 'stability', '控制'],
+    'linguistics': ['linguistics', 'semantics', 'syntax', '语义', '语法'],
+    'philosophy': ['philosophy', 'epistemology', '哲学']
   };
 
   function t(key) {
@@ -96,6 +116,14 @@ const KnowledgeGraphSite = (() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEYS.theme, theme);
     updateThemeButton();
+
+    const collapseButton = document.querySelector('[data-sidebar-collapse]');
+    if (collapseButton) {
+      const isCollapsed = document.body.classList.contains('knowledge-sidebar-collapsed');
+      const title = isCollapsed ? t('expandSidebar') : t('collapseSidebar');
+      collapseButton.setAttribute('title', title);
+      collapseButton.setAttribute('aria-label', title);
+    }
   }
 
   function updateThemeButton() {
@@ -182,6 +210,60 @@ const KnowledgeGraphSite = (() => {
     }
   }
 
+  function initKnowledgeSidebar() {
+    if (document.body.dataset.page !== 'knowledge') {
+      return;
+    }
+
+    const collapseButton = document.querySelector('[data-sidebar-collapse]');
+    const openButton = document.querySelector('[data-sidebar-open]');
+    const backdrop = document.querySelector('[data-sidebar-backdrop]');
+    const domainToggles = document.querySelectorAll('[data-domain-toggle]');
+
+    const storedCollapsed = localStorage.getItem(STORAGE_KEYS.knowledgeSidebarCollapsed) === '1';
+    document.body.classList.toggle('knowledge-sidebar-collapsed', storedCollapsed);
+
+    function updateSidebarButton() {
+      const isCollapsed = document.body.classList.contains('knowledge-sidebar-collapsed');
+      const icon = collapseButton?.querySelector('i');
+      if (icon) {
+        icon.className = isCollapsed ? 'fas fa-angles-right' : 'fas fa-angles-left';
+      }
+      if (collapseButton) {
+        const title = isCollapsed ? t('expandSidebar') : t('collapseSidebar');
+        collapseButton.setAttribute('title', title);
+        collapseButton.setAttribute('aria-label', title);
+      }
+    }
+
+    updateSidebarButton();
+
+    collapseButton?.addEventListener('click', () => {
+      const isCollapsed = document.body.classList.toggle('knowledge-sidebar-collapsed');
+      localStorage.setItem(STORAGE_KEYS.knowledgeSidebarCollapsed, isCollapsed ? '1' : '0');
+      updateSidebarButton();
+    });
+
+    openButton?.addEventListener('click', () => {
+      document.body.classList.add('knowledge-sidebar-open');
+    });
+
+    backdrop?.addEventListener('click', () => {
+      document.body.classList.remove('knowledge-sidebar-open');
+    });
+
+    domainToggles.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const group = trigger.closest('[data-domain-group]');
+        if (!group) {
+          return;
+        }
+        const isOpen = group.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  }
+
   function renderLatestKnowledge(nodes) {
     const container = document.querySelector('[data-latest-knowledge]');
     if (!container) {
@@ -230,6 +312,24 @@ const KnowledgeGraphSite = (() => {
     return filterPassed && queryPassed;
   }
 
+  function nodeMatchesDomain(node, domainFilter) {
+    if (!domainFilter || domainFilter === 'all') {
+      return true;
+    }
+
+    const keywords = DOMAIN_KEYWORDS[domainFilter] || [domainFilter];
+    const haystack = [
+      node.id,
+      node.title,
+      node.summary,
+      ...(node.tags || []),
+      ...(node.aliases || []),
+      ...(node.retrievalKeywords || [])
+    ].join(' ').toLowerCase();
+
+    return keywords.some((keyword) => haystack.includes(String(keyword).toLowerCase()));
+  }
+
   function renderKnowledgeExplorer(graph) {
     const root = document.querySelector('[data-knowledge-explorer]');
     if (!root) {
@@ -241,12 +341,14 @@ const KnowledgeGraphSite = (() => {
     const detail = root.querySelector('[data-node-detail]');
     const input = root.querySelector('[data-node-search]');
     const chips = Array.from(root.querySelectorAll('[data-filter]'));
+    const domainButtons = Array.from(root.querySelectorAll('[data-domain-filter]'));
     let activeFilter = 'all';
+    let activeDomainFilter = 'all';
     let activeId = new URLSearchParams(window.location.search).get('node') || nodes[0]?.id || null;
 
     function getVisibleNodes() {
       const query = input.value || '';
-      return nodes.filter((node) => nodeMatches(node, query, activeFilter));
+      return nodes.filter((node) => nodeMatches(node, query, activeFilter) && nodeMatchesDomain(node, activeDomainFilter));
     }
 
     function renderDetail(node) {
@@ -346,11 +448,22 @@ const KnowledgeGraphSite = (() => {
       });
     });
 
+    domainButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        domainButtons.forEach((item) => item.classList.remove('is-active'));
+        button.classList.add('is-active');
+        activeDomainFilter = button.dataset.domainFilter || 'all';
+        document.body.classList.remove('knowledge-sidebar-open');
+        renderList();
+      });
+    });
+
     renderList();
   }
 
   async function init() {
     initControls();
+    initKnowledgeSidebar();
     setActiveNav();
 
     const latest = document.querySelector('[data-latest-knowledge]');

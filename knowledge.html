@@ -37,32 +37,71 @@
       </div>
     </header>
 
-    <main class="page-shell">
-      <section class="hero-block">
-        <span class="hero-kicker" data-i18n-zh="可阅读笔记 + 可检索数据" data-i18n-en="Readable notes + retrievable data"><i class="fas fa-book-open"></i> 可阅读笔记 + 可检索数据</span>
-        <h1 class="hero-title" data-i18n-zh="Knowledge 像博客一样被阅读，<span class='accent'>也像数据一样被检索。</span>" data-i18n-en="Read Knowledge like a blog, <span class='accent'>query it like data.</span>">Knowledge 像博客一样被阅读，<span class="accent">也像数据一样被检索。</span></h1>
-        <p class="hero-subtitle" data-i18n-zh="这个页面直接读取 <code>graph/knowledge-graph.json</code>。左侧为学科分类侧边栏，中部为知识文章列表，右侧为当前节点详情，适合人读，也适合 agent 检索与推理。" data-i18n-en="This page reads <code>graph/knowledge-graph.json</code>. The left sidebar shows knowledge domains, the center presents post-like nodes, and the right panel focuses on node details for both human reading and agent retrieval.">这个页面直接读取 <code>graph/knowledge-graph.json</code>。左侧为学科分类侧边栏，中部为知识文章列表，右侧为当前节点详情，适合人读，也适合 agent 检索与推理。</p>
-      </section>
+    <main class="page-shell knowledge-page-shell" data-knowledge-explorer>
+      <aside class="knowledge-left-rail" data-knowledge-sidebar>
+        <div class="rail-header">
+          <h3 data-i18n-zh="知识目录" data-i18n-en="Knowledge Index">知识目录</h3>
+          <button class="rail-toggle" type="button" data-sidebar-collapse aria-label="收起侧边栏" title="收起侧边栏">
+            <i class="fas fa-angles-left" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p class="muted rail-intro" data-i18n-zh="左侧支持折叠与展开，点击子类可联动筛选。" data-i18n-en="Left rail supports collapse/expand. Click sub-items to filter nodes.">左侧支持折叠与展开，点击子类可联动筛选。</p>
 
-      <section class="knowledge-layout" data-knowledge-explorer>
-        <aside class="panel knowledge-sidebar">
-          <h3 data-i18n-zh="知识分类" data-i18n-en="Knowledge Domains">知识分类</h3>
-          <p class="muted" data-i18n-zh="按学科建立知识主干，作为后续扩展入口。" data-i18n-en="Use domains as the backbone for future node expansion.">按学科建立知识主干，作为后续扩展入口。</p>
-          <ul class="mini-list taxonomy-list">
-            <li><strong data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</strong><span data-i18n-zh="认识论、科学哲学、意识本体" data-i18n-en="Epistemology, philosophy of science, consciousness ontology">认识论、科学哲学、意识本体</span></li>
-            <li><strong data-i18n-zh="数学" data-i18n-en="Mathematics">数学</strong><span data-i18n-zh="线性代数、概率统计、优化、信息论" data-i18n-en="Linear algebra, probability, optimization, information theory">线性代数、概率统计、优化、信息论</span></li>
-            <li><strong data-i18n-zh="物理学" data-i18n-en="Physics">物理学</strong><span data-i18n-zh="复杂系统、动力学、统计物理" data-i18n-en="Complex systems, dynamics, statistical physics">复杂系统、动力学、统计物理</span></li>
-            <li><strong data-i18n-zh="金融学" data-i18n-en="Finance">金融学</strong><span data-i18n-zh="风险、市场微观结构、量化决策" data-i18n-en="Risk, market microstructure, quantitative decisions">风险、市场微观结构、量化决策</span></li>
-            <li><strong data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</strong><span data-i18n-zh="神经编码、学习与记忆机制" data-i18n-en="Neural coding, learning and memory mechanisms">神经编码、学习与记忆机制</span></li>
-            <li><strong data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</strong><span data-i18n-zh="认知偏差、行为决策、动机" data-i18n-en="Cognitive bias, behavioral decisions, motivation">认知偏差、行为决策、动机</span></li>
-            <li><strong data-i18n-zh="计算机科学" data-i18n-en="Computer Science">计算机科学</strong><span data-i18n-zh="算法、系统、软件工程、智能体" data-i18n-en="Algorithms, systems, software engineering, agents">算法、系统、软件工程、智能体</span></li>
-            <li><strong data-i18n-zh="控制理论" data-i18n-en="Control Theory">控制理论</strong><span data-i18n-zh="反馈、稳定性、最优控制" data-i18n-en="Feedback, stability, optimal control">反馈、稳定性、最优控制</span></li>
-            <li><strong data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</strong><span data-i18n-zh="语义、语法、语用、人机交互" data-i18n-en="Semantics, syntax, pragmatics, HCI language">语义、语法、语用、人机交互</span></li>
-          </ul>
-        </aside>
+        <nav class="domain-tree" aria-label="Knowledge taxonomy">
+          <section class="domain-group is-open" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="true">
+              <span class="domain-toggle-label" data-i18n-zh="计算机科学" data-i18n-en="Computer Science">计算机科学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link is-active" type="button" data-domain-filter="all" data-i18n-zh="全部知识" data-i18n-en="All knowledge">全部知识</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="semantic-html" data-i18n-zh="语义化 HTML" data-i18n-en="Semantic HTML">语义化 HTML</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="css-layout" data-i18n-zh="CSS 布局" data-i18n-en="CSS Layout">CSS 布局</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="css-animation" data-i18n-zh="CSS 动画" data-i18n-en="CSS Animation">CSS 动画</button></li>
+            </ul>
+          </section>
 
-        <div class="knowledge-main">
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="认知与决策" data-i18n-en="Cognition & Decision">认知与决策</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="psychology" data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="neuroscience" data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="finance" data-i18n-zh="金融学" data-i18n-en="Finance">金融学</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="基础科学与方法" data-i18n-en="Foundations & Methods">基础科学与方法</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="mathematics" data-i18n-zh="数学" data-i18n-en="Mathematics">数学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="physics" data-i18n-zh="物理学" data-i18n-en="Physics">物理学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="control" data-i18n-zh="控制理论" data-i18n-en="Control Theory">控制理论</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="linguistics" data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="philosophy" data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</button></li>
+            </ul>
+          </section>
+        </nav>
+      </aside>
+
+      <div class="knowledge-main-area">
+        <section class="hero-block">
+          <span class="hero-kicker" data-i18n-zh="可阅读笔记 + 可检索数据" data-i18n-en="Readable notes + retrievable data"><i class="fas fa-book-open"></i> 可阅读笔记 + 可检索数据</span>
+          <h1 class="hero-title" data-i18n-zh="Knowledge 像博客一样被阅读，<span class='accent'>也像数据一样被检索。</span>" data-i18n-en="Read Knowledge like a blog, <span class='accent'>query it like data.</span>">Knowledge 像博客一样被阅读，<span class="accent">也像数据一样被检索。</span></h1>
+          <p class="hero-subtitle" data-i18n-zh="这个页面直接读取 <code>graph/knowledge-graph.json</code>。最左侧目录可展开/收起；中部为知识文章列表，右侧为当前节点详情，适合人读，也适合 agent 检索与推理。" data-i18n-en="This page reads <code>graph/knowledge-graph.json</code>. The far-left index can expand/collapse; the middle area lists knowledge nodes and the right panel shows focused details for both human reading and agent retrieval.">这个页面直接读取 <code>graph/knowledge-graph.json</code>。最左侧目录可展开/收起；中部为知识文章列表，右侧为当前节点详情，适合人读，也适合 agent 检索与推理。</p>
+        </section>
+
+        <section class="knowledge-main">
           <div class="toolbar">
+            <button class="icon-btn sidebar-open-btn" type="button" data-sidebar-open>
+              <i class="fas fa-bars" aria-hidden="true"></i>
+              <span data-i18n-zh="目录" data-i18n-en="Index">目录</span>
+            </button>
             <input class="search-input" type="search" placeholder="搜索标题、标签、别名、关键词..." data-i18n-ph-zh="搜索标题、标签、别名、关键词..." data-i18n-ph-en="Search title, tags, aliases, keywords..." data-node-search>
             <div class="filter-group" aria-label="Knowledge type filters">
               <button class="filter-chip is-active" type="button" data-filter="all">All</button>
@@ -81,8 +120,10 @@
               正在加载节点详情...
             </aside>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+
+      <button class="knowledge-sidebar-backdrop" type="button" data-sidebar-backdrop aria-label="关闭目录"></button>
     </main>
 
     <footer class="page-shell footer">
