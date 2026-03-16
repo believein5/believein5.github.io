@@ -474,12 +474,19 @@ body[data-page="knowledge"] .page-shell {
   border-radius: 10px;
   background: var(--surface-soft);
   color: var(--muted);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.rail-toggle-text {
+  line-height: 1;
+  letter-spacing: -0.08em;
 }
 
 .rail-intro {
@@ -582,13 +589,15 @@ body[data-page="knowledge"] .page-shell {
 }
 
 body.knowledge-sidebar-collapsed .knowledge-left-rail {
-  width: 72px;
-  padding-left: 0.55rem;
-  padding-right: 0.55rem;
+  width: 0;
+  padding: 0;
+  border-right: 0;
+  background: transparent;
+  overflow: visible;
 }
 
 body.knowledge-sidebar-collapsed .knowledge-main-area {
-  margin-left: 72px;
+  margin-left: 24px;
 }
 
 body.knowledge-sidebar-collapsed .rail-header h3,
@@ -598,16 +607,28 @@ body.knowledge-sidebar-collapsed .domain-children {
   display: none;
 }
 
+body.knowledge-sidebar-collapsed .rail-header {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+body.knowledge-sidebar-collapsed .rail-toggle {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px color-mix(in srgb, #000 10%, transparent);
+}
+
 body.knowledge-sidebar-collapsed .domain-toggle {
   justify-content: center;
 }
 
-body.knowledge-sidebar-collapsed .domain-toggle i {
-  transform: rotate(-90deg);
-}
-
+body.knowledge-sidebar-collapsed .domain-tree,
 body.knowledge-sidebar-collapsed .domain-group {
-  min-height: 42px;
+  display: none;
 }
 
 .knowledge-sidebar {
@@ -931,6 +952,9 @@ code {
   body.knowledge-sidebar-collapsed .knowledge-left-rail {
     width: min(86vw, 320px);
     padding: 1rem 0.95rem 1.2rem;
+    border-right: 1px solid var(--line);
+    background: var(--surface);
+    overflow: auto;
   }
 
   body.knowledge-sidebar-collapsed .rail-header h3,
@@ -938,6 +962,18 @@ code {
   body.knowledge-sidebar-collapsed .domain-toggle-label,
   body.knowledge-sidebar-collapsed .domain-children {
     display: initial;
+  }
+
+  body.knowledge-sidebar-collapsed .rail-header {
+    position: static;
+    display: flex;
+    width: auto;
+    height: auto;
+  }
+
+  body.knowledge-sidebar-collapsed .rail-toggle {
+    position: static;
+    box-shadow: none;
   }
 
   body.knowledge-sidebar-collapsed .domain-group:not(.is-open) .domain-children {

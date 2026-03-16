@@ -224,9 +224,9 @@ const KnowledgeGraphSite = (() => {
 
     function updateSidebarButton() {
       const isCollapsed = document.body.classList.contains('knowledge-sidebar-collapsed');
-      const icon = collapseButton?.querySelector('i');
-      if (icon) {
-        icon.className = isCollapsed ? 'fas fa-angles-right' : 'fas fa-angles-left';
+      const text = collapseButton?.querySelector('[data-sidebar-toggle-text]');
+      if (text) {
+        text.textContent = isCollapsed ? '>>' : '<<';
       }
       if (collapseButton) {
         const title = isCollapsed ? t('expandSidebar') : t('collapseSidebar');
