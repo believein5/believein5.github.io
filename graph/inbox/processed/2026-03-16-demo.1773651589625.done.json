@@ -1,0 +1,56 @@
+{
+  "knowledgeNodes": [
+    {
+      "id": "ai-cognitive-modeling",
+      "title": "Thinking Humanly: Cognitive Modeling",
+      "type": "concept",
+      "summary": "Model human thought by combining introspection, experiments and brain imaging with computational theories.",
+      "difficulty": "intermediate",
+      "tags": ["ai", "cognitive science"],
+      "aliases": ["认知建模"],
+      "learningObjective": "Explain how cognitive science and AI co-develop via testable models.",
+      "commonErrors": [
+        "Confusing good task performance with cognitive plausibility"
+      ],
+      "verificationSteps": [
+        "Compare model reasoning trace with human subject behavior"
+      ],
+      "retrievalKeywords": ["cognitive modeling", "thinking humanly", "newell simon"],
+      "sourcePath": "graph/nodes/ai-cognitive-modeling.md"
+    }
+  ],
+  "sourceNodes": [
+    {
+      "id": "src-aima-4e-ch1-sec1-1-2",
+      "title": "AIMA 4e 1.1.2 Thinking Humanly: The Cognitive Modeling Approach",
+      "summary": "Describes cognitive science methods and relation to AI models.",
+      "sourceType": "book-section",
+      "parentSource": "src-aima-4e-ch1-sec1-1",
+      "chapter": "1",
+      "section": "1.1.2",
+      "locator": "Chapter 1, Section 1.1.2",
+      "authors": ["Stuart Russell", "Peter Norvig"],
+      "year": 2021,
+      "publisher": "Pearson",
+      "tags": ["source", "book-section", "cognitive-science"],
+      "retrievalKeywords": ["thinking humanly", "cognitive modeling", "aima 1.1.2"],
+      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.2.md"
+    }
+  ],
+  "edges": [
+    {
+      "source": "ai-cognitive-modeling",
+      "target": "src-aima-4e-ch1-sec1-1-2",
+      "type": "defined_in",
+      "reason": "Core definition and methods are introduced in AIMA 1.1.2.",
+      "weight": 1
+    },
+    {
+      "source": "ai-cognitive-modeling",
+      "target": "src-aima-4e-ch1-sec1-1",
+      "type": "supported_by",
+      "reason": "Section 1.1 provides the four-approach umbrella context.",
+      "weight": 0.82
+    }
+  ]
+}

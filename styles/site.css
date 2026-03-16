@@ -580,6 +580,155 @@ body[data-page="knowledge"] .page-shell {
   margin: 0 auto;
 }
 
+/* Graph workspace */
+body[data-page="graph"] .page-shell {
+  max-width: none;
+}
+
+.graph-page-shell {
+  padding-top: 1rem;
+}
+
+.graph-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(0, 2fr) minmax(300px, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.graph-controls,
+.graph-canvas,
+.graph-detail,
+.graph-legend {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.graph-controls,
+.graph-detail,
+.graph-legend {
+  padding: 1rem;
+}
+
+.graph-controls h2,
+.graph-detail h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1.1rem;
+}
+
+.graph-control-block {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.graph-control-block label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.graph-range-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.graph-range-row input[type="range"] {
+  width: 100%;
+}
+
+.graph-chip-group {
+  gap: 0.45rem;
+}
+
+.graph-chip-group .filter-chip {
+  padding: 0.45rem 0.7rem;
+  font-size: 0.82rem;
+}
+
+.graph-edge-filter {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.graph-edge-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.87rem;
+  color: var(--muted);
+}
+
+.graph-edge-option input {
+  accent-color: var(--accent);
+}
+
+.graph-query-actions {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.graph-query-results {
+  margin-top: 0.7rem;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.graph-query-node {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.graph-canvas-wrap {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.graph-canvas {
+  min-height: 68vh;
+  padding: 0.5rem;
+}
+
+.graph-legend h3 {
+  margin: 0 0 0.7rem;
+  font-size: 0.95rem;
+}
+
+.graph-legend-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-right: 0.35rem;
+}
+
+.legend-dot.concept { background: var(--accent); }
+.legend-dot.skill { background: #8b5cf6; }
+.legend-dot.source { background: #f59e0b; }
+.legend-dot.project { background: #14b8a6; }
+
+.graph-detail {
+  position: sticky;
+  top: 92px;
+  max-height: calc(100vh - 108px);
+  overflow: auto;
+}
+
 .knowledge-sidebar-backdrop {
   display: none;
 }
@@ -919,6 +1068,7 @@ code {
   .content-grid,
   .knowledge-layout,
   .knowledge-content-grid,
+  .graph-layout,
   .contact-grid,
   .project-grid {
     grid-template-columns: 1fr;
@@ -926,6 +1076,7 @@ code {
 
   .sidebar-stack,
   .knowledge-sidebar,
+  .graph-detail,
   .detail-panel {
     position: static;
   }
@@ -1045,5 +1196,9 @@ code {
   .resource-grid,
   .taxonomy-grid {
     grid-template-columns: 1fr;
+  }
+
+  .graph-canvas {
+    min-height: 56vh;
   }
 }

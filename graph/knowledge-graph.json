@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "CSP00 Personal Knowledge Graph",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "updatedAt": "2026-03-16",
     "description": "A starter knowledge graph designed for both human reading and agent retrieval.",
     "language": "zh-CN",
@@ -14,8 +14,14 @@
       "type": "concept",
       "summary": "Use meaningful HTML elements to improve structure, accessibility, and machine understanding.",
       "difficulty": "beginner",
-      "tags": ["html", "semantics", "accessibility"],
-      "aliases": ["语义化 HTML"],
+      "tags": [
+        "html",
+        "semantics",
+        "accessibility"
+      ],
+      "aliases": [
+        "语义化 HTML"
+      ],
       "learningObjective": "Be able to choose appropriate HTML elements for content sections, forms, and media.",
       "commonErrors": [
         "Using div for headings, sections, and navigation",
@@ -25,8 +31,15 @@
         "Check whether headings and sections form a clear document outline",
         "Check whether form controls have labels"
       ],
-      "retrievalKeywords": ["semantic html", "语义化html", "header main section article"],
-      "projectLinks": ["HTML-files/Cat-photos.html", "HTML-files/Quiz.html"],
+      "retrievalKeywords": [
+        "semantic html",
+        "语义化html",
+        "header main section article"
+      ],
+      "projectLinks": [
+        "HTML-files/Cat-photos.html",
+        "HTML-files/Quiz.html"
+      ],
       "sourcePath": "graph/nodes/semantic-html.md"
     },
     {
@@ -35,8 +48,14 @@
       "type": "skill",
       "summary": "A one-dimensional layout system for alignment, spacing, and wrapping.",
       "difficulty": "beginner",
-      "tags": ["css", "layout", "flexbox"],
-      "aliases": ["弹性布局"],
+      "tags": [
+        "css",
+        "layout",
+        "flexbox"
+      ],
+      "aliases": [
+        "弹性布局"
+      ],
       "learningObjective": "Build responsive rows and galleries with flex containers and flex items.",
       "commonErrors": [
         "Setting flex properties on the wrong element",
@@ -46,8 +65,15 @@
         "Resize the viewport and confirm the layout wraps correctly",
         "Check horizontal and vertical alignment independently"
       ],
-      "retrievalKeywords": ["css flexbox", "flex-wrap", "justify-content", "align-items"],
-      "projectLinks": ["HTML-files/Cat-photoGallery.html"],
+      "retrievalKeywords": [
+        "css flexbox",
+        "flex-wrap",
+        "justify-content",
+        "align-items"
+      ],
+      "projectLinks": [
+        "HTML-files/Cat-photoGallery.html"
+      ],
       "sourcePath": "graph/nodes/css-flexbox.md"
     },
     {
@@ -56,8 +82,14 @@
       "type": "skill",
       "summary": "Animate UI elements and CSS art using keyframes, transforms, and timing functions.",
       "difficulty": "intermediate",
-      "tags": ["css", "animation", "transform"],
-      "aliases": ["CSS 动画"],
+      "tags": [
+        "css",
+        "animation",
+        "transform"
+      ],
+      "aliases": [
+        "CSS 动画"
+      ],
       "learningObjective": "Create continuous and state-based animations for decorative or instructional interfaces.",
       "commonErrors": [
         "Animating layout properties instead of transform when possible",
@@ -67,8 +99,16 @@
         "Confirm the motion is smooth and loops as expected",
         "Verify the animation still makes sense when reduced motion is preferred"
       ],
-      "retrievalKeywords": ["css animation", "@keyframes", "transform-origin", "动画"],
-      "projectLinks": ["HTML-files/Ferris-wheel.html", "HTML-files/Penguin.html"],
+      "retrievalKeywords": [
+        "css animation",
+        "@keyframes",
+        "transform-origin",
+        "动画"
+      ],
+      "projectLinks": [
+        "HTML-files/Ferris-wheel.html",
+        "HTML-files/Penguin.html"
+      ],
       "sourcePath": "graph/nodes/css-animation.md"
     },
     {
@@ -77,8 +117,15 @@
       "type": "concept",
       "summary": "AI can be framed along two axes (human vs. rational, thought vs. behavior), yielding four classic approaches.",
       "difficulty": "beginner",
-      "tags": ["ai", "definition", "rationality", "history"],
-      "aliases": ["什么是AI"],
+      "tags": [
+        "ai",
+        "definition",
+        "rationality",
+        "history"
+      ],
+      "aliases": [
+        "什么是AI"
+      ],
       "learningObjective": "Understand the four foundational perspectives used to define AI.",
       "commonErrors": [
         "Equating AI with machine learning only",
@@ -88,7 +135,12 @@
         "Explain the two axes and produce four combinations",
         "Distinguish acting rationally from thinking humanly"
       ],
-      "retrievalKeywords": ["what is ai", "four approaches", "human vs rational", "thought vs behavior"],
+      "retrievalKeywords": [
+        "what is ai",
+        "four approaches",
+        "human vs rational",
+        "thought vs behavior"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/nodes/ai-what-is-ai.md"
     },
@@ -98,8 +150,15 @@
       "type": "concept",
       "summary": "A machine is judged intelligent if an interrogator cannot distinguish it from a human through text interaction.",
       "difficulty": "intermediate",
-      "tags": ["ai", "turing test", "nlp", "reasoning"],
-      "aliases": ["图灵测试"],
+      "tags": [
+        "ai",
+        "turing test",
+        "nlp",
+        "reasoning"
+      ],
+      "aliases": [
+        "图灵测试"
+      ],
       "learningObjective": "Describe capabilities required by the Turing test and total Turing test.",
       "commonErrors": [
         "Treating Turing test as the only definition of intelligence",
@@ -109,7 +168,11 @@
         "List NLP, representation, reasoning, learning",
         "Explain why total Turing test adds vision and robotics"
       ],
-      "retrievalKeywords": ["turing test", "acting humanly", "total turing test"],
+      "retrievalKeywords": [
+        "turing test",
+        "acting humanly",
+        "total turing test"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/nodes/ai-turing-test.md"
     },
@@ -119,8 +182,15 @@
       "type": "concept",
       "summary": "A rational agent selects actions to achieve the best outcome or best expected outcome under uncertainty.",
       "difficulty": "intermediate",
-      "tags": ["ai", "agent", "rationality", "decision-making"],
-      "aliases": ["理性智能体"],
+      "tags": [
+        "ai",
+        "agent",
+        "rationality",
+        "decision-making"
+      ],
+      "aliases": [
+        "理性智能体"
+      ],
       "learningObjective": "Explain why the rational-agent model became the dominant AI framing.",
       "commonErrors": [
         "Assuming rational action always requires explicit logical inference",
@@ -130,7 +200,12 @@
         "Compare laws-of-thought vs rational-agent approaches",
         "Give an example where reflex is more rational than long deliberation"
       ],
-      "retrievalKeywords": ["rational agent", "do the right thing", "expected outcome", "standard model"],
+      "retrievalKeywords": [
+        "rational agent",
+        "do the right thing",
+        "expected outcome",
+        "standard model"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/nodes/ai-rational-agent.md"
     },
@@ -140,8 +215,15 @@
       "type": "concept",
       "summary": "Machine objectives must align with human preferences; otherwise capable systems can optimize for unintended behavior.",
       "difficulty": "advanced",
-      "tags": ["ai", "alignment", "safety", "objective"],
-      "aliases": ["价值对齐问题"],
+      "tags": [
+        "ai",
+        "alignment",
+        "safety",
+        "objective"
+      ],
+      "aliases": [
+        "价值对齐问题"
+      ],
       "learningObjective": "Understand why fixed objectives are often inadequate in real-world AI deployment.",
       "commonErrors": [
         "Believing objective misspecification is harmless at high capability",
@@ -151,7 +233,12 @@
         "Use self-driving tradeoffs to explain alignment ambiguity",
         "Explain why beneficial AI must remain uncertain about human objectives"
       ],
-      "retrievalKeywords": ["value alignment", "beneficial machines", "objective misspecification", "provably beneficial"],
+      "retrievalKeywords": [
+        "value alignment",
+        "beneficial machines",
+        "objective misspecification",
+        "provably beneficial"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/nodes/ai-value-alignment.md"
     },
@@ -161,16 +248,31 @@
       "type": "source",
       "summary": "Core textbook source node for AI foundational concepts.",
       "difficulty": "intermediate",
-      "tags": ["source", "book", "ai"],
-      "aliases": ["AIMA 4e"],
+      "tags": [
+        "source",
+        "book",
+        "ai"
+      ],
+      "aliases": [
+        "AIMA 4e"
+      ],
       "learningObjective": "Track canonical textbook provenance for AI definitions.",
       "commonErrors": [],
-      "verificationSteps": ["Cross-check chapter and section locators."],
-      "retrievalKeywords": ["aima", "russell norvig", "ai textbook"],
+      "verificationSteps": [
+        "Cross-check chapter and section locators."
+      ],
+      "retrievalKeywords": [
+        "aima",
+        "russell norvig",
+        "ai textbook"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/sources/aima-4e.md",
       "sourceType": "book",
-      "authors": ["Stuart Russell", "Peter Norvig"],
+      "authors": [
+        "Stuart Russell",
+        "Peter Norvig"
+      ],
       "year": 2021,
       "publisher": "Pearson",
       "edition": "4th"
@@ -181,12 +283,24 @@
       "type": "source",
       "summary": "Defines AI through four approaches and introduces rational-agent framing.",
       "difficulty": "intermediate",
-      "tags": ["source", "book-section", "ai-definition"],
-      "aliases": ["AIMA 1.1"],
+      "tags": [
+        "source",
+        "book-section",
+        "ai-definition"
+      ],
+      "aliases": [
+        "AIMA 1.1"
+      ],
       "learningObjective": "Provide fine-grained textual evidence for AI foundational nodes.",
       "commonErrors": [],
-      "verificationSteps": ["Validate locator Chapter 1, Section 1.1."],
-      "retrievalKeywords": ["what is ai", "section 1.1", "rationality"],
+      "verificationSteps": [
+        "Validate locator Chapter 1, Section 1.1."
+      ],
+      "retrievalKeywords": [
+        "what is ai",
+        "section 1.1",
+        "rationality"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.md",
       "sourceType": "book-section",
@@ -201,12 +315,24 @@
       "type": "source",
       "summary": "Introduces Turing test and capability requirements including NLP, reasoning and learning.",
       "difficulty": "intermediate",
-      "tags": ["source", "book-section", "turing-test"],
-      "aliases": ["AIMA 1.1.1"],
+      "tags": [
+        "source",
+        "book-section",
+        "turing-test"
+      ],
+      "aliases": [
+        "AIMA 1.1.1"
+      ],
       "learningObjective": "Anchor Turing-test knowledge to explicit textbook passage.",
       "commonErrors": [],
-      "verificationSteps": ["Validate locator Chapter 1, 1.1.1."],
-      "retrievalKeywords": ["acting humanly", "turing test", "total turing test"],
+      "verificationSteps": [
+        "Validate locator Chapter 1, 1.1.1."
+      ],
+      "retrievalKeywords": [
+        "acting humanly",
+        "turing test",
+        "total turing test"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.1.md",
       "sourceType": "book-section",
@@ -221,12 +347,24 @@
       "type": "source",
       "summary": "Defines rational agent and explains why this approach became dominant.",
       "difficulty": "advanced",
-      "tags": ["source", "book-section", "rational-agent"],
-      "aliases": ["AIMA 1.1.4"],
+      "tags": [
+        "source",
+        "book-section",
+        "rational-agent"
+      ],
+      "aliases": [
+        "AIMA 1.1.4"
+      ],
       "learningObjective": "Ground rational-agent node in canonical source.",
       "commonErrors": [],
-      "verificationSteps": ["Validate locator Chapter 1, 1.1.4."],
-      "retrievalKeywords": ["acting rationally", "rational agent", "standard model"],
+      "verificationSteps": [
+        "Validate locator Chapter 1, 1.1.4."
+      ],
+      "retrievalKeywords": [
+        "acting rationally",
+        "rational agent",
+        "standard model"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.4.md",
       "sourceType": "book-section",
@@ -241,12 +379,24 @@
       "type": "source",
       "summary": "Introduces value alignment and argues for provably beneficial AI systems.",
       "difficulty": "advanced",
-      "tags": ["source", "book-section", "value-alignment"],
-      "aliases": ["AIMA 1.1.5"],
+      "tags": [
+        "source",
+        "book-section",
+        "value-alignment"
+      ],
+      "aliases": [
+        "AIMA 1.1.5"
+      ],
       "learningObjective": "Ground alignment and beneficial-machine concepts in primary source.",
       "commonErrors": [],
-      "verificationSteps": ["Validate locator Chapter 1, 1.1.5."],
-      "retrievalKeywords": ["value alignment", "beneficial machines", "provably beneficial"],
+      "verificationSteps": [
+        "Validate locator Chapter 1, 1.1.5."
+      ],
+      "retrievalKeywords": [
+        "value alignment",
+        "beneficial machines",
+        "provably beneficial"
+      ],
       "projectLinks": [],
       "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.5.md",
       "sourceType": "book-section",
@@ -261,8 +411,15 @@
       "type": "project",
       "summary": "A gallery project used to practice flexbox, image sizing, and wrapping behavior.",
       "difficulty": "beginner",
-      "tags": ["project", "html", "css", "gallery"],
-      "aliases": ["猫咪图片画廊"],
+      "tags": [
+        "project",
+        "html",
+        "css",
+        "gallery"
+      ],
+      "aliases": [
+        "猫咪图片画廊"
+      ],
       "learningObjective": "Connect layout knowledge to a concrete visual gallery page.",
       "commonErrors": [
         "Images stretching because width and height are not constrained",
@@ -272,8 +429,14 @@
         "Open the page and resize the viewport",
         "Check that gallery items keep consistent proportions"
       ],
-      "retrievalKeywords": ["cat photo gallery", "gallery project", "图片画廊"],
-      "projectLinks": ["HTML-files/Cat-photoGallery.html"],
+      "retrievalKeywords": [
+        "cat photo gallery",
+        "gallery project",
+        "图片画廊"
+      ],
+      "projectLinks": [
+        "HTML-files/Cat-photoGallery.html"
+      ],
       "sourcePath": "graph/nodes/project-cat-photo-gallery.md"
     },
     {
@@ -282,8 +445,14 @@
       "type": "project",
       "summary": "A CSS animation project that demonstrates rotation, timing, and transform-based motion.",
       "difficulty": "intermediate",
-      "tags": ["project", "css", "animation"],
-      "aliases": ["摩天轮动画"],
+      "tags": [
+        "project",
+        "css",
+        "animation"
+      ],
+      "aliases": [
+        "摩天轮动画"
+      ],
       "learningObjective": "Translate animation principles into a playful, inspectable artifact.",
       "commonErrors": [
         "Cabins rotating incorrectly",
@@ -293,9 +462,79 @@
         "Ensure the wheel rotates continuously",
         "Check whether cabins maintain a readable orientation"
       ],
-      "retrievalKeywords": ["ferris wheel", "摩天轮", "keyframes demo"],
-      "projectLinks": ["HTML-files/Ferris-wheel.html"],
+      "retrievalKeywords": [
+        "ferris wheel",
+        "摩天轮",
+        "keyframes demo"
+      ],
+      "projectLinks": [
+        "HTML-files/Ferris-wheel.html"
+      ],
       "sourcePath": "graph/nodes/project-ferris-wheel.md"
+    },
+    {
+      "id": "ai-cognitive-modeling",
+      "title": "Thinking Humanly: Cognitive Modeling",
+      "type": "concept",
+      "summary": "Model human thought by combining introspection, experiments and brain imaging with computational theories.",
+      "difficulty": "intermediate",
+      "tags": [
+        "ai",
+        "cognitive science"
+      ],
+      "aliases": [
+        "认知建模"
+      ],
+      "learningObjective": "Explain how cognitive science and AI co-develop via testable models.",
+      "commonErrors": [
+        "Confusing good task performance with cognitive plausibility"
+      ],
+      "verificationSteps": [
+        "Compare model reasoning trace with human subject behavior"
+      ],
+      "retrievalKeywords": [
+        "cognitive modeling",
+        "thinking humanly",
+        "newell simon"
+      ],
+      "sourcePath": "graph/nodes/ai-cognitive-modeling.md",
+      "projectLinks": []
+    },
+    {
+      "id": "src-aima-4e-ch1-sec1-1-2",
+      "title": "AIMA 4e 1.1.2 Thinking Humanly: The Cognitive Modeling Approach",
+      "summary": "Describes cognitive science methods and relation to AI models.",
+      "sourceType": "book-section",
+      "parentSource": "src-aima-4e-ch1-sec1-1",
+      "chapter": "1",
+      "section": "1.1.2",
+      "locator": "Chapter 1, Section 1.1.2",
+      "authors": [
+        "Stuart Russell",
+        "Peter Norvig"
+      ],
+      "year": 2021,
+      "publisher": "Pearson",
+      "tags": [
+        "source",
+        "book-section",
+        "cognitive-science"
+      ],
+      "retrievalKeywords": [
+        "thinking humanly",
+        "cognitive modeling",
+        "aima 1.1.2"
+      ],
+      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.2.md",
+      "type": "source",
+      "difficulty": "intermediate",
+      "aliases": [],
+      "learningObjective": "Track provenance for knowledge claims.",
+      "commonErrors": [],
+      "verificationSteps": [
+        "Check source locator and bibliographic metadata."
+      ],
+      "projectLinks": []
     }
   ],
   "edges": [
@@ -410,6 +649,20 @@
       "type": "related_to",
       "reason": "Alignment extends the standard rational-agent objective formulation.",
       "weight": 0.78
+    },
+    {
+      "source": "ai-cognitive-modeling",
+      "target": "src-aima-4e-ch1-sec1-1-2",
+      "type": "defined_in",
+      "reason": "Core definition and methods are introduced in AIMA 1.1.2.",
+      "weight": 1
+    },
+    {
+      "source": "ai-cognitive-modeling",
+      "target": "src-aima-4e-ch1-sec1-1",
+      "type": "supported_by",
+      "reason": "Section 1.1 provides the four-approach umbrella context.",
+      "weight": 0.82
     }
   ]
 }

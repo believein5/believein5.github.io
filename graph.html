@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive graph workspace for exploring knowledge nodes, source provenance, and relation paths.">
+    <title>Graph | Personal Knowledge Graph</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vis-network@9.1.9/styles/vis-network.min.css">
+    <link rel="stylesheet" href="styles/site.css">
+    <script defer src="https://unpkg.com/vis-network@9.1.9/dist/vis-network.min.js"></script>
+    <script defer src="scripts/site.js"></script>
+    <script defer src="scripts/graph.js"></script>
+  </head>
+  <body data-page="graph">
+    <header class="site-header">
+      <div class="site-nav">
+        <a class="brand" href="index.html">
+          <span class="brand-title" data-i18n-zh="Knowledge Graph" data-i18n-en="Knowledge Graph">Knowledge Graph</span>
+          <span class="brand-subtitle" data-i18n-zh="图谱工作台：高可视化 + 可追溯来源" data-i18n-en="Graph workspace: visual + source-traceable">图谱工作台：高可视化 + 可追溯来源</span>
+        </a>
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
+            <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
+            <a href="graph.html" data-nav="graph" data-i18n-zh="Graph" data-i18n-en="Graph">Graph</a>
+            <a href="contact.html" data-nav="contact" data-i18n-zh="CONTACT" data-i18n-en="CONTACT">CONTACT</a>
+          </nav>
+          <div class="nav-controls">
+            <button class="icon-btn" type="button" data-theme-toggle>
+              <i class="fas fa-moon" aria-hidden="true"></i>
+              <span data-theme-label>Dark</span>
+            </button>
+            <button class="icon-btn" type="button" data-lang-toggle>
+              <i class="fas fa-language" aria-hidden="true"></i>
+              <span data-lang-label>EN</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell graph-page-shell" data-graph-workspace>
+      <section class="graph-layout">
+        <aside class="graph-controls panel">
+          <h2 data-i18n-zh="图谱控制" data-i18n-en="Graph controls">图谱控制</h2>
+
+          <div class="graph-control-block">
+            <label for="graph-search" data-i18n-zh="搜索节点" data-i18n-en="Search nodes">搜索节点</label>
+            <input id="graph-search" class="search-input" type="search" placeholder="输入标题 / 标签 / 关键词" data-graph-search>
+          </div>
+
+          <div class="graph-control-block">
+            <label for="graph-local-depth" data-i18n-zh="本地子图深度（Obsidian风格）" data-i18n-en="Local graph depth (Obsidian-like)">本地子图深度（Obsidian风格）</label>
+            <div class="graph-range-row">
+              <input id="graph-local-depth" type="range" min="0" max="3" step="1" value="0" data-graph-depth>
+              <span class="note-inline" data-graph-depth-label>0</span>
+            </div>
+          </div>
+
+          <div class="graph-control-block">
+            <label data-i18n-zh="节点类型" data-i18n-en="Node types">节点类型</label>
+            <div class="filter-group graph-chip-group" data-node-type-filters></div>
+          </div>
+
+          <div class="graph-control-block">
+            <label data-i18n-zh="关系类型" data-i18n-en="Edge types">关系类型</label>
+            <div class="graph-edge-filter" data-edge-type-filters></div>
+          </div>
+
+          <div class="graph-control-block">
+            <label data-i18n-zh="快速查询（Logseq风格）" data-i18n-en="Quick queries (Logseq-like)">快速查询（Logseq风格）</label>
+            <div class="graph-query-actions">
+              <button class="filter-chip" type="button" data-query="missing-defined">Missing defined_in</button>
+              <button class="filter-chip" type="button" data-query="weak-support">Weak support</button>
+              <button class="filter-chip" type="button" data-query="top-degree">Top degree</button>
+              <button class="filter-chip" type="button" data-query="clear">Clear</button>
+            </div>
+            <ul class="mini-list graph-query-results" data-query-results></ul>
+          </div>
+        </aside>
+
+        <section class="graph-canvas-wrap">
+          <div class="graph-canvas panel" data-graph-canvas aria-label="Knowledge graph visualization"></div>
+          <div class="graph-legend panel">
+            <h3 data-i18n-zh="图例" data-i18n-en="Legend">图例</h3>
+            <div class="graph-legend-grid">
+              <span><i class="legend-dot concept"></i> concept</span>
+              <span><i class="legend-dot skill"></i> skill</span>
+              <span><i class="legend-dot source"></i> source</span>
+              <span><i class="legend-dot project"></i> project</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="graph-detail panel" data-graph-detail>
+          <h2 data-i18n-zh="节点详情" data-i18n-en="Node details">节点详情</h2>
+          <p class="muted" data-i18n-zh="点击图中的任意节点查看定义来源、支撑来源和反向链接。" data-i18n-en="Click any node in the graph to inspect provenance and backlinks.">点击图中的任意节点查看定义来源、支撑来源和反向链接。</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="page-shell footer">
+      <span data-i18n-zh="Graph 工作台融合 Obsidian 的本地子图与 Logseq 的查询思路。" data-i18n-en="Graph workspace combines Obsidian-like local graph and Logseq-like query flows.">Graph 工作台融合 Obsidian 的本地子图与 Logseq 的查询思路。</span>
+      <span><a class="inline-link" href="graph/knowledge-graph.json" data-i18n-zh="打开图谱原始数据" data-i18n-en="Open raw graph data">打开图谱原始数据</a></span>
+    </footer>
+  </body>
+</html>
