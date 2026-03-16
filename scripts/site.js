@@ -1,11 +1,13 @@
 const KnowledgeGraphSite = (() => {
   let cachedGraph = null;
   let currentLang = 'zh';
+  let resyncTopNavOverflow = null;
 
   const STORAGE_KEYS = {
     theme: 'kg-theme',
     lang: 'kg-lang',
-    knowledgeSidebarCollapsed: 'kg-knowledge-sidebar-collapsed'
+    knowledgeSidebarCollapsed: 'kg-knowledge-sidebar-collapsed',
+    topNavExpanded: 'kg-top-nav-expanded'
   };
 
   const UI = {
@@ -33,7 +35,9 @@ const KnowledgeGraphSite = (() => {
       graphLoadError: '暂时无法加载图谱数据。',
       aliases: '别名',
       collapseSidebar: '收起侧边栏',
-      expandSidebar: '展开侧边栏'
+      expandSidebar: '展开侧边栏',
+      expandTopNav: '展开导航',
+      collapseTopNav: '收起导航'
     },
     en: {
       themeLight: 'Light',
@@ -59,9 +63,109 @@ const KnowledgeGraphSite = (() => {
       graphLoadError: 'Unable to load graph data right now.',
       aliases: 'Aliases',
       collapseSidebar: 'Collapse sidebar',
-      expandSidebar: 'Expand sidebar'
+      expandSidebar: 'Expand sidebar',
+      expandTopNav: 'Expand navigation',
+      collapseTopNav: 'Collapse navigation'
     }
   };
+
+  function updateTopNavToggle() {
+    const button = document.querySelector('[data-topnav-toggle]');
+    const text = button?.querySelector('[data-topnav-toggle-text]');
+    const siteNav = document.querySelector('.site-nav');
+    if (!button || !siteNav) return;
+
+    const expanded = siteNav.classList.contains('overflow-expanded');
+    if (text) {
+      text.textContent = expanded ? '▾' : '▸';
+    }
+    const label = expanded ? t('collapseTopNav') : t('expandTopNav');
+    button.setAttribute('title', label);
+    button.setAttribute('aria-label', label);
+    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  }
+
+  function initTopNavCollapse() {
+    const siteNav = document.querySelector('.site-nav');
+    const navRight = document.querySelector('.nav-right');
+    const navControls = document.querySelector('.nav-controls');
+    const navLinks = document.querySelector('.nav-links');
+    if (!siteNav || !navRight || !navControls || !navLinks) return;
+
+    let button = navRight.querySelector('[data-topnav-toggle]');
+    if (!button) {
+      button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'icon-btn topnav-toggle';
+      button.setAttribute('data-topnav-toggle', '');
+      button.innerHTML = '<span data-topnav-toggle-text>▸</span>';
+      navControls.prepend(button);
+    }
+
+    let overflowPanel = siteNav.querySelector('[data-topnav-overflow-panel]');
+    if (!overflowPanel) {
+      overflowPanel = document.createElement('div');
+      overflowPanel.className = 'topnav-overflow-panel';
+      overflowPanel.setAttribute('data-topnav-overflow-panel', '');
+      overflowPanel.setAttribute('aria-label', 'Overflow navigation');
+      siteNav.append(overflowPanel);
+    }
+
+    let storedExpanded = localStorage.getItem(STORAGE_KEYS.topNavExpanded) === '1';
+
+    const setExpanded = (expanded) => {
+      siteNav.classList.toggle('overflow-expanded', expanded);
+      storedExpanded = expanded;
+      localStorage.setItem(STORAGE_KEYS.topNavExpanded, expanded ? '1' : '0');
+      updateTopNavToggle();
+    };
+
+    const renderOverflowPanel = (overflowLinks) => {
+      overflowPanel.innerHTML = overflowLinks
+        .map((link) => {
+          const href = link.getAttribute('href') || '#';
+          const label = link.textContent || '';
+          const active = link.classList.contains('active') ? 'active' : '';
+          return `<a class="topnav-overflow-link ${active}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+        })
+        .join('');
+    };
+
+    const syncOverflow = () => {
+      const links = [...navLinks.querySelectorAll('a')];
+      links.forEach((link) => link.classList.remove('is-overflow-hidden'));
+      overflowPanel.innerHTML = '';
+
+      if (links.length < 2) {
+        siteNav.classList.remove('has-overflow-links', 'overflow-expanded');
+        updateTopNavToggle();
+        return;
+      }
+
+      const firstTop = Math.round(links[0].getBoundingClientRect().top);
+      const overflowLinks = links.filter((link) => Math.round(link.getBoundingClientRect().top) > firstTop + 1);
+
+      if (!overflowLinks.length) {
+        siteNav.classList.remove('has-overflow-links', 'overflow-expanded');
+        updateTopNavToggle();
+        return;
+      }
+
+      overflowLinks.forEach((link) => link.classList.add('is-overflow-hidden'));
+      renderOverflowPanel(overflowLinks);
+      siteNav.classList.add('has-overflow-links');
+      setExpanded(storedExpanded);
+    };
+
+    button.addEventListener('click', () => {
+      if (!siteNav.classList.contains('has-overflow-links')) return;
+      setExpanded(!siteNav.classList.contains('overflow-expanded'));
+    });
+
+    window.addEventListener('resize', syncOverflow);
+    resyncTopNavOverflow = syncOverflow;
+    syncOverflow();
+  }
 
   const DOMAIN_KEYWORDS = {
     'all': [],
@@ -183,6 +287,8 @@ const KnowledgeGraphSite = (() => {
     }
 
     updateThemeButton();
+    updateTopNavToggle();
+    resyncTopNavOverflow?.();
 
     document.dispatchEvent(new CustomEvent('kg:languagechange', {
       detail: { lang: currentLang }
@@ -201,6 +307,7 @@ const KnowledgeGraphSite = (() => {
   }
 
   function initControls() {
+    initTopNavCollapse();
     setTheme(getStoredTheme());
     currentLang = getStoredLang();
     applyLanguage();
