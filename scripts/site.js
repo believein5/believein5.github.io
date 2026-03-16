@@ -60,12 +60,13 @@ const KnowledgeGraphSite = (() => {
     'philosophy': ['philosophy', 'epistemology', 'ontology', '意识', '哲学'],
     'mathematics': ['mathematics', 'math', 'linear algebra', 'probability', 'optimization', '信息论', '数学'],
     'physics': ['physics', 'dynamics', 'complex system', 'statistical', '物理', '动力学'],
-    'finance': ['finance', 'risk', 'market', 'quant', '金融'],
+    'economics': ['economics', 'finance', 'risk', 'market', 'quant', '经济', '金融'],
     'neuroscience': ['neuroscience', 'neural', 'brain', 'memory', '神经'],
     'psychology': ['psychology', 'cognitive', 'behavior', 'bias', '心理'],
     'computer-science': ['computer science', 'algorithm', 'system', 'software', 'ml', 'agent', '计算机'],
-    'control-theory': ['control', 'feedback', 'stability', 'system identification', '控制'],
-    'linguistics': ['linguistics', 'semantics', 'syntax', 'pragmatics', '语义', '语法']
+    'control-theory-cybernetics': ['control', 'control theory', 'cybernetics', 'feedback', 'stability', 'system identification', '控制', '控制论'],
+    'linguistics': ['linguistics', 'semantics', 'syntax', 'pragmatics', '语义', '语法'],
+    'artificial-intelligence': ['artificial intelligence', 'ai', 'machine learning', 'deep learning', 'llm', 'agent', '人工智能', '机器学习', '深度学习']
   };
 
   function t(key) {
