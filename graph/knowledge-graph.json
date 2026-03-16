@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Knowledge Graph Views",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "updatedAt": "2026-03-16",
     "description": "Generated graph data containing book hierarchy view and knowledge relation view.",
     "language": "zh-CN"
@@ -157,6 +157,13 @@
       "method",
       "model",
       "theory"
+    ],
+    "taxonomyDomains": [
+      "artificial-intelligence",
+      "computer-science",
+      "linguistics",
+      "mathematics",
+      "physics"
     ]
   },
   "views": {
@@ -171,7 +178,8 @@
           },
           "title": "数学分析导论",
           "type": "book",
-          "discipline": "mathematics"
+          "discipline": "mathematics",
+          "taxonomyDomain": "mathematics"
         },
         {
           "id": "chapter:math-ch1",
@@ -183,6 +191,7 @@
           "title": "极限与连续",
           "type": "chapter",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -200,6 +209,7 @@
           "title": "1.1 极限定义与ε-δ思想",
           "type": "section",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -229,6 +239,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -264,6 +275,7 @@
           "type": "knowledge",
           "knowledgeType": "method",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -293,6 +305,7 @@
           "title": "1.2 导数与线性近似",
           "type": "section",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -322,6 +335,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -351,6 +365,7 @@
           "title": "线性代数与变换",
           "type": "chapter",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -368,6 +383,7 @@
           "title": "2.1 线性变换与频域观点",
           "type": "section",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -397,6 +413,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "bookId": "book-math-analysis",
           "bookTitleI18n": {
             "zh": "数学分析导论",
@@ -425,7 +442,8 @@
           },
           "title": "经典力学基础",
           "type": "book",
-          "discipline": "physics"
+          "discipline": "physics",
+          "taxonomyDomain": "physics"
         },
         {
           "id": "chapter:phy-ch1",
@@ -437,6 +455,7 @@
           "title": "牛顿体系",
           "type": "chapter",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -454,6 +473,7 @@
           "title": "1.1 受力与加速度",
           "type": "section",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -483,6 +503,7 @@
           "type": "knowledge",
           "knowledgeType": "law",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -512,6 +533,7 @@
           "title": "1.2 碰撞与守恒",
           "type": "section",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -541,6 +563,7 @@
           "type": "knowledge",
           "knowledgeType": "law",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -570,6 +593,7 @@
           "title": "电磁与波动",
           "type": "chapter",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -587,6 +611,7 @@
           "title": "2.1 场与方程组",
           "type": "section",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -616,6 +641,7 @@
           "type": "knowledge",
           "knowledgeType": "theory",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "bookId": "book-physics-mechanics",
           "bookTitleI18n": {
             "zh": "经典力学基础",
@@ -644,7 +670,8 @@
           },
           "title": "计算机科学基础",
           "type": "book",
-          "discipline": "computer-science"
+          "discipline": "computer-science",
+          "taxonomyDomain": "computer-science"
         },
         {
           "id": "chapter:cs-ch1",
@@ -656,6 +683,7 @@
           "title": "算法分析",
           "type": "chapter",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -673,6 +701,7 @@
           "title": "1.1 时间复杂度",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -702,6 +731,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -731,6 +761,7 @@
           "title": "1.2 分治策略",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -760,6 +791,7 @@
           "type": "knowledge",
           "knowledgeType": "method",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -789,6 +821,7 @@
           "title": "机器学习",
           "type": "chapter",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -806,6 +839,7 @@
           "title": "2.1 反向传播",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -835,6 +869,7 @@
           "type": "knowledge",
           "knowledgeType": "algorithm",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -864,6 +899,7 @@
           "title": "2.2 卷积网络",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -893,6 +929,7 @@
           "type": "knowledge",
           "knowledgeType": "model",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-cs-foundations",
           "bookTitleI18n": {
             "zh": "计算机科学基础",
@@ -921,7 +958,8 @@
           },
           "title": "Artificial Intelligence: A Modern Approach (4th Edition)",
           "type": "book",
-          "discipline": "computer-science"
+          "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence"
         },
         {
           "id": "chapter:ai-ch1",
@@ -933,6 +971,7 @@
           "title": "What Is AI?",
           "type": "chapter",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -950,6 +989,7 @@
           "title": "1.1 What Is AI?",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -979,6 +1019,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1008,6 +1049,7 @@
           "title": "1.1.1 Acting Humanly: The Turing Test",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1037,6 +1079,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1066,6 +1109,7 @@
           "title": "1.1.2 Thinking Humanly",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1095,6 +1139,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1124,6 +1169,7 @@
           "title": "1.1.4 Acting Rationally",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1153,6 +1199,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1182,6 +1229,7 @@
           "title": "1.1.5 Beneficial Machines",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1211,6 +1259,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "bookId": "book-ai-aima-4e",
           "bookTitleI18n": {
             "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
@@ -1239,7 +1288,8 @@
           },
           "title": "Frontend Foundations Handbook",
           "type": "book",
-          "discipline": "computer-science"
+          "discipline": "computer-science",
+          "taxonomyDomain": "computer-science"
         },
         {
           "id": "chapter:fe-ch1",
@@ -1251,6 +1301,7 @@
           "title": "HTML + CSS Core Skills",
           "type": "chapter",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1268,6 +1319,7 @@
           "title": "1.1 Semantic Structure",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1297,6 +1349,7 @@
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "linguistics",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1326,6 +1379,7 @@
           "title": "1.2 Flex Layout",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1355,6 +1409,7 @@
           "type": "knowledge",
           "knowledgeType": "method",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1384,6 +1439,7 @@
           "title": "1.3 Animation Basics",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1413,6 +1469,7 @@
           "type": "knowledge",
           "knowledgeType": "method",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1442,6 +1499,7 @@
           "title": "Practice Projects",
           "type": "chapter",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1459,6 +1517,7 @@
           "title": "2.1 Gallery Project",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1488,6 +1547,7 @@
           "type": "knowledge",
           "knowledgeType": "model",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1517,6 +1577,7 @@
           "title": "2.2 Ferris Wheel Animation",
           "type": "section",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -1546,6 +1607,7 @@
           "type": "knowledge",
           "knowledgeType": "model",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "bookId": "book-frontend-foundations",
           "bookTitleI18n": {
             "zh": "Frontend Foundations Handbook",
@@ -2080,6 +2142,7 @@
           "title": "函数极限定义",
           "type": "concept",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "summaryI18n": {
             "zh": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
             "en": "通过邻域逼近刻画自变量趋近某点时函数值的行为。"
@@ -2123,6 +2186,7 @@
           "title": "ε-δ证明模板",
           "type": "method",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "summaryI18n": {
             "zh": "将直觉性逼近转化为可验证的量化证明流程。",
             "en": "将直觉性逼近转化为可验证的量化证明流程。"
@@ -2186,6 +2250,7 @@
           "title": "导数定义",
           "type": "concept",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "summaryI18n": {
             "zh": "导数是函数在一点处变化率的极限。",
             "en": "导数是函数在一点处变化率的极限。"
@@ -2249,6 +2314,7 @@
           "title": "傅里叶变换",
           "type": "concept",
           "discipline": "mathematics",
+          "taxonomyDomain": "mathematics",
           "summaryI18n": {
             "zh": "将时域信号映射到频域，以分解频率成分。",
             "en": "将时域信号映射到频域，以分解频率成分。"
@@ -2292,6 +2358,7 @@
           "title": "牛顿第二定律",
           "type": "law",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "summaryI18n": {
             "zh": "力等于质量与加速度的乘积，刻画动力学核心关系。",
             "en": "力等于质量与加速度的乘积，刻画动力学核心关系。"
@@ -2335,6 +2402,7 @@
           "title": "动量守恒",
           "type": "law",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "summaryI18n": {
             "zh": "孤立系统总动量保持不变。",
             "en": "孤立系统总动量保持不变。"
@@ -2378,6 +2446,7 @@
           "title": "麦克斯韦方程组",
           "type": "theory",
           "discipline": "physics",
+          "taxonomyDomain": "physics",
           "summaryI18n": {
             "zh": "统一描述电场与磁场的生成、耦合与传播。",
             "en": "统一描述电场与磁场的生成、耦合与传播。"
@@ -2421,6 +2490,7 @@
           "title": "大O记号",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "summaryI18n": {
             "zh": "刻画算法增长阶的渐进上界。",
             "en": "刻画算法增长阶的渐进上界。"
@@ -2464,6 +2534,7 @@
           "title": "分治法",
           "type": "method",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "summaryI18n": {
             "zh": "将问题拆解为子问题递归求解后再合并。",
             "en": "将问题拆解为子问题递归求解后再合并。"
@@ -2507,6 +2578,7 @@
           "title": "反向传播算法",
           "type": "algorithm",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "利用链式法则高效计算神经网络参数梯度。",
             "en": "利用链式法则高效计算神经网络参数梯度。"
@@ -2550,6 +2622,7 @@
           "title": "卷积神经网络",
           "type": "model",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "通过局部感受野与参数共享提取空间结构特征。",
             "en": "通过局部感受野与参数共享提取空间结构特征。"
@@ -2613,6 +2686,7 @@
           "title": "What Is AI?",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。",
             "en": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。"
@@ -2696,6 +2770,7 @@
           "title": "Turing Test Approach",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "通过文本交互不可区分于人类来判定机器是否表现出智能。",
             "en": "通过文本交互不可区分于人类来判定机器是否表现出智能。"
@@ -2759,6 +2834,7 @@
           "title": "Thinking Humanly: Cognitive Modeling",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "结合实验心理学与计算模型来刻画人的思维机制。",
             "en": "结合实验心理学与计算模型来刻画人的思维机制。"
@@ -2821,6 +2897,7 @@
           "title": "Rational Agent",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "理性智能体在不确定环境中选择期望结果最优的行动。",
             "en": "理性智能体在不确定环境中选择期望结果最优的行动。"
@@ -2884,6 +2961,7 @@
           "title": "Value Alignment Problem",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "artificial-intelligence",
           "summaryI18n": {
             "zh": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。",
             "en": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。"
@@ -2967,6 +3045,7 @@
           "title": "Semantic HTML",
           "type": "concept",
           "discipline": "computer-science",
+          "taxonomyDomain": "linguistics",
           "summaryI18n": {
             "zh": "使用语义化标签提升结构清晰度、可访问性与可检索性。",
             "en": "使用语义化标签提升结构清晰度、可访问性与可检索性。"
@@ -3010,6 +3089,7 @@
           "title": "CSS Flexbox",
           "type": "method",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "summaryI18n": {
             "zh": "一维布局系统，用于排列、对齐和换行。",
             "en": "一维布局系统，用于排列、对齐和换行。"
@@ -3053,6 +3133,7 @@
           "title": "CSS Animation",
           "type": "method",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "summaryI18n": {
             "zh": "通过 keyframes 与 transform 构建连续或状态动画。",
             "en": "通过 keyframes 与 transform 构建连续或状态动画。"
@@ -3096,6 +3177,7 @@
           "title": "Cat Photo Gallery",
           "type": "model",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "summaryI18n": {
             "zh": "用于练习语义结构和 Flex 布局的项目知识点。",
             "en": "用于练习语义结构和 Flex 布局的项目知识点。"
@@ -3139,6 +3221,7 @@
           "title": "Ferris Wheel",
           "type": "model",
           "discipline": "computer-science",
+          "taxonomyDomain": "computer-science",
           "summaryI18n": {
             "zh": "用于练习 transform、timing、keyframes 的动画项目。",
             "en": "用于练习 transform、timing、keyframes 的动画项目。"

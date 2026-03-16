@@ -643,6 +643,31 @@ body[data-page="graph"] .page-shell {
   gap: 0.45rem;
 }
 
+.graph-tuning-grid {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.graph-tuning-item {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.graph-tuning-item > span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.graph-tuning-actions {
+  margin-top: 0.45rem;
+}
+
+.graph-tuning-actions .filter-chip {
+  padding: 0.45rem 0.72rem;
+  font-size: 0.82rem;
+}
+
 .graph-mode-switch {
   display: flex;
   flex-wrap: wrap;

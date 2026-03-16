@@ -1,4 +1,13 @@
 const GraphWorkspace = (() => {
+  const DEFAULT_TUNING = {
+    nodeSizeScale: 1,
+    degreeGain: 3,
+    edgeWidthScale: 1,
+    levelSeparation: 120,
+    nodeSpacing: 170,
+    physicsIterations: 180
+  };
+
   const state = {
     graphData: null,
     network: null,
@@ -8,8 +17,10 @@ const GraphWorkspace = (() => {
     localDepth: 0,
     queryResultIds: new Set(),
     nodeTypeFilters: new Set(),
+    domainFilters: new Set(),
     edgeTypeFilters: new Set(),
     collapsedBookNodes: new Set(),
+    tuning: { ...DEFAULT_TUNING },
     lang: document.documentElement.lang?.toLowerCase().startsWith('zh') ? 'zh' : 'en'
   };
 
@@ -124,9 +135,16 @@ const GraphWorkspace = (() => {
   };
 
   const DISCIPLINE_I18N = {
+    philosophy: { zh: '哲学', en: 'Philosophy' },
     mathematics: { zh: '数学', en: 'Mathematics' },
     physics: { zh: '物理', en: 'Physics' },
+    economics: { zh: '经济学', en: 'Economics' },
+    neuroscience: { zh: '神经科学', en: 'Neuroscience' },
+    psychology: { zh: '心理学', en: 'Psychology' },
     'computer-science': { zh: '计算机', en: 'Computer Science' },
+    'control-theory-cybernetics': { zh: '控制理论与控制论', en: 'Control Theory & Cybernetics' },
+    linguistics: { zh: '语言学', en: 'Linguistics' },
+    'artificial-intelligence': { zh: '人工智能', en: 'Artificial Intelligence' },
     common: { zh: '通用', en: 'Common' }
   };
 
@@ -174,6 +192,12 @@ const GraphWorkspace = (() => {
       .replaceAll("'", '&#39;');
   }
 
+  function tooltipElement(html) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    return wrapper;
+  }
+
   function labelOf(map, key, fallback = '') {
     const pack = map?.[key];
     if (!pack) return fallback || key;
@@ -216,9 +240,52 @@ const GraphWorkspace = (() => {
     return labelOf(DISCIPLINE_I18N, key, key || '');
   }
 
+  function resolveDomain(node) {
+    return node?.taxonomyDomain || node?.discipline || 'common';
+  }
+
   function cssVar(name, fallback) {
     const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return value || fallback;
+  }
+
+  function normalizeTuning(raw = {}) {
+    const safeNumber = (value, fallback, min, max) => {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return fallback;
+      return Math.min(max, Math.max(min, n));
+    };
+
+    return {
+      nodeSizeScale: safeNumber(raw.nodeSizeScale, DEFAULT_TUNING.nodeSizeScale, 0.6, 1.8),
+      degreeGain: safeNumber(raw.degreeGain, DEFAULT_TUNING.degreeGain, 1, 6),
+      edgeWidthScale: safeNumber(raw.edgeWidthScale, DEFAULT_TUNING.edgeWidthScale, 0.6, 2.4),
+      levelSeparation: safeNumber(raw.levelSeparation, DEFAULT_TUNING.levelSeparation, 80, 220),
+      nodeSpacing: safeNumber(raw.nodeSpacing, DEFAULT_TUNING.nodeSpacing, 120, 300),
+      physicsIterations: safeNumber(raw.physicsIterations, DEFAULT_TUNING.physicsIterations, 80, 400)
+    };
+  }
+
+  function setTuning(next) {
+    state.tuning = normalizeTuning(next);
+    syncTuningUI();
+  }
+
+  function syncTuningUI() {
+    if (!EL.tuningInputs || !EL.tuningValues) return;
+
+    EL.tuningInputs.forEach((input) => {
+      const key = input.dataset.tuningKey;
+      if (!key || !(key in state.tuning)) return;
+      input.value = String(state.tuning[key]);
+    });
+
+    EL.tuningValues.forEach((label) => {
+      const key = label.dataset.tuningValue;
+      if (!key || !(key in state.tuning)) return;
+      const value = Number(state.tuning[key]);
+      label.textContent = Number.isInteger(value) ? String(value) : value.toFixed(2);
+    });
   }
 
   function getCurrentView() {
@@ -255,7 +322,7 @@ const GraphWorkspace = (() => {
 
     if (type === 'book') return { shape: 'box', borderWidth: 2.2, baseSize: 26, glyph: '▭' };
     if (type === 'chapter') return { shape: 'ellipse', borderWidth: 2, baseSize: 22, glyph: '◉' };
-    if (type === 'section') return { shape: 'database', borderWidth: 1.9, baseSize: 20, glyph: '⬭' };
+    if (type === 'section') return { shape: 'box', borderWidth: 1.7, baseSize: 15, glyph: '▢' };
 
     if (type === 'knowledge' || ['concept', 'method', 'law', 'theory', 'algorithm', 'model'].includes(type)) {
       switch (knowledgeType) {
@@ -325,7 +392,7 @@ const GraphWorkspace = (() => {
       node.rawId,
       nodeTitle(node),
       nodeSummary(node),
-      node.discipline,
+      resolveDomain(node),
       ...(node.tags || [])
     ]
       .filter(Boolean)
@@ -394,6 +461,7 @@ const GraphWorkspace = (() => {
     const ids = new Set(
       (view?.nodes || [])
         .filter((node) => state.nodeTypeFilters.has(node.type))
+        .filter((node) => state.domainFilters.has(resolveDomain(node)))
         .filter(matchesSearch)
         .map((node) => node.id)
     );
@@ -426,7 +494,7 @@ const GraphWorkspace = (() => {
       <div class="graph-tooltip-card">
         <div class="graph-tooltip-title">${escapeHtml(nodeTitle(node))}</div>
         ${nodeSummary(node) ? `<div class="graph-tooltip-summary">${escapeHtml(nodeSummary(node))}</div>` : ''}
-        <div class="graph-tooltip-meta">${t('tooltipDiscipline')}: ${escapeHtml(disciplineLabel(node.discipline || 'common'))}</div>
+        <div class="graph-tooltip-meta">${t('tooltipDiscipline')}: ${escapeHtml(disciplineLabel(resolveDomain(node)))}</div>
         <div class="graph-tooltip-subtitle">${t('tooltipProvenance')}</div>
         <ul class="graph-tooltip-list">${linksHtml}</ul>
       </div>
@@ -470,9 +538,12 @@ const GraphWorkspace = (() => {
       return {
         id,
         label: nodeTitle(node),
-        title: tooltip,
+        title: tooltipElement(tooltip),
         shape: visual.shape,
-        size: Math.max(visual.baseSize || 16, (visual.baseSize || 16) + Math.log2(1 + degree) * 3),
+        size: Math.max(
+          (visual.baseSize || 16) * state.tuning.nodeSizeScale,
+          (visual.baseSize || 16) * state.tuning.nodeSizeScale + Math.log2(1 + degree) * state.tuning.degreeGain
+        ),
         borderWidth: visual.borderWidth,
         color: {
           background: color,
@@ -489,21 +560,25 @@ const GraphWorkspace = (() => {
       };
     });
 
-    const visEdges = edges.map((edge) => ({
-      ...edgeVisualByType(edge.type),
-      id: `${edge.source}-${edge.type}-${edge.target}`,
-      from: edge.source,
-      to: edge.target,
-      label: edgeLabel(edge.type),
-      color: {
-        color: edgeColorByType(edge.type),
-        highlight: cssVar('--accent', '#2563eb')
-      },
-      font: {
-        size: 10,
-        color: cssVar('--muted', '#52525b')
-      }
-    }));
+    const visEdges = edges.map((edge) => {
+      const visual = edgeVisualByType(edge.type);
+      return {
+        ...visual,
+        width: (visual.width || 1.8) * state.tuning.edgeWidthScale,
+        id: `${edge.source}-${edge.type}-${edge.target}`,
+        from: edge.source,
+        to: edge.target,
+        label: edgeLabel(edge.type),
+        color: {
+          color: edgeColorByType(edge.type),
+          highlight: cssVar('--accent', '#2563eb')
+        },
+        font: {
+          size: 10,
+          color: cssVar('--muted', '#52525b')
+        }
+      };
+    });
 
     return { nodes, edges: visEdges };
   }
@@ -561,7 +636,7 @@ const GraphWorkspace = (() => {
       <div class="detail-meta">
         <span class="badge">${escapeHtml(typeLabel(node.type))}</span>
         ${node.difficulty ? `<span class="badge">${escapeHtml(node.difficulty)}</span>` : ''}
-        ${node.discipline ? `<span class="badge">${escapeHtml(disciplineLabel(node.discipline))}</span>` : ''}
+        ${resolveDomain(node) ? `<span class="badge">${escapeHtml(disciplineLabel(resolveDomain(node)))}</span>` : ''}
       </div>
       <h2>${escapeHtml(nodeTitle(node))}</h2>
       <p>${escapeHtml(nodeSummary(node))}</p>
@@ -587,14 +662,26 @@ const GraphWorkspace = (() => {
     const types = [...new Set((view?.nodes || []).map((n) => n.type))].sort();
     const edgeTypes = [...new Set((view?.edges || []).map((e) => e.type))].sort();
 
-    const nodeLegend = types
-      .map((type) => {
+    const nodeLegendItems = [];
+
+    if (state.mode === 'knowledge') {
+      const knowledgeTypes = [...new Set((view?.nodes || []).map((n) => n.knowledgeType || n.type))].sort();
+      for (const kType of knowledgeTypes) {
+        const sampleNode = (view?.nodes || []).find((n) => (n.knowledgeType || n.type) === kType) || { type: 'knowledge', knowledgeType: kType };
+        const color = nodeColorByType(sampleNode);
+        const visual = nodeVisualByType(sampleNode);
+        nodeLegendItems.push(`<span><i class="legend-dot" style="background:${color}"></i><span class="legend-glyph">${visual.glyph}</span> ${escapeHtml(typeLabel(kType))}</span>`);
+      }
+    } else {
+      for (const type of types) {
         const sampleNode = (view?.nodes || []).find((n) => n.type === type) || { type };
         const color = nodeColorByType(sampleNode);
         const visual = nodeVisualByType(sampleNode);
-        return `<span><i class="legend-dot" style="background:${color}"></i><span class="legend-glyph">${visual.glyph}</span> ${escapeHtml(typeLabel(type))}</span>`;
-      })
-      .join('');
+        nodeLegendItems.push(`<span><i class="legend-dot" style="background:${color}"></i><span class="legend-glyph">${visual.glyph}</span> ${escapeHtml(typeLabel(type))}</span>`);
+      }
+    }
+
+    const nodeLegend = nodeLegendItems.join('');
 
     const edgeLegend = edgeTypes
       .map((type) => {
@@ -636,8 +723,8 @@ const GraphWorkspace = (() => {
           hierarchical: {
             enabled: true,
             direction: 'UD',
-            levelSeparation: 120,
-            nodeSpacing: 170,
+            levelSeparation: state.tuning.levelSeparation,
+            nodeSpacing: state.tuning.nodeSpacing,
             sortMethod: 'directed'
           }
         }
@@ -648,7 +735,7 @@ const GraphWorkspace = (() => {
       ...common,
       physics: {
         enabled: true,
-        stabilization: { iterations: 180 }
+        stabilization: { iterations: state.tuning.physicsIterations }
       }
     };
   }
@@ -708,6 +795,7 @@ const GraphWorkspace = (() => {
   function resetFiltersForMode() {
     const view = getCurrentView();
     state.nodeTypeFilters = new Set((view?.nodes || []).map((n) => n.type));
+    state.domainFilters = new Set((view?.nodes || []).map((n) => resolveDomain(n)));
     state.edgeTypeFilters = new Set((view?.edges || []).map((e) => e.type));
   }
 
@@ -733,6 +821,35 @@ const GraphWorkspace = (() => {
         }
 
         renderTypeFilters();
+        renderNetwork();
+      });
+    });
+  }
+
+  function renderDomainFilters() {
+    const view = getCurrentView();
+    const domains = [...new Set((view?.nodes || []).map((n) => resolveDomain(n)))].sort();
+
+    if (!EL.domainFilters) return;
+
+    EL.domainFilters.innerHTML = domains
+      .map((domain) => {
+        const active = state.domainFilters.has(domain) ? 'is-active' : '';
+        return `<button class="filter-chip ${active}" type="button" data-domain="${domain}">${escapeHtml(disciplineLabel(domain))}</button>`;
+      })
+      .join('');
+
+    EL.domainFilters.querySelectorAll('[data-domain]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const domain = btn.dataset.domain;
+        if (state.domainFilters.has(domain)) state.domainFilters.delete(domain);
+        else state.domainFilters.add(domain);
+
+        if (state.domainFilters.size === 0) {
+          state.domainFilters = new Set(domains);
+        }
+
+        renderDomainFilters();
         renderNetwork();
       });
     });
@@ -839,6 +956,7 @@ const GraphWorkspace = (() => {
     state.queryResultIds = state.mode === 'knowledge' ? state.queryResultIds : new Set();
     resetFiltersForMode();
     renderTypeFilters();
+    renderDomainFilters();
     renderEdgeFilters();
     renderNetwork();
 
@@ -882,6 +1000,21 @@ const GraphWorkspace = (() => {
         renderNetwork();
       });
     });
+
+    EL.tuningInputs?.forEach((input) => {
+      input.addEventListener('input', () => {
+        const key = input.dataset.tuningKey;
+        if (!key || !(key in state.tuning)) return;
+        state.tuning[key] = Number(input.value);
+        syncTuningUI();
+        renderNetwork();
+      });
+    });
+
+    EL.tuningReset?.addEventListener('click', () => {
+      setTuning(DEFAULT_TUNING);
+      renderNetwork();
+    });
   }
 
   function cacheElements() {
@@ -891,10 +1024,14 @@ const GraphWorkspace = (() => {
     EL.depth = document.querySelector('[data-graph-depth]');
     EL.depthLabel = document.querySelector('[data-graph-depth-label]');
     EL.nodeTypeFilters = document.querySelector('[data-node-type-filters]');
+    EL.domainFilters = document.querySelector('[data-domain-filters]');
     EL.edgeTypeFilters = document.querySelector('[data-edge-type-filters]');
     EL.queryResults = document.querySelector('[data-query-results]');
     EL.modeSwitch = document.querySelector('[data-graph-mode-switch]');
     EL.legend = document.querySelector('[data-graph-legend]');
+    EL.tuningInputs = document.querySelectorAll('[data-tuning-key]');
+    EL.tuningValues = document.querySelectorAll('[data-tuning-value]');
+    EL.tuningReset = document.querySelector('[data-tuning-reset]');
   }
 
   async function loadGraph() {
@@ -903,6 +1040,19 @@ const GraphWorkspace = (() => {
       throw new Error(`Failed to load graph data: ${response.status}`);
     }
     return response.json();
+  }
+
+  async function loadTuningProfile() {
+    try {
+      const response = await fetch('graph/tuning-config.json');
+      if (!response.ok) {
+        return { ...DEFAULT_TUNING };
+      }
+      const payload = await response.json();
+      return normalizeTuning(payload?.graphTuning || payload || {});
+    } catch {
+      return { ...DEFAULT_TUNING };
+    }
   }
 
   async function init() {
@@ -920,6 +1070,7 @@ const GraphWorkspace = (() => {
     }
 
     try {
+      setTuning(await loadTuningProfile());
       state.graphData = await loadGraph();
       state.localDepth = Number(EL.depth?.value || 0);
       resetFiltersForMode();

@@ -12,6 +12,31 @@ const outputPath = path.join(rootDir, 'graph', 'knowledge-graph.json');
 
 const PROVENANCE_TYPES = new Set(['defined_in', 'cite_from', 'support']);
 
+const KNOWLEDGE_INDEX_DOMAINS = new Set([
+  'philosophy',
+  'mathematics',
+  'physics',
+  'economics',
+  'neuroscience',
+  'psychology',
+  'computer-science',
+  'control-theory-cybernetics',
+  'linguistics',
+  'artificial-intelligence'
+]);
+
+const DISCIPLINE_BASE_MAPPING = {
+  mathematics: 'mathematics',
+  physics: 'physics',
+  economics: 'economics',
+  neuroscience: 'neuroscience',
+  psychology: 'psychology',
+  linguistics: 'linguistics',
+  'control-theory-cybernetics': 'control-theory-cybernetics',
+  'computer-science': 'computer-science',
+  'artificial-intelligence': 'artificial-intelligence'
+};
+
 function asI18n(value, fallback = '') {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
     const zh = String(value.zh ?? value.en ?? fallback ?? '').trim();
@@ -25,6 +50,53 @@ function asI18n(value, fallback = '') {
 function pickLang(i18n, lang = 'zh') {
   const normalized = asI18n(i18n, '');
   return normalized[lang] || normalized.zh || normalized.en || '';
+}
+
+function inferTaxonomyDomain({ book, chapter, section, knowledge }) {
+  const direct = DISCIPLINE_BASE_MAPPING[book?.discipline];
+  const raw = [
+    book?.id,
+    book?.title,
+    chapter?.id,
+    chapter?.title,
+    section?.id,
+    section?.title,
+    knowledge?.id,
+    knowledge?.title,
+    ...(knowledge?.tags || [])
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (/\bai\b|artificial intelligence|机器学习|深度学习|智能体|推理/.test(raw)) {
+    return 'artificial-intelligence';
+  }
+  if (/控制|control|cybernetics|feedback|stability/.test(raw)) {
+    return 'control-theory-cybernetics';
+  }
+  if (/语义|语法|语用|linguistic|semantics|syntax|pragmatic/.test(raw)) {
+    return 'linguistics';
+  }
+  if (/神经|neuro|brain|memory/.test(raw)) {
+    return 'neuroscience';
+  }
+  if (/心理|cognitive|behavior|bias|motivation/.test(raw)) {
+    return 'psychology';
+  }
+  if (/经济|finance|market|risk|quant/.test(raw)) {
+    return 'economics';
+  }
+  if (/数学|math|algebra|probability|optimization|信息论/.test(raw)) {
+    return 'mathematics';
+  }
+  if (/物理|physics|dynamics|electromagnet|maxwell/.test(raw)) {
+    return 'physics';
+  }
+  if (direct && KNOWLEDGE_INDEX_DOMAINS.has(direct)) {
+    return direct;
+  }
+  return 'computer-science';
 }
 
 function today() {
@@ -89,18 +161,21 @@ function buildGraphs(sourceTree, relationTypes) {
   for (const book of sourceTree.books || []) {
     const bookNodeId = `book:${book.id}`;
     const bookTitleI18n = asI18n(book.titleI18n ?? book.title, book.title);
+    const bookDomain = inferTaxonomyDomain({ book });
     bookNodes.push({
       id: bookNodeId,
       rawId: book.id,
       titleI18n: bookTitleI18n,
       title: pickLang(bookTitleI18n, 'zh'),
       type: 'book',
-      discipline: book.discipline
+      discipline: book.discipline,
+      taxonomyDomain: bookDomain
     });
 
     for (const chapter of book.chapters || []) {
       const chapterNodeId = `chapter:${chapter.id}`;
       const chapterTitleI18n = asI18n(chapter.titleI18n ?? chapter.title, chapter.title);
+      const chapterDomain = inferTaxonomyDomain({ book, chapter });
       bookNodes.push({
         id: chapterNodeId,
         rawId: chapter.id,
@@ -108,6 +183,7 @@ function buildGraphs(sourceTree, relationTypes) {
         title: pickLang(chapterTitleI18n, 'zh'),
         type: 'chapter',
         discipline: book.discipline,
+        taxonomyDomain: chapterDomain,
         bookId: book.id,
         bookTitleI18n,
         bookTitle: pickLang(bookTitleI18n, 'zh')
@@ -128,6 +204,7 @@ function buildGraphs(sourceTree, relationTypes) {
       for (const section of chapter.sections || []) {
         const sectionNodeId = `section:${section.id}`;
         const sectionTitleI18n = asI18n(section.titleI18n ?? section.title, section.title);
+        const sectionDomain = inferTaxonomyDomain({ book, chapter, section });
         bookNodes.push({
           id: sectionNodeId,
           rawId: section.id,
@@ -135,6 +212,7 @@ function buildGraphs(sourceTree, relationTypes) {
           title: pickLang(sectionTitleI18n, 'zh'),
           type: 'section',
           discipline: book.discipline,
+          taxonomyDomain: sectionDomain,
           bookId: book.id,
           bookTitleI18n,
           bookTitle: pickLang(bookTitleI18n, 'zh'),
@@ -159,6 +237,7 @@ function buildGraphs(sourceTree, relationTypes) {
           const knowledgeNodeId = `knowledge:${knowledge.id}`;
           const knowledgeTitleI18n = asI18n(knowledge.titleI18n ?? knowledge.title, knowledge.title);
           const knowledgeSummaryI18n = asI18n(knowledge.summaryI18n ?? knowledge.summary, knowledge.summary);
+          const knowledgeDomain = inferTaxonomyDomain({ book, chapter, section, knowledge });
 
           bookNodes.push({
             id: knowledgeNodeId,
@@ -170,6 +249,7 @@ function buildGraphs(sourceTree, relationTypes) {
             type: 'knowledge',
             knowledgeType: knowledge.type || 'concept',
             discipline: book.discipline,
+            taxonomyDomain: knowledgeDomain,
             bookId: book.id,
             bookTitleI18n,
             bookTitle: pickLang(bookTitleI18n, 'zh'),
@@ -205,6 +285,7 @@ function buildGraphs(sourceTree, relationTypes) {
             title: pickLang(knowledgeTitleI18n, 'zh'),
             type: knowledge.type || 'concept',
             discipline: book.discipline,
+            taxonomyDomain: knowledgeDomain,
             summaryI18n: knowledgeSummaryI18n,
             summary: pickLang(knowledgeSummaryI18n, 'zh'),
             difficulty: knowledge.difficulty || 'beginner',
@@ -259,6 +340,10 @@ function buildGraphs(sourceTree, relationTypes) {
 
   const nodeTypeSet = new Set(knowledgeNodes.map((n) => n.type));
   const edgeTypeSet = new Set(knowledgeEdges.map((e) => e.type));
+  const domainSet = new Set([
+    ...bookNodes.map((n) => n.taxonomyDomain).filter(Boolean),
+    ...knowledgeNodes.map((n) => n.taxonomyDomain).filter(Boolean)
+  ]);
 
   return {
     bookGraph: {
@@ -273,7 +358,8 @@ function buildGraphs(sourceTree, relationTypes) {
       books: (sourceTree.books || []).length,
       knowledgeNodes: knowledgeNodes.length,
       knowledgeEdgeTypes: [...edgeTypeSet].sort(),
-      knowledgeNodeTypes: [...nodeTypeSet].sort()
+      knowledgeNodeTypes: [...nodeTypeSet].sort(),
+      taxonomyDomains: [...domainSet].sort()
     },
     relationTypes
   };
