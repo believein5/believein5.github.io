@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "CSP00 Personal Knowledge Graph",
-    "version": "0.1.0",
-    "updatedAt": "2026-03-15",
+    "version": "0.2.0",
+    "updatedAt": "2026-03-16",
     "description": "A starter knowledge graph designed for both human reading and agent retrieval.",
     "language": "zh-CN",
     "owner": "csp00"
@@ -70,6 +70,190 @@
       "retrievalKeywords": ["css animation", "@keyframes", "transform-origin", "动画"],
       "projectLinks": ["HTML-files/Ferris-wheel.html", "HTML-files/Penguin.html"],
       "sourcePath": "graph/nodes/css-animation.md"
+    },
+    {
+      "id": "ai-what-is-ai",
+      "title": "What Is AI?",
+      "type": "concept",
+      "summary": "AI can be framed along two axes (human vs. rational, thought vs. behavior), yielding four classic approaches.",
+      "difficulty": "beginner",
+      "tags": ["ai", "definition", "rationality", "history"],
+      "aliases": ["什么是AI"],
+      "learningObjective": "Understand the four foundational perspectives used to define AI.",
+      "commonErrors": [
+        "Equating AI with machine learning only",
+        "Mixing human-like behavior with rational optimality"
+      ],
+      "verificationSteps": [
+        "Explain the two axes and produce four combinations",
+        "Distinguish acting rationally from thinking humanly"
+      ],
+      "retrievalKeywords": ["what is ai", "four approaches", "human vs rational", "thought vs behavior"],
+      "projectLinks": [],
+      "sourcePath": "graph/nodes/ai-what-is-ai.md"
+    },
+    {
+      "id": "ai-turing-test",
+      "title": "Turing Test Approach",
+      "type": "concept",
+      "summary": "A machine is judged intelligent if an interrogator cannot distinguish it from a human through text interaction.",
+      "difficulty": "intermediate",
+      "tags": ["ai", "turing test", "nlp", "reasoning"],
+      "aliases": ["图灵测试"],
+      "learningObjective": "Describe capabilities required by the Turing test and total Turing test.",
+      "commonErrors": [
+        "Treating Turing test as the only definition of intelligence",
+        "Ignoring perception/robotics in total Turing test"
+      ],
+      "verificationSteps": [
+        "List NLP, representation, reasoning, learning",
+        "Explain why total Turing test adds vision and robotics"
+      ],
+      "retrievalKeywords": ["turing test", "acting humanly", "total turing test"],
+      "projectLinks": [],
+      "sourcePath": "graph/nodes/ai-turing-test.md"
+    },
+    {
+      "id": "ai-rational-agent",
+      "title": "Rational Agent",
+      "type": "concept",
+      "summary": "A rational agent selects actions to achieve the best outcome or best expected outcome under uncertainty.",
+      "difficulty": "intermediate",
+      "tags": ["ai", "agent", "rationality", "decision-making"],
+      "aliases": ["理性智能体"],
+      "learningObjective": "Explain why the rational-agent model became the dominant AI framing.",
+      "commonErrors": [
+        "Assuming rational action always requires explicit logical inference",
+        "Confusing perfect rationality with practical bounded computation"
+      ],
+      "verificationSteps": [
+        "Compare laws-of-thought vs rational-agent approaches",
+        "Give an example where reflex is more rational than long deliberation"
+      ],
+      "retrievalKeywords": ["rational agent", "do the right thing", "expected outcome", "standard model"],
+      "projectLinks": [],
+      "sourcePath": "graph/nodes/ai-rational-agent.md"
+    },
+    {
+      "id": "ai-value-alignment",
+      "title": "Value Alignment Problem",
+      "type": "concept",
+      "summary": "Machine objectives must align with human preferences; otherwise capable systems can optimize for unintended behavior.",
+      "difficulty": "advanced",
+      "tags": ["ai", "alignment", "safety", "objective"],
+      "aliases": ["价值对齐问题"],
+      "learningObjective": "Understand why fixed objectives are often inadequate in real-world AI deployment.",
+      "commonErrors": [
+        "Believing objective misspecification is harmless at high capability",
+        "Assuming simulator fixes transfer safely to real-world deployment"
+      ],
+      "verificationSteps": [
+        "Use self-driving tradeoffs to explain alignment ambiguity",
+        "Explain why beneficial AI must remain uncertain about human objectives"
+      ],
+      "retrievalKeywords": ["value alignment", "beneficial machines", "objective misspecification", "provably beneficial"],
+      "projectLinks": [],
+      "sourcePath": "graph/nodes/ai-value-alignment.md"
+    },
+    {
+      "id": "src-aima-4e",
+      "title": "Artificial Intelligence: A Modern Approach (4th Edition)",
+      "type": "source",
+      "summary": "Core textbook source node for AI foundational concepts.",
+      "difficulty": "intermediate",
+      "tags": ["source", "book", "ai"],
+      "aliases": ["AIMA 4e"],
+      "learningObjective": "Track canonical textbook provenance for AI definitions.",
+      "commonErrors": [],
+      "verificationSteps": ["Cross-check chapter and section locators."],
+      "retrievalKeywords": ["aima", "russell norvig", "ai textbook"],
+      "projectLinks": [],
+      "sourcePath": "graph/sources/aima-4e.md",
+      "sourceType": "book",
+      "authors": ["Stuart Russell", "Peter Norvig"],
+      "year": 2021,
+      "publisher": "Pearson",
+      "edition": "4th"
+    },
+    {
+      "id": "src-aima-4e-ch1-sec1-1",
+      "title": "AIMA 4e Chapter 1 Section 1.1 What Is AI?",
+      "type": "source",
+      "summary": "Defines AI through four approaches and introduces rational-agent framing.",
+      "difficulty": "intermediate",
+      "tags": ["source", "book-section", "ai-definition"],
+      "aliases": ["AIMA 1.1"],
+      "learningObjective": "Provide fine-grained textual evidence for AI foundational nodes.",
+      "commonErrors": [],
+      "verificationSteps": ["Validate locator Chapter 1, Section 1.1."],
+      "retrievalKeywords": ["what is ai", "section 1.1", "rationality"],
+      "projectLinks": [],
+      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.md",
+      "sourceType": "book-section",
+      "parentSource": "src-aima-4e",
+      "chapter": "1",
+      "section": "1.1",
+      "locator": "Chapter 1, Section 1.1"
+    },
+    {
+      "id": "src-aima-4e-ch1-sec1-1-1",
+      "title": "AIMA 4e 1.1.1 Acting Humanly: Turing Test",
+      "type": "source",
+      "summary": "Introduces Turing test and capability requirements including NLP, reasoning and learning.",
+      "difficulty": "intermediate",
+      "tags": ["source", "book-section", "turing-test"],
+      "aliases": ["AIMA 1.1.1"],
+      "learningObjective": "Anchor Turing-test knowledge to explicit textbook passage.",
+      "commonErrors": [],
+      "verificationSteps": ["Validate locator Chapter 1, 1.1.1."],
+      "retrievalKeywords": ["acting humanly", "turing test", "total turing test"],
+      "projectLinks": [],
+      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.1.md",
+      "sourceType": "book-section",
+      "parentSource": "src-aima-4e-ch1-sec1-1",
+      "chapter": "1",
+      "section": "1.1.1",
+      "locator": "Chapter 1, Section 1.1.1"
+    },
+    {
+      "id": "src-aima-4e-ch1-sec1-1-4",
+      "title": "AIMA 4e 1.1.4 Acting Rationally: Rational Agent",
+      "type": "source",
+      "summary": "Defines rational agent and explains why this approach became dominant.",
+      "difficulty": "advanced",
+      "tags": ["source", "book-section", "rational-agent"],
+      "aliases": ["AIMA 1.1.4"],
+      "learningObjective": "Ground rational-agent node in canonical source.",
+      "commonErrors": [],
+      "verificationSteps": ["Validate locator Chapter 1, 1.1.4."],
+      "retrievalKeywords": ["acting rationally", "rational agent", "standard model"],
+      "projectLinks": [],
+      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.4.md",
+      "sourceType": "book-section",
+      "parentSource": "src-aima-4e-ch1-sec1-1",
+      "chapter": "1",
+      "section": "1.1.4",
+      "locator": "Chapter 1, Section 1.1.4"
+    },
+    {
+      "id": "src-aima-4e-ch1-sec1-1-5",
+      "title": "AIMA 4e 1.1.5 Beneficial Machines",
+      "type": "source",
+      "summary": "Introduces value alignment and argues for provably beneficial AI systems.",
+      "difficulty": "advanced",
+      "tags": ["source", "book-section", "value-alignment"],
+      "aliases": ["AIMA 1.1.5"],
+      "learningObjective": "Ground alignment and beneficial-machine concepts in primary source.",
+      "commonErrors": [],
+      "verificationSteps": ["Validate locator Chapter 1, 1.1.5."],
+      "retrievalKeywords": ["value alignment", "beneficial machines", "provably beneficial"],
+      "projectLinks": [],
+      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.5.md",
+      "sourceType": "book-section",
+      "parentSource": "src-aima-4e-ch1-sec1-1",
+      "chapter": "1",
+      "section": "1.1.5",
+      "locator": "Chapter 1, Section 1.1.5"
     },
     {
       "id": "project-cat-photo-gallery",
@@ -163,6 +347,69 @@
       "type": "validated_by",
       "reason": "The project demonstrates working knowledge of animation timing and transforms.",
       "weight": 0.9
+    },
+    {
+      "source": "ai-what-is-ai",
+      "target": "src-aima-4e-ch1-sec1-1",
+      "type": "defined_in",
+      "reason": "Section 1.1 introduces AI through four approach combinations.",
+      "weight": 1
+    },
+    {
+      "source": "ai-what-is-ai",
+      "target": "src-aima-4e",
+      "type": "supported_by",
+      "reason": "AIMA serves as the canonical textbook context.",
+      "weight": 0.86
+    },
+    {
+      "source": "ai-turing-test",
+      "target": "src-aima-4e-ch1-sec1-1-1",
+      "type": "defined_in",
+      "reason": "Subsection 1.1.1 defines the Turing test and required capabilities.",
+      "weight": 1
+    },
+    {
+      "source": "ai-turing-test",
+      "target": "src-aima-4e-ch1-sec1-1",
+      "type": "supported_by",
+      "reason": "The subsection is part of the four-approach framing in 1.1.",
+      "weight": 0.83
+    },
+    {
+      "source": "ai-rational-agent",
+      "target": "src-aima-4e-ch1-sec1-1-4",
+      "type": "defined_in",
+      "reason": "Subsection 1.1.4 explicitly defines rational agent and expected outcome criterion.",
+      "weight": 1
+    },
+    {
+      "source": "ai-rational-agent",
+      "target": "src-aima-4e-ch1-sec1-1",
+      "type": "cited_from",
+      "reason": "General framing of rationality in Section 1.1 supports interpretation.",
+      "weight": 0.8
+    },
+    {
+      "source": "ai-value-alignment",
+      "target": "src-aima-4e-ch1-sec1-1-5",
+      "type": "defined_in",
+      "reason": "Subsection 1.1.5 introduces value alignment and beneficial-machine framing.",
+      "weight": 1
+    },
+    {
+      "source": "ai-value-alignment",
+      "target": "src-aima-4e-ch1-sec1-1-5",
+      "type": "cited_from",
+      "reason": "Examples such as self-driving tradeoffs are cited from this subsection.",
+      "weight": 0.95
+    },
+    {
+      "source": "ai-value-alignment",
+      "target": "ai-rational-agent",
+      "type": "related_to",
+      "reason": "Alignment extends the standard rational-agent objective formulation.",
+      "weight": 0.78
     }
   ]
 }

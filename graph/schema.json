@@ -55,7 +55,8 @@
             "project",
             "bug-pattern",
             "tooling",
-            "reference"
+            "reference",
+            "source"
           ]
         },
         "summary": { "type": "string" },
@@ -114,7 +115,10 @@
             "example_of",
             "related_to",
             "confused_with",
-            "validated_by"
+            "validated_by",
+            "supported_by",
+            "defined_in",
+            "cited_from"
           ]
         },
         "reason": { "type": "string" },

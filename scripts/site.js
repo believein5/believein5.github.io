@@ -21,10 +21,14 @@ const KnowledgeGraphSite = (() => {
       commonErrors: '常见错误',
       verificationSteps: '验证步骤',
       relatedEvidence: '关联项目证据',
+      definitionSource: '定义来源',
+      supportingSources: '支撑来源',
+      citedSources: '引用来源',
       sourceNode: '节点源文件',
       openMarkdown: '打开 Markdown 节点',
       noneRecorded: '暂无记录。',
       noEvidence: '暂无关联项目证据。',
+      noSourceRefs: '暂无来源记录。',
       noNodesFound: '没有找到节点，请尝试更宽泛的关键词。',
       graphLoadError: '暂时无法加载图谱数据。',
       aliases: '别名',
@@ -43,10 +47,14 @@ const KnowledgeGraphSite = (() => {
       commonErrors: 'Common errors',
       verificationSteps: 'Verification steps',
       relatedEvidence: 'Related project evidence',
+      definitionSource: 'Definition sources',
+      supportingSources: 'Supporting sources',
+      citedSources: 'Cited sources',
       sourceNode: 'Source node file',
       openMarkdown: 'Open Markdown node',
       noneRecorded: 'None recorded yet.',
       noEvidence: 'No linked project evidence yet.',
+      noSourceRefs: 'No source references yet.',
       noNodesFound: 'No nodes found. Try a broader keyword.',
       graphLoadError: 'Unable to load graph data right now.',
       aliases: 'Aliases',
@@ -335,7 +343,12 @@ const KnowledgeGraphSite = (() => {
       return;
     }
 
-    const nodes = graph.nodes.filter((node) => node.type !== 'project');
+    const nodes = graph.nodes.filter((node) => node.type !== 'project' && node.type !== 'source');
+    const sourceNodeMap = new Map(
+      graph.nodes
+        .filter((node) => node.type === 'source')
+        .map((node) => [node.id, node])
+    );
     const list = root.querySelector('[data-node-list]');
     const detail = root.querySelector('[data-node-detail]');
     const input = root.querySelector('[data-node-search]');
@@ -355,6 +368,32 @@ const KnowledgeGraphSite = (() => {
         detail.innerHTML = `<div class="empty-state">${t('noMatchNode')}</div>`;
         return;
       }
+
+      const formatSourceItem = (source, relationReason) => {
+        const locator = source.locator || [source.chapter && `Ch.${source.chapter}`, source.section && `Sec.${source.section}`].filter(Boolean).join(' · ');
+        const authorInfo = Array.isArray(source.authors) ? source.authors.join(', ') : '';
+        const meta = [authorInfo, source.year, locator].filter(Boolean).join(' · ');
+        const path = source.sourcePath ? `<a class="inline-link" href="${escapeHtml(source.sourcePath)}">${t('openMarkdown')} <span aria-hidden="true">→</span></a>` : '';
+        return `
+          <li>
+            <strong>${escapeHtml(source.title || source.id)}</strong>
+            ${meta ? `<p class="muted">${escapeHtml(meta)}</p>` : ''}
+            ${relationReason ? `<p class="muted">${escapeHtml(relationReason)}</p>` : ''}
+            ${path}
+          </li>
+        `;
+      };
+
+      const sourceByRelation = (relationType) => {
+        return graph.edges
+          .filter((edge) => edge.source === node.id && edge.type === relationType)
+          .map((edge) => ({ source: sourceNodeMap.get(edge.target), reason: edge.reason }))
+          .filter((item) => Boolean(item.source));
+      };
+
+      const definedIn = sourceByRelation('defined_in');
+      const supportedBy = sourceByRelation('supported_by');
+      const citedFrom = sourceByRelation('cited_from');
 
       const projectLinks = (node.projectLinks || []).map((link) => `<li><a href="${escapeHtml(link)}">${escapeHtml(link)}</a></li>`).join('');
       const tags = (node.tags || []).map((tag) => `<span class="badge">${escapeHtml(tag)}</span>`).join('');
@@ -385,6 +424,18 @@ const KnowledgeGraphSite = (() => {
         <div class="detail-section">
           <h4>${t('relatedEvidence')}</h4>
           <ul class="link-list">${projectLinks || `<li class="muted">${t('noEvidence')}</li>`}</ul>
+        </div>
+        <div class="detail-section">
+          <h4>${t('definitionSource')}</h4>
+          <ul class="mini-list">${definedIn.map((item) => formatSourceItem(item.source, item.reason)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
+        </div>
+        <div class="detail-section">
+          <h4>${t('supportingSources')}</h4>
+          <ul class="mini-list">${supportedBy.map((item) => formatSourceItem(item.source, item.reason)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
+        </div>
+        <div class="detail-section">
+          <h4>${t('citedSources')}</h4>
+          <ul class="mini-list">${citedFrom.map((item) => formatSourceItem(item.source, item.reason)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
         </div>
         <div class="detail-section">
           <h4>${t('sourceNode')}</h4>
