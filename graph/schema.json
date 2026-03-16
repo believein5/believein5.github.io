@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.local/knowledge-graph.schema.json",
-  "title": "Personal Knowledge Graph Schema",
-  "description": "Schema for a human-readable and agent-trainable personal knowledge graph.",
+  "title": "Dual-View Knowledge Graph Schema",
+  "description": "Schema for generated graph payload with book hierarchy view and knowledge relation view.",
   "type": "object",
-  "required": ["meta", "nodes", "edges"],
+  "required": ["meta", "views"],
   "properties": {
     "meta": {
       "type": "object",
@@ -19,47 +19,71 @@
       },
       "additionalProperties": true
     },
-    "nodes": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/node" }
+    "sourceRef": {
+      "type": "object",
+      "properties": {
+        "file": { "type": "string" },
+        "relationTypeFile": { "type": "string" }
+      },
+      "additionalProperties": true
     },
-    "edges": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/edge" }
+    "relationTypes": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "stats": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "views": {
+      "type": "object",
+      "required": ["book", "knowledge"],
+      "properties": {
+        "book": { "$ref": "#/$defs/view" },
+        "knowledge": { "$ref": "#/$defs/view" }
+      }
     }
   },
   "$defs": {
+    "view": {
+      "type": "object",
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/node" }
+        },
+        "edges": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/edge" }
+        }
+      }
+    },
     "node": {
       "type": "object",
-      "required": [
-        "id",
-        "title",
-        "type",
-        "summary",
-        "tags",
-        "difficulty",
-        "learningObjective",
-        "retrievalKeywords"
-      ],
+      "required": ["id", "title", "type"],
       "properties": {
-        "id": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$"
-        },
+        "id": { "type": "string" },
+        "rawId": { "type": "string" },
         "title": { "type": "string" },
         "type": {
           "type": "string",
           "enum": [
+            "book",
+            "chapter",
+            "section",
+            "knowledge",
             "concept",
-            "skill",
-            "project",
-            "bug-pattern",
-            "tooling",
-            "reference",
-            "source"
+            "method",
+            "law",
+            "theory",
+            "algorithm",
+            "model"
           ]
         },
         "summary": { "type": "string" },
+        "discipline": { "type": "string" },
+        "knowledgeType": { "type": "string" },
         "difficulty": {
           "type": "string",
           "enum": ["beginner", "intermediate", "advanced"]
@@ -72,24 +96,27 @@
           "type": "array",
           "items": { "type": "string" }
         },
-        "learningObjective": { "type": "string" },
-        "commonErrors": {
+        "provenanceLinks": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "object",
+            "required": ["type", "bookTitle", "chapter", "section"],
+            "properties": {
+              "type": { "type": "string", "enum": ["defined_in", "cite_from", "support"] },
+              "bookId": { "type": "string" },
+              "bookTitle": { "type": "string" },
+              "chapter": { "type": "string" },
+              "section": { "type": "string" },
+              "link": { "type": "string" }
+            }
+          }
         },
-        "verificationSteps": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "retrievalKeywords": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "projectLinks": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "sourcePath": { "type": "string" }
+        "bookId": { "type": "string" },
+        "bookTitle": { "type": "string" },
+        "chapterId": { "type": "string" },
+        "chapterTitle": { "type": "string" },
+        "sectionId": { "type": "string" },
+        "sectionTitle": { "type": "string" }
       },
       "additionalProperties": true
     },
@@ -97,31 +124,11 @@
       "type": "object",
       "required": ["source", "target", "type", "reason"],
       "properties": {
-        "source": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$"
-        },
-        "target": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "prerequisite_of",
-            "builds",
-            "applies_to",
-            "implements",
-            "example_of",
-            "related_to",
-            "confused_with",
-            "validated_by",
-            "supported_by",
-            "defined_in",
-            "cited_from"
-          ]
-        },
+        "source": { "type": "string" },
+        "target": { "type": "string" },
+        "type": { "type": "string" },
         "reason": { "type": "string" },
+        "domain": { "type": "string" },
         "weight": {
           "type": "number",
           "minimum": 0,

@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "Knowledge Relation Taxonomy",
+    "version": "1.0.0",
+    "updatedAt": "2026-03-16",
+    "description": "General and discipline-specific edge definitions for knowledge graph construction."
+  },
+  "provenanceRelations": [
+    {
+      "type": "defined_in",
+      "description": "Knowledge is formally defined in a source section.",
+      "display": "tooltip-only",
+      "direction": "knowledge -> source"
+    },
+    {
+      "type": "cite_from",
+      "description": "Knowledge statement cites a source section.",
+      "display": "tooltip-only",
+      "direction": "knowledge -> source"
+    },
+    {
+      "type": "support",
+      "description": "Knowledge is supported by source evidence.",
+      "display": "tooltip-only",
+      "direction": "knowledge -> source"
+    }
+  ],
+  "commonRelations": [
+    {
+      "type": "prerequisite_of",
+      "description": "A is required before learning or applying B.",
+      "direction": "A -> B",
+      "transitive": true
+    },
+    {
+      "type": "related_to",
+      "description": "A and B are semantically related.",
+      "direction": "undirected",
+      "symmetric": true
+    },
+    {
+      "type": "equivalent_to",
+      "description": "A and B are conceptually equivalent.",
+      "direction": "undirected",
+      "symmetric": true
+    },
+    {
+      "type": "derives_from",
+      "description": "A is derived from B.",
+      "direction": "A -> B"
+    },
+    {
+      "type": "analyzes",
+      "description": "A is used to analyze B.",
+      "direction": "A -> B"
+    },
+    {
+      "type": "analyzed_by",
+      "description": "A is analyzed by B.",
+      "direction": "A -> B"
+    },
+    {
+      "type": "models",
+      "description": "A provides a model basis for B.",
+      "direction": "A -> B"
+    }
+  ],
+  "disciplineRelations": {
+    "mathematics": [
+      {
+        "type": "proves",
+        "description": "A proves theorem/statement B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "transforms_to",
+        "description": "A can be transformed into B under valid rules.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "applies_under",
+        "description": "A holds under condition B.",
+        "direction": "A -> B"
+      }
+    ],
+    "physics": [
+      {
+        "type": "causes",
+        "description": "A causally leads to B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "valid_in",
+        "description": "A is valid in regime/domain B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "verified_by",
+        "description": "A is experimentally verified by B.",
+        "direction": "A -> B"
+      }
+    ],
+    "computer-science": [
+      {
+        "type": "implements",
+        "description": "A implements method/specification B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "depends_on",
+        "description": "A depends on B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "optimizes",
+        "description": "A optimizes or trains B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "calls",
+        "description": "A calls B during execution.",
+        "direction": "A -> B"
+      }
+    ]
+  }
+}

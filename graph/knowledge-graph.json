@@ -1,668 +1,1025 @@
 {
   "meta": {
-    "title": "CSP00 Personal Knowledge Graph",
-    "version": "0.2.1",
+    "title": "Knowledge Graph Views",
+    "version": "0.2.2",
     "updatedAt": "2026-03-16",
-    "description": "A starter knowledge graph designed for both human reading and agent retrieval.",
-    "language": "zh-CN",
-    "owner": "csp00"
+    "description": "Generated graph data containing book hierarchy view and knowledge relation view.",
+    "language": "zh-CN"
   },
-  "nodes": [
-    {
-      "id": "semantic-html",
-      "title": "Semantic HTML",
-      "type": "concept",
-      "summary": "Use meaningful HTML elements to improve structure, accessibility, and machine understanding.",
-      "difficulty": "beginner",
-      "tags": [
-        "html",
-        "semantics",
-        "accessibility"
-      ],
-      "aliases": [
-        "语义化 HTML"
-      ],
-      "learningObjective": "Be able to choose appropriate HTML elements for content sections, forms, and media.",
-      "commonErrors": [
-        "Using div for headings, sections, and navigation",
-        "Missing labels and alt text"
-      ],
-      "verificationSteps": [
-        "Check whether headings and sections form a clear document outline",
-        "Check whether form controls have labels"
-      ],
-      "retrievalKeywords": [
-        "semantic html",
-        "语义化html",
-        "header main section article"
-      ],
-      "projectLinks": [
-        "HTML-files/Cat-photos.html",
-        "HTML-files/Quiz.html"
-      ],
-      "sourcePath": "graph/nodes/semantic-html.md"
+  "sourceRef": {
+    "file": "graph/source.json",
+    "relationTypeFile": "graph/relation-types.json"
+  },
+  "relationTypes": {
+    "meta": {
+      "title": "Knowledge Relation Taxonomy",
+      "version": "1.0.0",
+      "updatedAt": "2026-03-16",
+      "description": "General and discipline-specific edge definitions for knowledge graph construction."
     },
-    {
-      "id": "css-flexbox",
-      "title": "CSS Flexbox",
-      "type": "skill",
-      "summary": "A one-dimensional layout system for alignment, spacing, and wrapping.",
-      "difficulty": "beginner",
-      "tags": [
-        "css",
-        "layout",
-        "flexbox"
-      ],
-      "aliases": [
-        "弹性布局"
-      ],
-      "learningObjective": "Build responsive rows and galleries with flex containers and flex items.",
-      "commonErrors": [
-        "Setting flex properties on the wrong element",
-        "Confusing justify-content with align-items"
-      ],
-      "verificationSteps": [
-        "Resize the viewport and confirm the layout wraps correctly",
-        "Check horizontal and vertical alignment independently"
-      ],
-      "retrievalKeywords": [
-        "css flexbox",
-        "flex-wrap",
-        "justify-content",
-        "align-items"
-      ],
-      "projectLinks": [
-        "HTML-files/Cat-photoGallery.html"
-      ],
-      "sourcePath": "graph/nodes/css-flexbox.md"
-    },
-    {
-      "id": "css-animation",
-      "title": "CSS Animation",
-      "type": "skill",
-      "summary": "Animate UI elements and CSS art using keyframes, transforms, and timing functions.",
-      "difficulty": "intermediate",
-      "tags": [
-        "css",
-        "animation",
-        "transform"
-      ],
-      "aliases": [
-        "CSS 动画"
-      ],
-      "learningObjective": "Create continuous and state-based animations for decorative or instructional interfaces.",
-      "commonErrors": [
-        "Animating layout properties instead of transform when possible",
-        "Forgetting transform-origin"
-      ],
-      "verificationSteps": [
-        "Confirm the motion is smooth and loops as expected",
-        "Verify the animation still makes sense when reduced motion is preferred"
-      ],
-      "retrievalKeywords": [
-        "css animation",
-        "@keyframes",
-        "transform-origin",
-        "动画"
-      ],
-      "projectLinks": [
-        "HTML-files/Ferris-wheel.html",
-        "HTML-files/Penguin.html"
-      ],
-      "sourcePath": "graph/nodes/css-animation.md"
-    },
-    {
-      "id": "ai-what-is-ai",
-      "title": "What Is AI?",
-      "type": "concept",
-      "summary": "AI can be framed along two axes (human vs. rational, thought vs. behavior), yielding four classic approaches.",
-      "difficulty": "beginner",
-      "tags": [
-        "ai",
-        "definition",
-        "rationality",
-        "history"
-      ],
-      "aliases": [
-        "什么是AI"
-      ],
-      "learningObjective": "Understand the four foundational perspectives used to define AI.",
-      "commonErrors": [
-        "Equating AI with machine learning only",
-        "Mixing human-like behavior with rational optimality"
-      ],
-      "verificationSteps": [
-        "Explain the two axes and produce four combinations",
-        "Distinguish acting rationally from thinking humanly"
-      ],
-      "retrievalKeywords": [
-        "what is ai",
-        "four approaches",
-        "human vs rational",
-        "thought vs behavior"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/nodes/ai-what-is-ai.md"
-    },
-    {
-      "id": "ai-turing-test",
-      "title": "Turing Test Approach",
-      "type": "concept",
-      "summary": "A machine is judged intelligent if an interrogator cannot distinguish it from a human through text interaction.",
-      "difficulty": "intermediate",
-      "tags": [
-        "ai",
-        "turing test",
-        "nlp",
-        "reasoning"
-      ],
-      "aliases": [
-        "图灵测试"
-      ],
-      "learningObjective": "Describe capabilities required by the Turing test and total Turing test.",
-      "commonErrors": [
-        "Treating Turing test as the only definition of intelligence",
-        "Ignoring perception/robotics in total Turing test"
-      ],
-      "verificationSteps": [
-        "List NLP, representation, reasoning, learning",
-        "Explain why total Turing test adds vision and robotics"
-      ],
-      "retrievalKeywords": [
-        "turing test",
-        "acting humanly",
-        "total turing test"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/nodes/ai-turing-test.md"
-    },
-    {
-      "id": "ai-rational-agent",
-      "title": "Rational Agent",
-      "type": "concept",
-      "summary": "A rational agent selects actions to achieve the best outcome or best expected outcome under uncertainty.",
-      "difficulty": "intermediate",
-      "tags": [
-        "ai",
-        "agent",
-        "rationality",
-        "decision-making"
-      ],
-      "aliases": [
-        "理性智能体"
-      ],
-      "learningObjective": "Explain why the rational-agent model became the dominant AI framing.",
-      "commonErrors": [
-        "Assuming rational action always requires explicit logical inference",
-        "Confusing perfect rationality with practical bounded computation"
-      ],
-      "verificationSteps": [
-        "Compare laws-of-thought vs rational-agent approaches",
-        "Give an example where reflex is more rational than long deliberation"
-      ],
-      "retrievalKeywords": [
-        "rational agent",
-        "do the right thing",
-        "expected outcome",
-        "standard model"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/nodes/ai-rational-agent.md"
-    },
-    {
-      "id": "ai-value-alignment",
-      "title": "Value Alignment Problem",
-      "type": "concept",
-      "summary": "Machine objectives must align with human preferences; otherwise capable systems can optimize for unintended behavior.",
-      "difficulty": "advanced",
-      "tags": [
-        "ai",
-        "alignment",
-        "safety",
-        "objective"
-      ],
-      "aliases": [
-        "价值对齐问题"
-      ],
-      "learningObjective": "Understand why fixed objectives are often inadequate in real-world AI deployment.",
-      "commonErrors": [
-        "Believing objective misspecification is harmless at high capability",
-        "Assuming simulator fixes transfer safely to real-world deployment"
-      ],
-      "verificationSteps": [
-        "Use self-driving tradeoffs to explain alignment ambiguity",
-        "Explain why beneficial AI must remain uncertain about human objectives"
-      ],
-      "retrievalKeywords": [
-        "value alignment",
-        "beneficial machines",
-        "objective misspecification",
-        "provably beneficial"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/nodes/ai-value-alignment.md"
-    },
-    {
-      "id": "src-aima-4e",
-      "title": "Artificial Intelligence: A Modern Approach (4th Edition)",
-      "type": "source",
-      "summary": "Core textbook source node for AI foundational concepts.",
-      "difficulty": "intermediate",
-      "tags": [
-        "source",
-        "book",
-        "ai"
-      ],
-      "aliases": [
-        "AIMA 4e"
-      ],
-      "learningObjective": "Track canonical textbook provenance for AI definitions.",
-      "commonErrors": [],
-      "verificationSteps": [
-        "Cross-check chapter and section locators."
-      ],
-      "retrievalKeywords": [
-        "aima",
-        "russell norvig",
-        "ai textbook"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/sources/aima-4e.md",
-      "sourceType": "book",
-      "authors": [
-        "Stuart Russell",
-        "Peter Norvig"
-      ],
-      "year": 2021,
-      "publisher": "Pearson",
-      "edition": "4th"
-    },
-    {
-      "id": "src-aima-4e-ch1-sec1-1",
-      "title": "AIMA 4e Chapter 1 Section 1.1 What Is AI?",
-      "type": "source",
-      "summary": "Defines AI through four approaches and introduces rational-agent framing.",
-      "difficulty": "intermediate",
-      "tags": [
-        "source",
-        "book-section",
-        "ai-definition"
-      ],
-      "aliases": [
-        "AIMA 1.1"
-      ],
-      "learningObjective": "Provide fine-grained textual evidence for AI foundational nodes.",
-      "commonErrors": [],
-      "verificationSteps": [
-        "Validate locator Chapter 1, Section 1.1."
-      ],
-      "retrievalKeywords": [
-        "what is ai",
-        "section 1.1",
-        "rationality"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.md",
-      "sourceType": "book-section",
-      "parentSource": "src-aima-4e",
-      "chapter": "1",
-      "section": "1.1",
-      "locator": "Chapter 1, Section 1.1"
-    },
-    {
-      "id": "src-aima-4e-ch1-sec1-1-1",
-      "title": "AIMA 4e 1.1.1 Acting Humanly: Turing Test",
-      "type": "source",
-      "summary": "Introduces Turing test and capability requirements including NLP, reasoning and learning.",
-      "difficulty": "intermediate",
-      "tags": [
-        "source",
-        "book-section",
-        "turing-test"
-      ],
-      "aliases": [
-        "AIMA 1.1.1"
-      ],
-      "learningObjective": "Anchor Turing-test knowledge to explicit textbook passage.",
-      "commonErrors": [],
-      "verificationSteps": [
-        "Validate locator Chapter 1, 1.1.1."
-      ],
-      "retrievalKeywords": [
-        "acting humanly",
-        "turing test",
-        "total turing test"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.1.md",
-      "sourceType": "book-section",
-      "parentSource": "src-aima-4e-ch1-sec1-1",
-      "chapter": "1",
-      "section": "1.1.1",
-      "locator": "Chapter 1, Section 1.1.1"
-    },
-    {
-      "id": "src-aima-4e-ch1-sec1-1-4",
-      "title": "AIMA 4e 1.1.4 Acting Rationally: Rational Agent",
-      "type": "source",
-      "summary": "Defines rational agent and explains why this approach became dominant.",
-      "difficulty": "advanced",
-      "tags": [
-        "source",
-        "book-section",
-        "rational-agent"
-      ],
-      "aliases": [
-        "AIMA 1.1.4"
-      ],
-      "learningObjective": "Ground rational-agent node in canonical source.",
-      "commonErrors": [],
-      "verificationSteps": [
-        "Validate locator Chapter 1, 1.1.4."
-      ],
-      "retrievalKeywords": [
-        "acting rationally",
-        "rational agent",
-        "standard model"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.4.md",
-      "sourceType": "book-section",
-      "parentSource": "src-aima-4e-ch1-sec1-1",
-      "chapter": "1",
-      "section": "1.1.4",
-      "locator": "Chapter 1, Section 1.1.4"
-    },
-    {
-      "id": "src-aima-4e-ch1-sec1-1-5",
-      "title": "AIMA 4e 1.1.5 Beneficial Machines",
-      "type": "source",
-      "summary": "Introduces value alignment and argues for provably beneficial AI systems.",
-      "difficulty": "advanced",
-      "tags": [
-        "source",
-        "book-section",
-        "value-alignment"
-      ],
-      "aliases": [
-        "AIMA 1.1.5"
-      ],
-      "learningObjective": "Ground alignment and beneficial-machine concepts in primary source.",
-      "commonErrors": [],
-      "verificationSteps": [
-        "Validate locator Chapter 1, 1.1.5."
-      ],
-      "retrievalKeywords": [
-        "value alignment",
-        "beneficial machines",
-        "provably beneficial"
-      ],
-      "projectLinks": [],
-      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.5.md",
-      "sourceType": "book-section",
-      "parentSource": "src-aima-4e-ch1-sec1-1",
-      "chapter": "1",
-      "section": "1.1.5",
-      "locator": "Chapter 1, Section 1.1.5"
-    },
-    {
-      "id": "project-cat-photo-gallery",
-      "title": "Cat Photo Gallery",
-      "type": "project",
-      "summary": "A gallery project used to practice flexbox, image sizing, and wrapping behavior.",
-      "difficulty": "beginner",
-      "tags": [
-        "project",
-        "html",
-        "css",
-        "gallery"
-      ],
-      "aliases": [
-        "猫咪图片画廊"
-      ],
-      "learningObjective": "Connect layout knowledge to a concrete visual gallery page.",
-      "commonErrors": [
-        "Images stretching because width and height are not constrained",
-        "Items not wrapping on small screens"
-      ],
-      "verificationSteps": [
-        "Open the page and resize the viewport",
-        "Check that gallery items keep consistent proportions"
-      ],
-      "retrievalKeywords": [
-        "cat photo gallery",
-        "gallery project",
-        "图片画廊"
-      ],
-      "projectLinks": [
-        "HTML-files/Cat-photoGallery.html"
-      ],
-      "sourcePath": "graph/nodes/project-cat-photo-gallery.md"
-    },
-    {
-      "id": "project-ferris-wheel",
-      "title": "Ferris Wheel",
-      "type": "project",
-      "summary": "A CSS animation project that demonstrates rotation, timing, and transform-based motion.",
-      "difficulty": "intermediate",
-      "tags": [
-        "project",
-        "css",
-        "animation"
-      ],
-      "aliases": [
-        "摩天轮动画"
-      ],
-      "learningObjective": "Translate animation principles into a playful, inspectable artifact.",
-      "commonErrors": [
-        "Cabins rotating incorrectly",
-        "Incorrect absolute positioning for spokes and cabins"
-      ],
-      "verificationSteps": [
-        "Ensure the wheel rotates continuously",
-        "Check whether cabins maintain a readable orientation"
-      ],
-      "retrievalKeywords": [
-        "ferris wheel",
-        "摩天轮",
-        "keyframes demo"
-      ],
-      "projectLinks": [
-        "HTML-files/Ferris-wheel.html"
-      ],
-      "sourcePath": "graph/nodes/project-ferris-wheel.md"
-    },
-    {
-      "id": "ai-cognitive-modeling",
-      "title": "Thinking Humanly: Cognitive Modeling",
-      "type": "concept",
-      "summary": "Model human thought by combining introspection, experiments and brain imaging with computational theories.",
-      "difficulty": "intermediate",
-      "tags": [
-        "ai",
-        "cognitive science"
-      ],
-      "aliases": [
-        "认知建模"
-      ],
-      "learningObjective": "Explain how cognitive science and AI co-develop via testable models.",
-      "commonErrors": [
-        "Confusing good task performance with cognitive plausibility"
-      ],
-      "verificationSteps": [
-        "Compare model reasoning trace with human subject behavior"
-      ],
-      "retrievalKeywords": [
-        "cognitive modeling",
-        "thinking humanly",
-        "newell simon"
-      ],
-      "sourcePath": "graph/nodes/ai-cognitive-modeling.md",
-      "projectLinks": []
-    },
-    {
-      "id": "src-aima-4e-ch1-sec1-1-2",
-      "title": "AIMA 4e 1.1.2 Thinking Humanly: The Cognitive Modeling Approach",
-      "summary": "Describes cognitive science methods and relation to AI models.",
-      "sourceType": "book-section",
-      "parentSource": "src-aima-4e-ch1-sec1-1",
-      "chapter": "1",
-      "section": "1.1.2",
-      "locator": "Chapter 1, Section 1.1.2",
-      "authors": [
-        "Stuart Russell",
-        "Peter Norvig"
-      ],
-      "year": 2021,
-      "publisher": "Pearson",
-      "tags": [
-        "source",
-        "book-section",
-        "cognitive-science"
-      ],
-      "retrievalKeywords": [
-        "thinking humanly",
-        "cognitive modeling",
-        "aima 1.1.2"
-      ],
-      "sourcePath": "graph/sources/aima-4e-ch1-sec1.1.2.md",
-      "type": "source",
-      "difficulty": "intermediate",
-      "aliases": [],
-      "learningObjective": "Track provenance for knowledge claims.",
-      "commonErrors": [],
-      "verificationSteps": [
-        "Check source locator and bibliographic metadata."
-      ],
-      "projectLinks": []
+    "provenanceRelations": [
+      {
+        "type": "defined_in",
+        "description": "Knowledge is formally defined in a source section.",
+        "display": "tooltip-only",
+        "direction": "knowledge -> source"
+      },
+      {
+        "type": "cite_from",
+        "description": "Knowledge statement cites a source section.",
+        "display": "tooltip-only",
+        "direction": "knowledge -> source"
+      },
+      {
+        "type": "support",
+        "description": "Knowledge is supported by source evidence.",
+        "display": "tooltip-only",
+        "direction": "knowledge -> source"
+      }
+    ],
+    "commonRelations": [
+      {
+        "type": "prerequisite_of",
+        "description": "A is required before learning or applying B.",
+        "direction": "A -> B",
+        "transitive": true
+      },
+      {
+        "type": "related_to",
+        "description": "A and B are semantically related.",
+        "direction": "undirected",
+        "symmetric": true
+      },
+      {
+        "type": "equivalent_to",
+        "description": "A and B are conceptually equivalent.",
+        "direction": "undirected",
+        "symmetric": true
+      },
+      {
+        "type": "derives_from",
+        "description": "A is derived from B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "analyzes",
+        "description": "A is used to analyze B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "analyzed_by",
+        "description": "A is analyzed by B.",
+        "direction": "A -> B"
+      },
+      {
+        "type": "models",
+        "description": "A provides a model basis for B.",
+        "direction": "A -> B"
+      }
+    ],
+    "disciplineRelations": {
+      "mathematics": [
+        {
+          "type": "proves",
+          "description": "A proves theorem/statement B.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "transforms_to",
+          "description": "A can be transformed into B under valid rules.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "applies_under",
+          "description": "A holds under condition B.",
+          "direction": "A -> B"
+        }
+      ],
+      "physics": [
+        {
+          "type": "causes",
+          "description": "A causally leads to B.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "valid_in",
+          "description": "A is valid in regime/domain B.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "verified_by",
+          "description": "A is experimentally verified by B.",
+          "direction": "A -> B"
+        }
+      ],
+      "computer-science": [
+        {
+          "type": "implements",
+          "description": "A implements method/specification B.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "depends_on",
+          "description": "A depends on B.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "optimizes",
+          "description": "A optimizes or trains B.",
+          "direction": "A -> B"
+        },
+        {
+          "type": "calls",
+          "description": "A calls B during execution.",
+          "direction": "A -> B"
+        }
+      ]
     }
-  ],
-  "edges": [
-    {
-      "source": "semantic-html",
-      "target": "project-cat-photo-gallery",
-      "type": "applies_to",
-      "reason": "Semantic structure still matters even in simple gallery pages.",
-      "weight": 0.6
+  },
+  "stats": {
+    "books": 3,
+    "knowledgeNodes": 11,
+    "knowledgeEdgeTypes": [
+      "analyzed_by",
+      "analyzes",
+      "causes",
+      "models",
+      "optimizes",
+      "prerequisite_of",
+      "proves",
+      "related_to"
+    ],
+    "knowledgeNodeTypes": [
+      "algorithm",
+      "concept",
+      "law",
+      "method",
+      "model",
+      "theory"
+    ]
+  },
+  "views": {
+    "book": {
+      "nodes": [
+        {
+          "id": "book:book-math-analysis",
+          "rawId": "book-math-analysis",
+          "title": "数学分析导论",
+          "type": "book",
+          "discipline": "mathematics"
+        },
+        {
+          "id": "chapter:math-ch1",
+          "rawId": "math-ch1",
+          "title": "极限与连续",
+          "type": "chapter",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论"
+        },
+        {
+          "id": "section:math-ch1-sec1",
+          "rawId": "math-ch1-sec1",
+          "title": "1.1 极限定义与ε-δ思想",
+          "type": "section",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch1",
+          "chapterTitle": "极限与连续"
+        },
+        {
+          "id": "knowledge:k-limit-definition",
+          "rawId": "k-limit-definition",
+          "title": "函数极限定义",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch1",
+          "chapterTitle": "极限与连续",
+          "sectionId": "math-ch1-sec1",
+          "sectionTitle": "1.1 极限定义与ε-δ思想"
+        },
+        {
+          "id": "knowledge:k-epsilon-delta-proof",
+          "rawId": "k-epsilon-delta-proof",
+          "title": "ε-δ证明模板",
+          "type": "knowledge",
+          "knowledgeType": "method",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch1",
+          "chapterTitle": "极限与连续",
+          "sectionId": "math-ch1-sec1",
+          "sectionTitle": "1.1 极限定义与ε-δ思想"
+        },
+        {
+          "id": "section:math-ch1-sec2",
+          "rawId": "math-ch1-sec2",
+          "title": "1.2 导数与线性近似",
+          "type": "section",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch1",
+          "chapterTitle": "极限与连续"
+        },
+        {
+          "id": "knowledge:k-derivative-definition",
+          "rawId": "k-derivative-definition",
+          "title": "导数定义",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch1",
+          "chapterTitle": "极限与连续",
+          "sectionId": "math-ch1-sec2",
+          "sectionTitle": "1.2 导数与线性近似"
+        },
+        {
+          "id": "chapter:math-ch2",
+          "rawId": "math-ch2",
+          "title": "线性代数与变换",
+          "type": "chapter",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论"
+        },
+        {
+          "id": "section:math-ch2-sec1",
+          "rawId": "math-ch2-sec1",
+          "title": "2.1 线性变换与频域观点",
+          "type": "section",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch2",
+          "chapterTitle": "线性代数与变换"
+        },
+        {
+          "id": "knowledge:k-fourier-transform",
+          "rawId": "k-fourier-transform",
+          "title": "傅里叶变换",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "mathematics",
+          "bookId": "book-math-analysis",
+          "bookTitle": "数学分析导论",
+          "chapterId": "math-ch2",
+          "chapterTitle": "线性代数与变换",
+          "sectionId": "math-ch2-sec1",
+          "sectionTitle": "2.1 线性变换与频域观点"
+        },
+        {
+          "id": "book:book-physics-mechanics",
+          "rawId": "book-physics-mechanics",
+          "title": "经典力学基础",
+          "type": "book",
+          "discipline": "physics"
+        },
+        {
+          "id": "chapter:phy-ch1",
+          "rawId": "phy-ch1",
+          "title": "牛顿体系",
+          "type": "chapter",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础"
+        },
+        {
+          "id": "section:phy-ch1-sec1",
+          "rawId": "phy-ch1-sec1",
+          "title": "1.1 受力与加速度",
+          "type": "section",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础",
+          "chapterId": "phy-ch1",
+          "chapterTitle": "牛顿体系"
+        },
+        {
+          "id": "knowledge:k-newton-second-law",
+          "rawId": "k-newton-second-law",
+          "title": "牛顿第二定律",
+          "type": "knowledge",
+          "knowledgeType": "law",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础",
+          "chapterId": "phy-ch1",
+          "chapterTitle": "牛顿体系",
+          "sectionId": "phy-ch1-sec1",
+          "sectionTitle": "1.1 受力与加速度"
+        },
+        {
+          "id": "section:phy-ch1-sec2",
+          "rawId": "phy-ch1-sec2",
+          "title": "1.2 碰撞与守恒",
+          "type": "section",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础",
+          "chapterId": "phy-ch1",
+          "chapterTitle": "牛顿体系"
+        },
+        {
+          "id": "knowledge:k-momentum-conservation",
+          "rawId": "k-momentum-conservation",
+          "title": "动量守恒",
+          "type": "knowledge",
+          "knowledgeType": "law",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础",
+          "chapterId": "phy-ch1",
+          "chapterTitle": "牛顿体系",
+          "sectionId": "phy-ch1-sec2",
+          "sectionTitle": "1.2 碰撞与守恒"
+        },
+        {
+          "id": "chapter:phy-ch2",
+          "rawId": "phy-ch2",
+          "title": "电磁与波动",
+          "type": "chapter",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础"
+        },
+        {
+          "id": "section:phy-ch2-sec1",
+          "rawId": "phy-ch2-sec1",
+          "title": "2.1 场与方程组",
+          "type": "section",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础",
+          "chapterId": "phy-ch2",
+          "chapterTitle": "电磁与波动"
+        },
+        {
+          "id": "knowledge:k-maxwell-equations",
+          "rawId": "k-maxwell-equations",
+          "title": "麦克斯韦方程组",
+          "type": "knowledge",
+          "knowledgeType": "theory",
+          "discipline": "physics",
+          "bookId": "book-physics-mechanics",
+          "bookTitle": "经典力学基础",
+          "chapterId": "phy-ch2",
+          "chapterTitle": "电磁与波动",
+          "sectionId": "phy-ch2-sec1",
+          "sectionTitle": "2.1 场与方程组"
+        },
+        {
+          "id": "book:book-cs-foundations",
+          "rawId": "book-cs-foundations",
+          "title": "计算机科学基础",
+          "type": "book",
+          "discipline": "computer-science"
+        },
+        {
+          "id": "chapter:cs-ch1",
+          "rawId": "cs-ch1",
+          "title": "算法分析",
+          "type": "chapter",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础"
+        },
+        {
+          "id": "section:cs-ch1-sec1",
+          "rawId": "cs-ch1-sec1",
+          "title": "1.1 时间复杂度",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch1",
+          "chapterTitle": "算法分析"
+        },
+        {
+          "id": "knowledge:k-big-o-notation",
+          "rawId": "k-big-o-notation",
+          "title": "大O记号",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch1",
+          "chapterTitle": "算法分析",
+          "sectionId": "cs-ch1-sec1",
+          "sectionTitle": "1.1 时间复杂度"
+        },
+        {
+          "id": "section:cs-ch1-sec2",
+          "rawId": "cs-ch1-sec2",
+          "title": "1.2 分治策略",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch1",
+          "chapterTitle": "算法分析"
+        },
+        {
+          "id": "knowledge:k-divide-and-conquer",
+          "rawId": "k-divide-and-conquer",
+          "title": "分治法",
+          "type": "knowledge",
+          "knowledgeType": "method",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch1",
+          "chapterTitle": "算法分析",
+          "sectionId": "cs-ch1-sec2",
+          "sectionTitle": "1.2 分治策略"
+        },
+        {
+          "id": "chapter:cs-ch2",
+          "rawId": "cs-ch2",
+          "title": "机器学习",
+          "type": "chapter",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础"
+        },
+        {
+          "id": "section:cs-ch2-sec1",
+          "rawId": "cs-ch2-sec1",
+          "title": "2.1 反向传播",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch2",
+          "chapterTitle": "机器学习"
+        },
+        {
+          "id": "knowledge:k-backpropagation",
+          "rawId": "k-backpropagation",
+          "title": "反向传播算法",
+          "type": "knowledge",
+          "knowledgeType": "algorithm",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch2",
+          "chapterTitle": "机器学习",
+          "sectionId": "cs-ch2-sec1",
+          "sectionTitle": "2.1 反向传播"
+        },
+        {
+          "id": "section:cs-ch2-sec2",
+          "rawId": "cs-ch2-sec2",
+          "title": "2.2 卷积网络",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch2",
+          "chapterTitle": "机器学习"
+        },
+        {
+          "id": "knowledge:k-convolutional-neural-network",
+          "rawId": "k-convolutional-neural-network",
+          "title": "卷积神经网络",
+          "type": "knowledge",
+          "knowledgeType": "model",
+          "discipline": "computer-science",
+          "bookId": "book-cs-foundations",
+          "bookTitle": "计算机科学基础",
+          "chapterId": "cs-ch2",
+          "chapterTitle": "机器学习",
+          "sectionId": "cs-ch2-sec2",
+          "sectionTitle": "2.2 卷积网络"
+        }
+      ],
+      "edges": [
+        {
+          "source": "book:book-math-analysis",
+          "target": "chapter:math-ch1",
+          "type": "has_chapter",
+          "reason": "数学分析导论 包含章节 极限与连续"
+        },
+        {
+          "source": "chapter:math-ch1",
+          "target": "section:math-ch1-sec1",
+          "type": "has_section",
+          "reason": "极限与连续 包含小节 1.1 极限定义与ε-δ思想"
+        },
+        {
+          "source": "section:math-ch1-sec1",
+          "target": "knowledge:k-limit-definition",
+          "type": "covers_knowledge",
+          "reason": "1.1 极限定义与ε-δ思想 涵盖知识点 函数极限定义"
+        },
+        {
+          "source": "section:math-ch1-sec1",
+          "target": "knowledge:k-epsilon-delta-proof",
+          "type": "covers_knowledge",
+          "reason": "1.1 极限定义与ε-δ思想 涵盖知识点 ε-δ证明模板"
+        },
+        {
+          "source": "chapter:math-ch1",
+          "target": "section:math-ch1-sec2",
+          "type": "has_section",
+          "reason": "极限与连续 包含小节 1.2 导数与线性近似"
+        },
+        {
+          "source": "section:math-ch1-sec2",
+          "target": "knowledge:k-derivative-definition",
+          "type": "covers_knowledge",
+          "reason": "1.2 导数与线性近似 涵盖知识点 导数定义"
+        },
+        {
+          "source": "book:book-math-analysis",
+          "target": "chapter:math-ch2",
+          "type": "has_chapter",
+          "reason": "数学分析导论 包含章节 线性代数与变换"
+        },
+        {
+          "source": "chapter:math-ch2",
+          "target": "section:math-ch2-sec1",
+          "type": "has_section",
+          "reason": "线性代数与变换 包含小节 2.1 线性变换与频域观点"
+        },
+        {
+          "source": "section:math-ch2-sec1",
+          "target": "knowledge:k-fourier-transform",
+          "type": "covers_knowledge",
+          "reason": "2.1 线性变换与频域观点 涵盖知识点 傅里叶变换"
+        },
+        {
+          "source": "book:book-physics-mechanics",
+          "target": "chapter:phy-ch1",
+          "type": "has_chapter",
+          "reason": "经典力学基础 包含章节 牛顿体系"
+        },
+        {
+          "source": "chapter:phy-ch1",
+          "target": "section:phy-ch1-sec1",
+          "type": "has_section",
+          "reason": "牛顿体系 包含小节 1.1 受力与加速度"
+        },
+        {
+          "source": "section:phy-ch1-sec1",
+          "target": "knowledge:k-newton-second-law",
+          "type": "covers_knowledge",
+          "reason": "1.1 受力与加速度 涵盖知识点 牛顿第二定律"
+        },
+        {
+          "source": "chapter:phy-ch1",
+          "target": "section:phy-ch1-sec2",
+          "type": "has_section",
+          "reason": "牛顿体系 包含小节 1.2 碰撞与守恒"
+        },
+        {
+          "source": "section:phy-ch1-sec2",
+          "target": "knowledge:k-momentum-conservation",
+          "type": "covers_knowledge",
+          "reason": "1.2 碰撞与守恒 涵盖知识点 动量守恒"
+        },
+        {
+          "source": "book:book-physics-mechanics",
+          "target": "chapter:phy-ch2",
+          "type": "has_chapter",
+          "reason": "经典力学基础 包含章节 电磁与波动"
+        },
+        {
+          "source": "chapter:phy-ch2",
+          "target": "section:phy-ch2-sec1",
+          "type": "has_section",
+          "reason": "电磁与波动 包含小节 2.1 场与方程组"
+        },
+        {
+          "source": "section:phy-ch2-sec1",
+          "target": "knowledge:k-maxwell-equations",
+          "type": "covers_knowledge",
+          "reason": "2.1 场与方程组 涵盖知识点 麦克斯韦方程组"
+        },
+        {
+          "source": "book:book-cs-foundations",
+          "target": "chapter:cs-ch1",
+          "type": "has_chapter",
+          "reason": "计算机科学基础 包含章节 算法分析"
+        },
+        {
+          "source": "chapter:cs-ch1",
+          "target": "section:cs-ch1-sec1",
+          "type": "has_section",
+          "reason": "算法分析 包含小节 1.1 时间复杂度"
+        },
+        {
+          "source": "section:cs-ch1-sec1",
+          "target": "knowledge:k-big-o-notation",
+          "type": "covers_knowledge",
+          "reason": "1.1 时间复杂度 涵盖知识点 大O记号"
+        },
+        {
+          "source": "chapter:cs-ch1",
+          "target": "section:cs-ch1-sec2",
+          "type": "has_section",
+          "reason": "算法分析 包含小节 1.2 分治策略"
+        },
+        {
+          "source": "section:cs-ch1-sec2",
+          "target": "knowledge:k-divide-and-conquer",
+          "type": "covers_knowledge",
+          "reason": "1.2 分治策略 涵盖知识点 分治法"
+        },
+        {
+          "source": "book:book-cs-foundations",
+          "target": "chapter:cs-ch2",
+          "type": "has_chapter",
+          "reason": "计算机科学基础 包含章节 机器学习"
+        },
+        {
+          "source": "chapter:cs-ch2",
+          "target": "section:cs-ch2-sec1",
+          "type": "has_section",
+          "reason": "机器学习 包含小节 2.1 反向传播"
+        },
+        {
+          "source": "section:cs-ch2-sec1",
+          "target": "knowledge:k-backpropagation",
+          "type": "covers_knowledge",
+          "reason": "2.1 反向传播 涵盖知识点 反向传播算法"
+        },
+        {
+          "source": "chapter:cs-ch2",
+          "target": "section:cs-ch2-sec2",
+          "type": "has_section",
+          "reason": "机器学习 包含小节 2.2 卷积网络"
+        },
+        {
+          "source": "section:cs-ch2-sec2",
+          "target": "knowledge:k-convolutional-neural-network",
+          "type": "covers_knowledge",
+          "reason": "2.2 卷积网络 涵盖知识点 卷积神经网络"
+        }
+      ]
     },
-    {
-      "source": "css-flexbox",
-      "target": "project-cat-photo-gallery",
-      "type": "implements",
-      "reason": "The project uses flexbox for image arrangement and wrapping.",
-      "weight": 0.95
-    },
-    {
-      "source": "css-animation",
-      "target": "project-ferris-wheel",
-      "type": "implements",
-      "reason": "The project is built around keyframes and transform animation.",
-      "weight": 0.98
-    },
-    {
-      "source": "css-flexbox",
-      "target": "css-animation",
-      "type": "related_to",
-      "reason": "Both are core CSS skills often combined in UI work.",
-      "weight": 0.4
-    },
-    {
-      "source": "semantic-html",
-      "target": "css-flexbox",
-      "type": "prerequisite_of",
-      "reason": "A clear document structure should come before layout refinement.",
-      "weight": 0.55
-    },
-    {
-      "source": "project-cat-photo-gallery",
-      "target": "css-flexbox",
-      "type": "validated_by",
-      "reason": "The project can be used as evidence that flexbox concepts were practiced.",
-      "weight": 0.88
-    },
-    {
-      "source": "project-ferris-wheel",
-      "target": "css-animation",
-      "type": "validated_by",
-      "reason": "The project demonstrates working knowledge of animation timing and transforms.",
-      "weight": 0.9
-    },
-    {
-      "source": "ai-what-is-ai",
-      "target": "src-aima-4e-ch1-sec1-1",
-      "type": "defined_in",
-      "reason": "Section 1.1 introduces AI through four approach combinations.",
-      "weight": 1
-    },
-    {
-      "source": "ai-what-is-ai",
-      "target": "src-aima-4e",
-      "type": "supported_by",
-      "reason": "AIMA serves as the canonical textbook context.",
-      "weight": 0.86
-    },
-    {
-      "source": "ai-turing-test",
-      "target": "src-aima-4e-ch1-sec1-1-1",
-      "type": "defined_in",
-      "reason": "Subsection 1.1.1 defines the Turing test and required capabilities.",
-      "weight": 1
-    },
-    {
-      "source": "ai-turing-test",
-      "target": "src-aima-4e-ch1-sec1-1",
-      "type": "supported_by",
-      "reason": "The subsection is part of the four-approach framing in 1.1.",
-      "weight": 0.83
-    },
-    {
-      "source": "ai-rational-agent",
-      "target": "src-aima-4e-ch1-sec1-1-4",
-      "type": "defined_in",
-      "reason": "Subsection 1.1.4 explicitly defines rational agent and expected outcome criterion.",
-      "weight": 1
-    },
-    {
-      "source": "ai-rational-agent",
-      "target": "src-aima-4e-ch1-sec1-1",
-      "type": "cited_from",
-      "reason": "General framing of rationality in Section 1.1 supports interpretation.",
-      "weight": 0.8
-    },
-    {
-      "source": "ai-value-alignment",
-      "target": "src-aima-4e-ch1-sec1-1-5",
-      "type": "defined_in",
-      "reason": "Subsection 1.1.5 introduces value alignment and beneficial-machine framing.",
-      "weight": 1
-    },
-    {
-      "source": "ai-value-alignment",
-      "target": "src-aima-4e-ch1-sec1-1-5",
-      "type": "cited_from",
-      "reason": "Examples such as self-driving tradeoffs are cited from this subsection.",
-      "weight": 0.95
-    },
-    {
-      "source": "ai-value-alignment",
-      "target": "ai-rational-agent",
-      "type": "related_to",
-      "reason": "Alignment extends the standard rational-agent objective formulation.",
-      "weight": 0.78
-    },
-    {
-      "source": "ai-cognitive-modeling",
-      "target": "src-aima-4e-ch1-sec1-1-2",
-      "type": "defined_in",
-      "reason": "Core definition and methods are introduced in AIMA 1.1.2.",
-      "weight": 1
-    },
-    {
-      "source": "ai-cognitive-modeling",
-      "target": "src-aima-4e-ch1-sec1-1",
-      "type": "supported_by",
-      "reason": "Section 1.1 provides the four-approach umbrella context.",
-      "weight": 0.82
+    "knowledge": {
+      "nodes": [
+        {
+          "id": "k-limit-definition",
+          "title": "函数极限定义",
+          "type": "concept",
+          "discipline": "mathematics",
+          "summary": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
+          "difficulty": "beginner",
+          "tags": [
+            "数学",
+            "极限",
+            "分析"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-math-analysis",
+              "bookTitle": "数学分析导论",
+              "chapter": "极限与连续",
+              "section": "1.1 极限定义与ε-δ思想",
+              "link": "graph/source.json?book=book-math-analysis&chapter=math-ch1&section=math-ch1-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-epsilon-delta-proof",
+          "title": "ε-δ证明模板",
+          "type": "method",
+          "discipline": "mathematics",
+          "summary": "将直觉性逼近转化为可验证的量化证明流程。",
+          "difficulty": "intermediate",
+          "tags": [
+            "数学",
+            "证明",
+            "分析"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-math-analysis",
+              "bookTitle": "数学分析导论",
+              "chapter": "极限与连续",
+              "section": "1.1 极限定义与ε-δ思想",
+              "link": "graph/source.json?book=book-math-analysis&chapter=math-ch1&section=math-ch1-sec1"
+            },
+            {
+              "type": "cite_from",
+              "bookId": "book-math-handbook",
+              "bookTitle": "高等数学题解精编",
+              "chapter": "证明技巧",
+              "section": "反向构造与估计",
+              "link": "graph/source.json?book=book-math-analysis&chapter=math-ch1&section=math-ch1-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-derivative-definition",
+          "title": "导数定义",
+          "type": "concept",
+          "discipline": "mathematics",
+          "summary": "导数是函数在一点处变化率的极限。",
+          "difficulty": "beginner",
+          "tags": [
+            "数学",
+            "导数",
+            "微分"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-math-analysis",
+              "bookTitle": "数学分析导论",
+              "chapter": "极限与连续",
+              "section": "1.2 导数与线性近似",
+              "link": "graph/source.json?book=book-math-analysis&chapter=math-ch1&section=math-ch1-sec2"
+            },
+            {
+              "type": "support",
+              "bookId": "book-physics-mechanics",
+              "bookTitle": "经典力学基础",
+              "chapter": "运动学",
+              "section": "瞬时速度",
+              "link": "graph/source.json?book=book-math-analysis&chapter=math-ch1&section=math-ch1-sec2"
+            }
+          ]
+        },
+        {
+          "id": "k-fourier-transform",
+          "title": "傅里叶变换",
+          "type": "concept",
+          "discipline": "mathematics",
+          "summary": "将时域信号映射到频域，以分解频率成分。",
+          "difficulty": "intermediate",
+          "tags": [
+            "数学",
+            "信号",
+            "变换"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-math-analysis",
+              "bookTitle": "数学分析导论",
+              "chapter": "线性代数与变换",
+              "section": "2.1 线性变换与频域观点",
+              "link": "graph/source.json?book=book-math-analysis&chapter=math-ch2&section=math-ch2-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-newton-second-law",
+          "title": "牛顿第二定律",
+          "type": "law",
+          "discipline": "physics",
+          "summary": "力等于质量与加速度的乘积，刻画动力学核心关系。",
+          "difficulty": "beginner",
+          "tags": [
+            "物理",
+            "力学",
+            "定律"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-physics-mechanics",
+              "bookTitle": "经典力学基础",
+              "chapter": "牛顿体系",
+              "section": "1.1 受力与加速度",
+              "link": "graph/source.json?book=book-physics-mechanics&chapter=phy-ch1&section=phy-ch1-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-momentum-conservation",
+          "title": "动量守恒",
+          "type": "law",
+          "discipline": "physics",
+          "summary": "孤立系统总动量保持不变。",
+          "difficulty": "intermediate",
+          "tags": [
+            "物理",
+            "守恒",
+            "碰撞"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-physics-mechanics",
+              "bookTitle": "经典力学基础",
+              "chapter": "牛顿体系",
+              "section": "1.2 碰撞与守恒",
+              "link": "graph/source.json?book=book-physics-mechanics&chapter=phy-ch1&section=phy-ch1-sec2"
+            }
+          ]
+        },
+        {
+          "id": "k-maxwell-equations",
+          "title": "麦克斯韦方程组",
+          "type": "theory",
+          "discipline": "physics",
+          "summary": "统一描述电场与磁场的生成、耦合与传播。",
+          "difficulty": "advanced",
+          "tags": [
+            "物理",
+            "电磁学",
+            "方程组"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-physics-mechanics",
+              "bookTitle": "经典力学基础",
+              "chapter": "电磁与波动",
+              "section": "2.1 场与方程组",
+              "link": "graph/source.json?book=book-physics-mechanics&chapter=phy-ch2&section=phy-ch2-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-big-o-notation",
+          "title": "大O记号",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summary": "刻画算法增长阶的渐进上界。",
+          "difficulty": "beginner",
+          "tags": [
+            "计算机",
+            "算法",
+            "复杂度"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-cs-foundations",
+              "bookTitle": "计算机科学基础",
+              "chapter": "算法分析",
+              "section": "1.1 时间复杂度",
+              "link": "graph/source.json?book=book-cs-foundations&chapter=cs-ch1&section=cs-ch1-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-divide-and-conquer",
+          "title": "分治法",
+          "type": "method",
+          "discipline": "computer-science",
+          "summary": "将问题拆解为子问题递归求解后再合并。",
+          "difficulty": "intermediate",
+          "tags": [
+            "计算机",
+            "算法",
+            "设计范式"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-cs-foundations",
+              "bookTitle": "计算机科学基础",
+              "chapter": "算法分析",
+              "section": "1.2 分治策略",
+              "link": "graph/source.json?book=book-cs-foundations&chapter=cs-ch1&section=cs-ch1-sec2"
+            }
+          ]
+        },
+        {
+          "id": "k-backpropagation",
+          "title": "反向传播算法",
+          "type": "algorithm",
+          "discipline": "computer-science",
+          "summary": "利用链式法则高效计算神经网络参数梯度。",
+          "difficulty": "intermediate",
+          "tags": [
+            "计算机",
+            "机器学习",
+            "优化"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-cs-foundations",
+              "bookTitle": "计算机科学基础",
+              "chapter": "机器学习",
+              "section": "2.1 反向传播",
+              "link": "graph/source.json?book=book-cs-foundations&chapter=cs-ch2&section=cs-ch2-sec1"
+            }
+          ]
+        },
+        {
+          "id": "k-convolutional-neural-network",
+          "title": "卷积神经网络",
+          "type": "model",
+          "discipline": "computer-science",
+          "summary": "通过局部感受野与参数共享提取空间结构特征。",
+          "difficulty": "intermediate",
+          "tags": [
+            "计算机",
+            "深度学习",
+            "视觉"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-cs-foundations",
+              "bookTitle": "计算机科学基础",
+              "chapter": "机器学习",
+              "section": "2.2 卷积网络",
+              "link": "graph/source.json?book=book-cs-foundations&chapter=cs-ch2&section=cs-ch2-sec2"
+            },
+            {
+              "type": "cite_from",
+              "bookId": "book-cs-deeplearning",
+              "bookTitle": "Deep Learning",
+              "chapter": "Convolutional Networks",
+              "section": "Architectures",
+              "link": "graph/source.json?book=book-cs-foundations&chapter=cs-ch2&section=cs-ch2-sec2"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "k-limit-definition",
+          "target": "k-epsilon-delta-proof",
+          "type": "prerequisite_of",
+          "domain": "common",
+          "reason": "掌握极限定义是使用ε-δ证明的前置条件。",
+          "weight": 0.95
+        },
+        {
+          "source": "k-epsilon-delta-proof",
+          "target": "k-derivative-definition",
+          "type": "proves",
+          "domain": "mathematics",
+          "reason": "导数定义的严谨性依赖极限证明模板。",
+          "weight": 0.78
+        },
+        {
+          "source": "k-derivative-definition",
+          "target": "k-newton-second-law",
+          "type": "models",
+          "domain": "common",
+          "reason": "瞬时变化率是加速度定义的数学基础。",
+          "weight": 0.66
+        },
+        {
+          "source": "k-newton-second-law",
+          "target": "k-momentum-conservation",
+          "type": "causes",
+          "domain": "physics",
+          "reason": "在封闭系统下可推导守恒规律。",
+          "weight": 0.72
+        },
+        {
+          "source": "k-maxwell-equations",
+          "target": "k-fourier-transform",
+          "type": "analyzed_by",
+          "domain": "physics",
+          "reason": "电磁波传播常转到频域分析。",
+          "weight": 0.63
+        },
+        {
+          "source": "k-big-o-notation",
+          "target": "k-divide-and-conquer",
+          "type": "analyzes",
+          "domain": "computer-science",
+          "reason": "分治算法复杂度通常用大O记号评估。",
+          "weight": 0.93
+        },
+        {
+          "source": "k-divide-and-conquer",
+          "target": "k-backpropagation",
+          "type": "related_to",
+          "domain": "common",
+          "reason": "都体现将复杂问题拆解再组合的计算思想。",
+          "weight": 0.39
+        },
+        {
+          "source": "k-backpropagation",
+          "target": "k-convolutional-neural-network",
+          "type": "optimizes",
+          "domain": "computer-science",
+          "reason": "CNN训练依赖反向传播求梯度并更新参数。",
+          "weight": 0.97
+        },
+        {
+          "source": "k-fourier-transform",
+          "target": "k-convolutional-neural-network",
+          "type": "related_to",
+          "domain": "common",
+          "reason": "卷积与频域分析存在理论联系。",
+          "weight": 0.44
+        }
+      ]
     }
-  ]
+  }
 }

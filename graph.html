@@ -47,12 +47,20 @@
           <h2 data-i18n-zh="图谱控制" data-i18n-en="Graph controls">图谱控制</h2>
 
           <div class="graph-control-block">
+            <label data-i18n-zh="显示模式" data-i18n-en="Display mode">显示模式</label>
+            <div class="graph-mode-switch" data-graph-mode-switch>
+              <button class="filter-chip is-active" type="button" data-graph-mode="book">书籍 Graph</button>
+              <button class="filter-chip" type="button" data-graph-mode="knowledge">知识 Graph</button>
+            </div>
+          </div>
+
+          <div class="graph-control-block">
             <label for="graph-search" data-i18n-zh="搜索节点" data-i18n-en="Search nodes">搜索节点</label>
             <input id="graph-search" class="search-input" type="search" placeholder="输入标题 / 标签 / 关键词" data-graph-search>
           </div>
 
           <div class="graph-control-block">
-            <label for="graph-local-depth" data-i18n-zh="本地子图深度（Obsidian风格）" data-i18n-en="Local graph depth (Obsidian-like)">本地子图深度（Obsidian风格）</label>
+            <label for="graph-local-depth" data-i18n-zh="本地子图深度（知识模式）" data-i18n-en="Local graph depth (knowledge mode)">本地子图深度（知识模式）</label>
             <div class="graph-range-row">
               <input id="graph-local-depth" type="range" min="0" max="3" step="1" value="0" data-graph-depth>
               <span class="note-inline" data-graph-depth-label>0</span>
@@ -60,17 +68,17 @@
           </div>
 
           <div class="graph-control-block">
-            <label data-i18n-zh="节点类型" data-i18n-en="Node types">节点类型</label>
+            <label data-i18n-zh="节点类型（当前模式）" data-i18n-en="Node types (current mode)">节点类型（当前模式）</label>
             <div class="filter-group graph-chip-group" data-node-type-filters></div>
           </div>
 
           <div class="graph-control-block">
-            <label data-i18n-zh="关系类型" data-i18n-en="Edge types">关系类型</label>
+            <label data-i18n-zh="关系类型（当前模式）" data-i18n-en="Edge types (current mode)">关系类型（当前模式）</label>
             <div class="graph-edge-filter" data-edge-type-filters></div>
           </div>
 
           <div class="graph-control-block">
-            <label data-i18n-zh="快速查询（Logseq风格）" data-i18n-en="Quick queries (Logseq-like)">快速查询（Logseq风格）</label>
+            <label data-i18n-zh="快速查询（知识模式）" data-i18n-en="Quick queries (knowledge mode)">快速查询（知识模式）</label>
             <div class="graph-query-actions">
               <button class="filter-chip" type="button" data-query="missing-defined">Missing defined_in</button>
               <button class="filter-chip" type="button" data-query="weak-support">Weak support</button>
@@ -85,24 +93,19 @@
           <div class="graph-canvas panel" data-graph-canvas aria-label="Knowledge graph visualization"></div>
           <div class="graph-legend panel">
             <h3 data-i18n-zh="图例" data-i18n-en="Legend">图例</h3>
-            <div class="graph-legend-grid">
-              <span><i class="legend-dot concept"></i> concept</span>
-              <span><i class="legend-dot skill"></i> skill</span>
-              <span><i class="legend-dot source"></i> source</span>
-              <span><i class="legend-dot project"></i> project</span>
-            </div>
+            <div class="graph-legend-grid" data-graph-legend></div>
           </div>
         </section>
 
         <aside class="graph-detail panel" data-graph-detail>
           <h2 data-i18n-zh="节点详情" data-i18n-en="Node details">节点详情</h2>
-          <p class="muted" data-i18n-zh="点击图中的任意节点查看定义来源、支撑来源和反向链接。" data-i18n-en="Click any node in the graph to inspect provenance and backlinks.">点击图中的任意节点查看定义来源、支撑来源和反向链接。</p>
+          <p class="muted" data-i18n-zh="书籍模式可折叠层级；知识模式悬停可看 defined_in/cite_from/support 来源链接。" data-i18n-en="Book mode supports fold/unfold hierarchy; knowledge mode shows provenance links on hover.">书籍模式可折叠层级；知识模式悬停可看 defined_in/cite_from/support 来源链接。</p>
         </aside>
       </section>
     </main>
 
     <footer class="page-shell footer">
-      <span data-i18n-zh="Graph 工作台融合 Obsidian 的本地子图与 Logseq 的查询思路。" data-i18n-en="Graph workspace combines Obsidian-like local graph and Logseq-like query flows.">Graph 工作台融合 Obsidian 的本地子图与 Logseq 的查询思路。</span>
+      <span data-i18n-zh="Graph 工作台支持书籍层次图与知识关系图双模式。" data-i18n-en="Graph workspace supports both hierarchy view and knowledge relation view.">Graph 工作台支持书籍层次图与知识关系图双模式。</span>
       <span><a class="inline-link" href="graph/knowledge-graph.json" data-i18n-zh="打开图谱原始数据" data-i18n-en="Open raw graph data">打开图谱原始数据</a></span>
     </footer>
   </body>

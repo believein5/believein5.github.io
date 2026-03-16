@@ -643,6 +643,16 @@ body[data-page="graph"] .page-shell {
   gap: 0.45rem;
 }
 
+.graph-mode-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.graph-mode-switch .filter-chip {
+  padding: 0.5rem 0.8rem;
+}
+
 .graph-chip-group .filter-chip {
   padding: 0.45rem 0.7rem;
   font-size: 0.82rem;
@@ -692,7 +702,8 @@ body[data-page="graph"] .page-shell {
 }
 
 .graph-canvas {
-  min-height: 68vh;
+  height: 68vh;
+  min-height: 420px;
   padding: 0.5rem;
 }
 
@@ -1199,6 +1210,7 @@ code {
   }
 
   .graph-canvas {
-    min-height: 56vh;
+    height: 56vh;
+    min-height: 360px;
   }
 }

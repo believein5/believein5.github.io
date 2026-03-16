@@ -1,30 +1,36 @@
 # Graph directory
 
-This folder stores the minimum viable structure for a personal knowledge graph that is both human-readable and agent-trainable.
+This folder now uses a **source-first architecture** with two graph views:
 
-## Files
+- **Book Graph**: `Book -> Chapter -> Section -> Knowledge`
+- **Knowledge Graph**: knowledge nodes linked by semantic relations (no source nodes shown)
 
-- `schema.json`: the data contract for graph nodes and edges.
-- `knowledge-graph.json`: the current graph snapshot used by the homepage or future tooling.
-- `nodes/`: one Markdown file per node, written for humans first but structured for machines too.
+## Core files
 
-## Recommended update flow
+- `source.json`: canonical source tree (`books/chapters/sections/knowledge`) and `knowledgeRelations`.
+- `relation-types.json`: relation taxonomy (`common` + discipline-specific + provenance-only).
+- `knowledge-graph.json`: generated payload consumed by `graph.html`.
+- `schema.json`: schema for generated dual-view graph output.
 
-1. Create or edit a node in `nodes/`.
-2. Add or update the corresponding node entry in `knowledge-graph.json`.
-3. Add edges that explain why nodes are related.
-4. Keep `id`, `type`, and `sourcePath` consistent across files.
+## Provenance design
 
-## Writing rules
+The following source relations are **tooltip-only** in knowledge mode (not rendered as graph nodes):
 
-- Use stable lowercase kebab-case ids, such as `css-flexbox`.
-- Keep summaries short and factual.
-- Include learning objectives, common errors, and verification steps.
-- Add Chinese and English retrieval keywords when possible.
-- Prefer explicit relationships over vague prose.
+- `defined_in`
+- `cite_from`
+- `support`
 
-## Why this structure works
+They are stored under each knowledge node as `provenanceLinks`.
 
-- Humans can read the Markdown node pages directly.
-- Agents can parse the JSON graph quickly.
-- Future scripts can export the graph to JSONL, embeddings, or visual graph layouts.
+## Generation flow
+
+1. Edit `source.json` (book hierarchy + knowledge nodes + knowledgeRelations).
+2. Edit `relation-types.json` when adding new edge semantics.
+3. Run `tools/source-to-graph.mjs` to generate `knowledge-graph.json`.
+4. Open `graph.html` and switch between **书籍 Graph** and **知识 Graph**.
+
+## Edge strategy
+
+- Use `commonRelations` for cross-discipline structure.
+- Use `disciplineRelations` for mathematics / physics / computer-science specific logic.
+- Keep provenance separate from semantic knowledge edges.

@@ -1,0 +1,317 @@
+{
+  "meta": {
+    "title": "Knowledge Source Tree",
+    "version": "1.0.0",
+    "updatedAt": "2026-03-16",
+    "description": "Book → Chapter → Section → Knowledge source hierarchy for math, physics, and computer science.",
+    "language": "zh-CN"
+  },
+  "books": [
+    {
+      "id": "book-math-analysis",
+      "title": "数学分析导论",
+      "discipline": "mathematics",
+      "chapters": [
+        {
+          "id": "math-ch1",
+          "title": "极限与连续",
+          "sections": [
+            {
+              "id": "math-ch1-sec1",
+              "title": "1.1 极限定义与ε-δ思想",
+              "knowledge": [
+                {
+                  "id": "k-limit-definition",
+                  "title": "函数极限定义",
+                  "type": "concept",
+                  "difficulty": "beginner",
+                  "summary": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
+                  "tags": ["数学", "极限", "分析"]
+                },
+                {
+                  "id": "k-epsilon-delta-proof",
+                  "title": "ε-δ证明模板",
+                  "type": "method",
+                  "difficulty": "intermediate",
+                  "summary": "将直觉性逼近转化为可验证的量化证明流程。",
+                  "tags": ["数学", "证明", "分析"],
+                  "provenanceLinks": [
+                    {
+                      "type": "cite_from",
+                      "bookId": "book-math-handbook",
+                      "bookTitle": "高等数学题解精编",
+                      "chapter": "证明技巧",
+                      "section": "反向构造与估计"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "math-ch1-sec2",
+              "title": "1.2 导数与线性近似",
+              "knowledge": [
+                {
+                  "id": "k-derivative-definition",
+                  "title": "导数定义",
+                  "type": "concept",
+                  "difficulty": "beginner",
+                  "summary": "导数是函数在一点处变化率的极限。",
+                  "tags": ["数学", "导数", "微分"],
+                  "provenanceLinks": [
+                    {
+                      "type": "support",
+                      "bookId": "book-physics-mechanics",
+                      "bookTitle": "经典力学基础",
+                      "chapter": "运动学",
+                      "section": "瞬时速度"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "math-ch2",
+          "title": "线性代数与变换",
+          "sections": [
+            {
+              "id": "math-ch2-sec1",
+              "title": "2.1 线性变换与频域观点",
+              "knowledge": [
+                {
+                  "id": "k-fourier-transform",
+                  "title": "傅里叶变换",
+                  "type": "concept",
+                  "difficulty": "intermediate",
+                  "summary": "将时域信号映射到频域，以分解频率成分。",
+                  "tags": ["数学", "信号", "变换"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "book-physics-mechanics",
+      "title": "经典力学基础",
+      "discipline": "physics",
+      "chapters": [
+        {
+          "id": "phy-ch1",
+          "title": "牛顿体系",
+          "sections": [
+            {
+              "id": "phy-ch1-sec1",
+              "title": "1.1 受力与加速度",
+              "knowledge": [
+                {
+                  "id": "k-newton-second-law",
+                  "title": "牛顿第二定律",
+                  "type": "law",
+                  "difficulty": "beginner",
+                  "summary": "力等于质量与加速度的乘积，刻画动力学核心关系。",
+                  "tags": ["物理", "力学", "定律"]
+                }
+              ]
+            },
+            {
+              "id": "phy-ch1-sec2",
+              "title": "1.2 碰撞与守恒",
+              "knowledge": [
+                {
+                  "id": "k-momentum-conservation",
+                  "title": "动量守恒",
+                  "type": "law",
+                  "difficulty": "intermediate",
+                  "summary": "孤立系统总动量保持不变。",
+                  "tags": ["物理", "守恒", "碰撞"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "phy-ch2",
+          "title": "电磁与波动",
+          "sections": [
+            {
+              "id": "phy-ch2-sec1",
+              "title": "2.1 场与方程组",
+              "knowledge": [
+                {
+                  "id": "k-maxwell-equations",
+                  "title": "麦克斯韦方程组",
+                  "type": "theory",
+                  "difficulty": "advanced",
+                  "summary": "统一描述电场与磁场的生成、耦合与传播。",
+                  "tags": ["物理", "电磁学", "方程组"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "book-cs-foundations",
+      "title": "计算机科学基础",
+      "discipline": "computer-science",
+      "chapters": [
+        {
+          "id": "cs-ch1",
+          "title": "算法分析",
+          "sections": [
+            {
+              "id": "cs-ch1-sec1",
+              "title": "1.1 时间复杂度",
+              "knowledge": [
+                {
+                  "id": "k-big-o-notation",
+                  "title": "大O记号",
+                  "type": "concept",
+                  "difficulty": "beginner",
+                  "summary": "刻画算法增长阶的渐进上界。",
+                  "tags": ["计算机", "算法", "复杂度"]
+                }
+              ]
+            },
+            {
+              "id": "cs-ch1-sec2",
+              "title": "1.2 分治策略",
+              "knowledge": [
+                {
+                  "id": "k-divide-and-conquer",
+                  "title": "分治法",
+                  "type": "method",
+                  "difficulty": "intermediate",
+                  "summary": "将问题拆解为子问题递归求解后再合并。",
+                  "tags": ["计算机", "算法", "设计范式"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cs-ch2",
+          "title": "机器学习",
+          "sections": [
+            {
+              "id": "cs-ch2-sec1",
+              "title": "2.1 反向传播",
+              "knowledge": [
+                {
+                  "id": "k-backpropagation",
+                  "title": "反向传播算法",
+                  "type": "algorithm",
+                  "difficulty": "intermediate",
+                  "summary": "利用链式法则高效计算神经网络参数梯度。",
+                  "tags": ["计算机", "机器学习", "优化"]
+                }
+              ]
+            },
+            {
+              "id": "cs-ch2-sec2",
+              "title": "2.2 卷积网络",
+              "knowledge": [
+                {
+                  "id": "k-convolutional-neural-network",
+                  "title": "卷积神经网络",
+                  "type": "model",
+                  "difficulty": "intermediate",
+                  "summary": "通过局部感受野与参数共享提取空间结构特征。",
+                  "tags": ["计算机", "深度学习", "视觉"],
+                  "provenanceLinks": [
+                    {
+                      "type": "cite_from",
+                      "bookId": "book-cs-deeplearning",
+                      "bookTitle": "Deep Learning",
+                      "chapter": "Convolutional Networks",
+                      "section": "Architectures"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "knowledgeRelations": [
+    {
+      "source": "k-limit-definition",
+      "target": "k-epsilon-delta-proof",
+      "type": "prerequisite_of",
+      "domain": "common",
+      "reason": "掌握极限定义是使用ε-δ证明的前置条件。",
+      "weight": 0.95
+    },
+    {
+      "source": "k-epsilon-delta-proof",
+      "target": "k-derivative-definition",
+      "type": "proves",
+      "domain": "mathematics",
+      "reason": "导数定义的严谨性依赖极限证明模板。",
+      "weight": 0.78
+    },
+    {
+      "source": "k-derivative-definition",
+      "target": "k-newton-second-law",
+      "type": "models",
+      "domain": "common",
+      "reason": "瞬时变化率是加速度定义的数学基础。",
+      "weight": 0.66
+    },
+    {
+      "source": "k-newton-second-law",
+      "target": "k-momentum-conservation",
+      "type": "causes",
+      "domain": "physics",
+      "reason": "在封闭系统下可推导守恒规律。",
+      "weight": 0.72
+    },
+    {
+      "source": "k-maxwell-equations",
+      "target": "k-fourier-transform",
+      "type": "analyzed_by",
+      "domain": "physics",
+      "reason": "电磁波传播常转到频域分析。",
+      "weight": 0.63
+    },
+    {
+      "source": "k-big-o-notation",
+      "target": "k-divide-and-conquer",
+      "type": "analyzes",
+      "domain": "computer-science",
+      "reason": "分治算法复杂度通常用大O记号评估。",
+      "weight": 0.93
+    },
+    {
+      "source": "k-divide-and-conquer",
+      "target": "k-backpropagation",
+      "type": "related_to",
+      "domain": "common",
+      "reason": "都体现将复杂问题拆解再组合的计算思想。",
+      "weight": 0.39
+    },
+    {
+      "source": "k-backpropagation",
+      "target": "k-convolutional-neural-network",
+      "type": "optimizes",
+      "domain": "computer-science",
+      "reason": "CNN训练依赖反向传播求梯度并更新参数。",
+      "weight": 0.97
+    },
+    {
+      "source": "k-fourier-transform",
+      "target": "k-convolutional-neural-network",
+      "type": "related_to",
+      "domain": "common",
+      "reason": "卷积与频域分析存在理论联系。",
+      "weight": 0.44
+    }
+  ]
+}
