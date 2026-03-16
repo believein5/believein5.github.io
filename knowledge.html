@@ -50,40 +50,91 @@
         <nav class="domain-tree" aria-label="Knowledge taxonomy">
           <section class="domain-group is-open" data-domain-group>
             <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="true">
+              <span class="domain-toggle-label" data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="philosophy" data-i18n-zh="认识论、科学哲学、意识与智能本体" data-i18n-en="Epistemology, philosophy of science, consciousness and intelligence ontology">认识论、科学哲学、意识与智能本体</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="数学" data-i18n-en="Mathematics">数学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="mathematics" data-i18n-zh="线性代数、概率统计、优化、信息论" data-i18n-en="Linear algebra, probability and statistics, optimization, information theory">线性代数、概率统计、优化、信息论</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="物理学" data-i18n-en="Physics">物理学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="physics" data-i18n-zh="复杂系统、动力学、统计物理与计算建模" data-i18n-en="Complex systems, dynamics, statistical physics and computational modeling">复杂系统、动力学、统计物理与计算建模</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="金融学" data-i18n-en="Finance">金融学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="finance" data-i18n-zh="风险、市场微观结构、量化策略与决策" data-i18n-en="Risk, market microstructure, quantitative strategy and decision-making">风险、市场微观结构、量化策略与决策</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="neuroscience" data-i18n-zh="大脑机制、神经编码、学习与记忆过程" data-i18n-en="Brain mechanisms, neural coding, learning and memory">大脑机制、神经编码、学习与记忆过程</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="psychology" data-i18n-zh="认知偏差、行为决策、学习动机与人格差异" data-i18n-en="Cognitive biases, behavioral decision-making, motivation and personality">认知偏差、行为决策、学习动机与人格差异</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
               <span class="domain-toggle-label" data-i18n-zh="计算机科学" data-i18n-en="Computer Science">计算机科学</span>
               <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="domain-children" data-domain-panel>
-              <li><button class="domain-link is-active" type="button" data-domain-filter="all" data-i18n-zh="全部知识" data-i18n-en="All knowledge">全部知识</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="semantic-html" data-i18n-zh="语义化 HTML" data-i18n-en="Semantic HTML">语义化 HTML</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="css-layout" data-i18n-zh="CSS 布局" data-i18n-en="CSS Layout">CSS 布局</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="css-animation" data-i18n-zh="CSS 动画" data-i18n-en="CSS Animation">CSS 动画</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="computer-science" data-i18n-zh="算法、系统、软件工程、机器学习与智能体" data-i18n-en="Algorithms, systems, software engineering, machine learning and agents">算法、系统、软件工程、机器学习与智能体</button></li>
             </ul>
           </section>
 
           <section class="domain-group" data-domain-group>
             <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
-              <span class="domain-toggle-label" data-i18n-zh="认知与决策" data-i18n-en="Cognition & Decision">认知与决策</span>
+              <span class="domain-toggle-label" data-i18n-zh="控制理论" data-i18n-en="Control Theory">控制理论</span>
               <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="domain-children" data-domain-panel>
-              <li><button class="domain-link" type="button" data-domain-filter="psychology" data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="neuroscience" data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="finance" data-i18n-zh="金融学" data-i18n-en="Finance">金融学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="control-theory" data-i18n-zh="反馈、稳定性、最优控制与系统辨识" data-i18n-en="Feedback, stability, optimal control and system identification">反馈、稳定性、最优控制与系统辨识</button></li>
             </ul>
           </section>
 
           <section class="domain-group" data-domain-group>
             <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
-              <span class="domain-toggle-label" data-i18n-zh="基础科学与方法" data-i18n-en="Foundations & Methods">基础科学与方法</span>
+              <span class="domain-toggle-label" data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</span>
               <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </button>
             <ul class="domain-children" data-domain-panel>
-              <li><button class="domain-link" type="button" data-domain-filter="mathematics" data-i18n-zh="数学" data-i18n-en="Mathematics">数学</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="physics" data-i18n-zh="物理学" data-i18n-en="Physics">物理学</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="control" data-i18n-zh="控制理论" data-i18n-en="Control Theory">控制理论</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="linguistics" data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</button></li>
-              <li><button class="domain-link" type="button" data-domain-filter="philosophy" data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</button></li>
+              <li><button class="domain-link" type="button" data-domain-filter="linguistics" data-i18n-zh="语义、语法、语用与人机语言交互" data-i18n-en="Semantics, syntax, pragmatics and human-machine language interaction">语义、语法、语用与人机语言交互</button></li>
             </ul>
           </section>
         </nav>

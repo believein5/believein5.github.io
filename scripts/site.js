@@ -57,17 +57,15 @@ const KnowledgeGraphSite = (() => {
 
   const DOMAIN_KEYWORDS = {
     'all': [],
-    'semantic-html': ['semantic', 'semantics', 'html', 'accessibility', '语义'],
-    'css-layout': ['css', 'layout', 'flexbox', '布局'],
-    'css-animation': ['css', 'animation', 'transform', 'keyframes', '动画'],
-    'psychology': ['psychology', '认知', '行为', 'bias'],
-    'neuroscience': ['neuroscience', 'neural', 'brain', '神经'],
-    'finance': ['finance', 'risk', 'market', '金融'],
-    'mathematics': ['mathematics', 'math', 'probability', 'optimization', '数学'],
-    'physics': ['physics', 'dynamics', 'complex', '物理'],
-    'control': ['control', 'feedback', 'stability', '控制'],
-    'linguistics': ['linguistics', 'semantics', 'syntax', '语义', '语法'],
-    'philosophy': ['philosophy', 'epistemology', '哲学']
+    'philosophy': ['philosophy', 'epistemology', 'ontology', '意识', '哲学'],
+    'mathematics': ['mathematics', 'math', 'linear algebra', 'probability', 'optimization', '信息论', '数学'],
+    'physics': ['physics', 'dynamics', 'complex system', 'statistical', '物理', '动力学'],
+    'finance': ['finance', 'risk', 'market', 'quant', '金融'],
+    'neuroscience': ['neuroscience', 'neural', 'brain', 'memory', '神经'],
+    'psychology': ['psychology', 'cognitive', 'behavior', 'bias', '心理'],
+    'computer-science': ['computer science', 'algorithm', 'system', 'software', 'ml', 'agent', '计算机'],
+    'control-theory': ['control', 'feedback', 'stability', 'system identification', '控制'],
+    'linguistics': ['linguistics', 'semantics', 'syntax', 'pragmatics', '语义', '语法']
   };
 
   function t(key) {
@@ -450,9 +448,15 @@ const KnowledgeGraphSite = (() => {
 
     domainButtons.forEach((button) => {
       button.addEventListener('click', () => {
+        const selected = button.dataset.domainFilter || 'all';
+        const isAlreadyActive = selected === activeDomainFilter;
+
         domainButtons.forEach((item) => item.classList.remove('is-active'));
-        button.classList.add('is-active');
-        activeDomainFilter = button.dataset.domainFilter || 'all';
+        activeDomainFilter = isAlreadyActive ? 'all' : selected;
+        if (!isAlreadyActive) {
+          button.classList.add('is-active');
+        }
+
         document.body.classList.remove('knowledge-sidebar-open');
         renderList();
       });
