@@ -66,6 +66,7 @@
         "id": { "type": "string" },
         "rawId": { "type": "string" },
         "title": { "type": "string" },
+        "titleI18n": { "$ref": "#/$defs/i18nText" },
         "type": {
           "type": "string",
           "enum": [
@@ -82,6 +83,7 @@
           ]
         },
         "summary": { "type": "string" },
+        "summaryI18n": { "$ref": "#/$defs/i18nText" },
         "discipline": { "type": "string" },
         "knowledgeType": { "type": "string" },
         "difficulty": {
@@ -105,8 +107,11 @@
               "type": { "type": "string", "enum": ["defined_in", "cite_from", "support"] },
               "bookId": { "type": "string" },
               "bookTitle": { "type": "string" },
+              "bookTitleI18n": { "$ref": "#/$defs/i18nText" },
               "chapter": { "type": "string" },
+              "chapterI18n": { "$ref": "#/$defs/i18nText" },
               "section": { "type": "string" },
+              "sectionI18n": { "$ref": "#/$defs/i18nText" },
               "link": { "type": "string" }
             }
           }
@@ -128,12 +133,22 @@
         "target": { "type": "string" },
         "type": { "type": "string" },
         "reason": { "type": "string" },
+        "reasonI18n": { "$ref": "#/$defs/i18nText" },
         "domain": { "type": "string" },
         "weight": {
           "type": "number",
           "minimum": 0,
           "maximum": 1
         }
+      },
+      "additionalProperties": true
+    },
+    "i18nText": {
+      "type": "object",
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "type": "string" },
+        "en": { "type": "string" }
       },
       "additionalProperties": true
     }

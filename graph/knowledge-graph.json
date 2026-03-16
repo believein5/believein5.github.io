@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Knowledge Graph Views",
-    "version": "0.2.2",
+    "version": "0.2.4",
     "updatedAt": "2026-03-16",
     "description": "Generated graph data containing book hierarchy view and knowledge relation view.",
     "language": "zh-CN"
@@ -137,12 +137,13 @@
     }
   },
   "stats": {
-    "books": 3,
-    "knowledgeNodes": 11,
+    "books": 5,
+    "knowledgeNodes": 21,
     "knowledgeEdgeTypes": [
       "analyzed_by",
       "analyzes",
       "causes",
+      "implements",
       "models",
       "optimizes",
       "prerequisite_of",
@@ -164,6 +165,10 @@
         {
           "id": "book:book-math-analysis",
           "rawId": "book-math-analysis",
+          "titleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "title": "数学分析导论",
           "type": "book",
           "discipline": "mathematics"
@@ -171,113 +176,253 @@
         {
           "id": "chapter:math-ch1",
           "rawId": "math-ch1",
+          "titleI18n": {
+            "zh": "极限与连续",
+            "en": "极限与连续"
+          },
           "title": "极限与连续",
           "type": "chapter",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论"
         },
         {
           "id": "section:math-ch1-sec1",
           "rawId": "math-ch1-sec1",
+          "titleI18n": {
+            "zh": "1.1 极限定义与ε-δ思想",
+            "en": "1.1 极限定义与ε-δ思想"
+          },
           "title": "1.1 极限定义与ε-δ思想",
           "type": "section",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch1",
+          "chapterTitleI18n": {
+            "zh": "极限与连续",
+            "en": "极限与连续"
+          },
           "chapterTitle": "极限与连续"
         },
         {
           "id": "knowledge:k-limit-definition",
           "rawId": "k-limit-definition",
+          "titleI18n": {
+            "zh": "函数极限定义",
+            "en": "函数极限定义"
+          },
           "title": "函数极限定义",
+          "summaryI18n": {
+            "zh": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
+            "en": "通过邻域逼近刻画自变量趋近某点时函数值的行为。"
+          },
+          "summary": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch1",
+          "chapterTitleI18n": {
+            "zh": "极限与连续",
+            "en": "极限与连续"
+          },
           "chapterTitle": "极限与连续",
           "sectionId": "math-ch1-sec1",
+          "sectionTitleI18n": {
+            "zh": "1.1 极限定义与ε-δ思想",
+            "en": "1.1 极限定义与ε-δ思想"
+          },
           "sectionTitle": "1.1 极限定义与ε-δ思想"
         },
         {
           "id": "knowledge:k-epsilon-delta-proof",
           "rawId": "k-epsilon-delta-proof",
+          "titleI18n": {
+            "zh": "ε-δ证明模板",
+            "en": "ε-δ证明模板"
+          },
           "title": "ε-δ证明模板",
+          "summaryI18n": {
+            "zh": "将直觉性逼近转化为可验证的量化证明流程。",
+            "en": "将直觉性逼近转化为可验证的量化证明流程。"
+          },
+          "summary": "将直觉性逼近转化为可验证的量化证明流程。",
           "type": "knowledge",
           "knowledgeType": "method",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch1",
+          "chapterTitleI18n": {
+            "zh": "极限与连续",
+            "en": "极限与连续"
+          },
           "chapterTitle": "极限与连续",
           "sectionId": "math-ch1-sec1",
+          "sectionTitleI18n": {
+            "zh": "1.1 极限定义与ε-δ思想",
+            "en": "1.1 极限定义与ε-δ思想"
+          },
           "sectionTitle": "1.1 极限定义与ε-δ思想"
         },
         {
           "id": "section:math-ch1-sec2",
           "rawId": "math-ch1-sec2",
+          "titleI18n": {
+            "zh": "1.2 导数与线性近似",
+            "en": "1.2 导数与线性近似"
+          },
           "title": "1.2 导数与线性近似",
           "type": "section",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch1",
+          "chapterTitleI18n": {
+            "zh": "极限与连续",
+            "en": "极限与连续"
+          },
           "chapterTitle": "极限与连续"
         },
         {
           "id": "knowledge:k-derivative-definition",
           "rawId": "k-derivative-definition",
+          "titleI18n": {
+            "zh": "导数定义",
+            "en": "导数定义"
+          },
           "title": "导数定义",
+          "summaryI18n": {
+            "zh": "导数是函数在一点处变化率的极限。",
+            "en": "导数是函数在一点处变化率的极限。"
+          },
+          "summary": "导数是函数在一点处变化率的极限。",
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch1",
+          "chapterTitleI18n": {
+            "zh": "极限与连续",
+            "en": "极限与连续"
+          },
           "chapterTitle": "极限与连续",
           "sectionId": "math-ch1-sec2",
+          "sectionTitleI18n": {
+            "zh": "1.2 导数与线性近似",
+            "en": "1.2 导数与线性近似"
+          },
           "sectionTitle": "1.2 导数与线性近似"
         },
         {
           "id": "chapter:math-ch2",
           "rawId": "math-ch2",
+          "titleI18n": {
+            "zh": "线性代数与变换",
+            "en": "线性代数与变换"
+          },
           "title": "线性代数与变换",
           "type": "chapter",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论"
         },
         {
           "id": "section:math-ch2-sec1",
           "rawId": "math-ch2-sec1",
+          "titleI18n": {
+            "zh": "2.1 线性变换与频域观点",
+            "en": "2.1 线性变换与频域观点"
+          },
           "title": "2.1 线性变换与频域观点",
           "type": "section",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch2",
+          "chapterTitleI18n": {
+            "zh": "线性代数与变换",
+            "en": "线性代数与变换"
+          },
           "chapterTitle": "线性代数与变换"
         },
         {
           "id": "knowledge:k-fourier-transform",
           "rawId": "k-fourier-transform",
+          "titleI18n": {
+            "zh": "傅里叶变换",
+            "en": "傅里叶变换"
+          },
           "title": "傅里叶变换",
+          "summaryI18n": {
+            "zh": "将时域信号映射到频域，以分解频率成分。",
+            "en": "将时域信号映射到频域，以分解频率成分。"
+          },
+          "summary": "将时域信号映射到频域，以分解频率成分。",
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "mathematics",
           "bookId": "book-math-analysis",
+          "bookTitleI18n": {
+            "zh": "数学分析导论",
+            "en": "数学分析导论"
+          },
           "bookTitle": "数学分析导论",
           "chapterId": "math-ch2",
+          "chapterTitleI18n": {
+            "zh": "线性代数与变换",
+            "en": "线性代数与变换"
+          },
           "chapterTitle": "线性代数与变换",
           "sectionId": "math-ch2-sec1",
+          "sectionTitleI18n": {
+            "zh": "2.1 线性变换与频域观点",
+            "en": "2.1 线性变换与频域观点"
+          },
           "sectionTitle": "2.1 线性变换与频域观点"
         },
         {
           "id": "book:book-physics-mechanics",
           "rawId": "book-physics-mechanics",
+          "titleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "title": "经典力学基础",
           "type": "book",
           "discipline": "physics"
@@ -285,99 +430,218 @@
         {
           "id": "chapter:phy-ch1",
           "rawId": "phy-ch1",
+          "titleI18n": {
+            "zh": "牛顿体系",
+            "en": "牛顿体系"
+          },
           "title": "牛顿体系",
           "type": "chapter",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础"
         },
         {
           "id": "section:phy-ch1-sec1",
           "rawId": "phy-ch1-sec1",
+          "titleI18n": {
+            "zh": "1.1 受力与加速度",
+            "en": "1.1 受力与加速度"
+          },
           "title": "1.1 受力与加速度",
           "type": "section",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础",
           "chapterId": "phy-ch1",
+          "chapterTitleI18n": {
+            "zh": "牛顿体系",
+            "en": "牛顿体系"
+          },
           "chapterTitle": "牛顿体系"
         },
         {
           "id": "knowledge:k-newton-second-law",
           "rawId": "k-newton-second-law",
+          "titleI18n": {
+            "zh": "牛顿第二定律",
+            "en": "牛顿第二定律"
+          },
           "title": "牛顿第二定律",
+          "summaryI18n": {
+            "zh": "力等于质量与加速度的乘积，刻画动力学核心关系。",
+            "en": "力等于质量与加速度的乘积，刻画动力学核心关系。"
+          },
+          "summary": "力等于质量与加速度的乘积，刻画动力学核心关系。",
           "type": "knowledge",
           "knowledgeType": "law",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础",
           "chapterId": "phy-ch1",
+          "chapterTitleI18n": {
+            "zh": "牛顿体系",
+            "en": "牛顿体系"
+          },
           "chapterTitle": "牛顿体系",
           "sectionId": "phy-ch1-sec1",
+          "sectionTitleI18n": {
+            "zh": "1.1 受力与加速度",
+            "en": "1.1 受力与加速度"
+          },
           "sectionTitle": "1.1 受力与加速度"
         },
         {
           "id": "section:phy-ch1-sec2",
           "rawId": "phy-ch1-sec2",
+          "titleI18n": {
+            "zh": "1.2 碰撞与守恒",
+            "en": "1.2 碰撞与守恒"
+          },
           "title": "1.2 碰撞与守恒",
           "type": "section",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础",
           "chapterId": "phy-ch1",
+          "chapterTitleI18n": {
+            "zh": "牛顿体系",
+            "en": "牛顿体系"
+          },
           "chapterTitle": "牛顿体系"
         },
         {
           "id": "knowledge:k-momentum-conservation",
           "rawId": "k-momentum-conservation",
+          "titleI18n": {
+            "zh": "动量守恒",
+            "en": "动量守恒"
+          },
           "title": "动量守恒",
+          "summaryI18n": {
+            "zh": "孤立系统总动量保持不变。",
+            "en": "孤立系统总动量保持不变。"
+          },
+          "summary": "孤立系统总动量保持不变。",
           "type": "knowledge",
           "knowledgeType": "law",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础",
           "chapterId": "phy-ch1",
+          "chapterTitleI18n": {
+            "zh": "牛顿体系",
+            "en": "牛顿体系"
+          },
           "chapterTitle": "牛顿体系",
           "sectionId": "phy-ch1-sec2",
+          "sectionTitleI18n": {
+            "zh": "1.2 碰撞与守恒",
+            "en": "1.2 碰撞与守恒"
+          },
           "sectionTitle": "1.2 碰撞与守恒"
         },
         {
           "id": "chapter:phy-ch2",
           "rawId": "phy-ch2",
+          "titleI18n": {
+            "zh": "电磁与波动",
+            "en": "电磁与波动"
+          },
           "title": "电磁与波动",
           "type": "chapter",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础"
         },
         {
           "id": "section:phy-ch2-sec1",
           "rawId": "phy-ch2-sec1",
+          "titleI18n": {
+            "zh": "2.1 场与方程组",
+            "en": "2.1 场与方程组"
+          },
           "title": "2.1 场与方程组",
           "type": "section",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础",
           "chapterId": "phy-ch2",
+          "chapterTitleI18n": {
+            "zh": "电磁与波动",
+            "en": "电磁与波动"
+          },
           "chapterTitle": "电磁与波动"
         },
         {
           "id": "knowledge:k-maxwell-equations",
           "rawId": "k-maxwell-equations",
+          "titleI18n": {
+            "zh": "麦克斯韦方程组",
+            "en": "麦克斯韦方程组"
+          },
           "title": "麦克斯韦方程组",
+          "summaryI18n": {
+            "zh": "统一描述电场与磁场的生成、耦合与传播。",
+            "en": "统一描述电场与磁场的生成、耦合与传播。"
+          },
+          "summary": "统一描述电场与磁场的生成、耦合与传播。",
           "type": "knowledge",
           "knowledgeType": "theory",
           "discipline": "physics",
           "bookId": "book-physics-mechanics",
+          "bookTitleI18n": {
+            "zh": "经典力学基础",
+            "en": "经典力学基础"
+          },
           "bookTitle": "经典力学基础",
           "chapterId": "phy-ch2",
+          "chapterTitleI18n": {
+            "zh": "电磁与波动",
+            "en": "电磁与波动"
+          },
           "chapterTitle": "电磁与波动",
           "sectionId": "phy-ch2-sec1",
+          "sectionTitleI18n": {
+            "zh": "2.1 场与方程组",
+            "en": "2.1 场与方程组"
+          },
           "sectionTitle": "2.1 场与方程组"
         },
         {
           "id": "book:book-cs-foundations",
           "rawId": "book-cs-foundations",
+          "titleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "title": "计算机科学基础",
           "type": "book",
           "discipline": "computer-science"
@@ -385,120 +649,921 @@
         {
           "id": "chapter:cs-ch1",
           "rawId": "cs-ch1",
+          "titleI18n": {
+            "zh": "算法分析",
+            "en": "算法分析"
+          },
           "title": "算法分析",
           "type": "chapter",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础"
         },
         {
           "id": "section:cs-ch1-sec1",
           "rawId": "cs-ch1-sec1",
+          "titleI18n": {
+            "zh": "1.1 时间复杂度",
+            "en": "1.1 时间复杂度"
+          },
           "title": "1.1 时间复杂度",
           "type": "section",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch1",
+          "chapterTitleI18n": {
+            "zh": "算法分析",
+            "en": "算法分析"
+          },
           "chapterTitle": "算法分析"
         },
         {
           "id": "knowledge:k-big-o-notation",
           "rawId": "k-big-o-notation",
+          "titleI18n": {
+            "zh": "大O记号",
+            "en": "大O记号"
+          },
           "title": "大O记号",
+          "summaryI18n": {
+            "zh": "刻画算法增长阶的渐进上界。",
+            "en": "刻画算法增长阶的渐进上界。"
+          },
+          "summary": "刻画算法增长阶的渐进上界。",
           "type": "knowledge",
           "knowledgeType": "concept",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch1",
+          "chapterTitleI18n": {
+            "zh": "算法分析",
+            "en": "算法分析"
+          },
           "chapterTitle": "算法分析",
           "sectionId": "cs-ch1-sec1",
+          "sectionTitleI18n": {
+            "zh": "1.1 时间复杂度",
+            "en": "1.1 时间复杂度"
+          },
           "sectionTitle": "1.1 时间复杂度"
         },
         {
           "id": "section:cs-ch1-sec2",
           "rawId": "cs-ch1-sec2",
+          "titleI18n": {
+            "zh": "1.2 分治策略",
+            "en": "1.2 分治策略"
+          },
           "title": "1.2 分治策略",
           "type": "section",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch1",
+          "chapterTitleI18n": {
+            "zh": "算法分析",
+            "en": "算法分析"
+          },
           "chapterTitle": "算法分析"
         },
         {
           "id": "knowledge:k-divide-and-conquer",
           "rawId": "k-divide-and-conquer",
+          "titleI18n": {
+            "zh": "分治法",
+            "en": "分治法"
+          },
           "title": "分治法",
+          "summaryI18n": {
+            "zh": "将问题拆解为子问题递归求解后再合并。",
+            "en": "将问题拆解为子问题递归求解后再合并。"
+          },
+          "summary": "将问题拆解为子问题递归求解后再合并。",
           "type": "knowledge",
           "knowledgeType": "method",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch1",
+          "chapterTitleI18n": {
+            "zh": "算法分析",
+            "en": "算法分析"
+          },
           "chapterTitle": "算法分析",
           "sectionId": "cs-ch1-sec2",
+          "sectionTitleI18n": {
+            "zh": "1.2 分治策略",
+            "en": "1.2 分治策略"
+          },
           "sectionTitle": "1.2 分治策略"
         },
         {
           "id": "chapter:cs-ch2",
           "rawId": "cs-ch2",
+          "titleI18n": {
+            "zh": "机器学习",
+            "en": "机器学习"
+          },
           "title": "机器学习",
           "type": "chapter",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础"
         },
         {
           "id": "section:cs-ch2-sec1",
           "rawId": "cs-ch2-sec1",
+          "titleI18n": {
+            "zh": "2.1 反向传播",
+            "en": "2.1 反向传播"
+          },
           "title": "2.1 反向传播",
           "type": "section",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch2",
+          "chapterTitleI18n": {
+            "zh": "机器学习",
+            "en": "机器学习"
+          },
           "chapterTitle": "机器学习"
         },
         {
           "id": "knowledge:k-backpropagation",
           "rawId": "k-backpropagation",
+          "titleI18n": {
+            "zh": "反向传播算法",
+            "en": "反向传播算法"
+          },
           "title": "反向传播算法",
+          "summaryI18n": {
+            "zh": "利用链式法则高效计算神经网络参数梯度。",
+            "en": "利用链式法则高效计算神经网络参数梯度。"
+          },
+          "summary": "利用链式法则高效计算神经网络参数梯度。",
           "type": "knowledge",
           "knowledgeType": "algorithm",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch2",
+          "chapterTitleI18n": {
+            "zh": "机器学习",
+            "en": "机器学习"
+          },
           "chapterTitle": "机器学习",
           "sectionId": "cs-ch2-sec1",
+          "sectionTitleI18n": {
+            "zh": "2.1 反向传播",
+            "en": "2.1 反向传播"
+          },
           "sectionTitle": "2.1 反向传播"
         },
         {
           "id": "section:cs-ch2-sec2",
           "rawId": "cs-ch2-sec2",
+          "titleI18n": {
+            "zh": "2.2 卷积网络",
+            "en": "2.2 卷积网络"
+          },
           "title": "2.2 卷积网络",
           "type": "section",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch2",
+          "chapterTitleI18n": {
+            "zh": "机器学习",
+            "en": "机器学习"
+          },
           "chapterTitle": "机器学习"
         },
         {
           "id": "knowledge:k-convolutional-neural-network",
           "rawId": "k-convolutional-neural-network",
+          "titleI18n": {
+            "zh": "卷积神经网络",
+            "en": "卷积神经网络"
+          },
           "title": "卷积神经网络",
+          "summaryI18n": {
+            "zh": "通过局部感受野与参数共享提取空间结构特征。",
+            "en": "通过局部感受野与参数共享提取空间结构特征。"
+          },
+          "summary": "通过局部感受野与参数共享提取空间结构特征。",
           "type": "knowledge",
           "knowledgeType": "model",
           "discipline": "computer-science",
           "bookId": "book-cs-foundations",
+          "bookTitleI18n": {
+            "zh": "计算机科学基础",
+            "en": "计算机科学基础"
+          },
           "bookTitle": "计算机科学基础",
           "chapterId": "cs-ch2",
+          "chapterTitleI18n": {
+            "zh": "机器学习",
+            "en": "机器学习"
+          },
           "chapterTitle": "机器学习",
           "sectionId": "cs-ch2-sec2",
+          "sectionTitleI18n": {
+            "zh": "2.2 卷积网络",
+            "en": "2.2 卷积网络"
+          },
           "sectionTitle": "2.2 卷积网络"
+        },
+        {
+          "id": "book:book-ai-aima-4e",
+          "rawId": "book-ai-aima-4e",
+          "titleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "title": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "type": "book",
+          "discipline": "computer-science"
+        },
+        {
+          "id": "chapter:ai-ch1",
+          "rawId": "ai-ch1",
+          "titleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "title": "What Is AI?",
+          "type": "chapter",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)"
+        },
+        {
+          "id": "section:ai-ch1-sec1-1",
+          "rawId": "ai-ch1-sec1-1",
+          "titleI18n": {
+            "zh": "1.1 What Is AI?",
+            "en": "1.1 What Is AI?"
+          },
+          "title": "1.1 What Is AI?",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?"
+        },
+        {
+          "id": "knowledge:ai-what-is-ai",
+          "rawId": "ai-what-is-ai",
+          "titleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "title": "What Is AI?",
+          "summaryI18n": {
+            "zh": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。",
+            "en": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。"
+          },
+          "summary": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?",
+          "sectionId": "ai-ch1-sec1-1",
+          "sectionTitleI18n": {
+            "zh": "1.1 What Is AI?",
+            "en": "1.1 What Is AI?"
+          },
+          "sectionTitle": "1.1 What Is AI?"
+        },
+        {
+          "id": "section:ai-ch1-sec1-1-1",
+          "rawId": "ai-ch1-sec1-1-1",
+          "titleI18n": {
+            "zh": "1.1.1 Acting Humanly: The Turing Test",
+            "en": "1.1.1 Acting Humanly: The Turing Test"
+          },
+          "title": "1.1.1 Acting Humanly: The Turing Test",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?"
+        },
+        {
+          "id": "knowledge:ai-turing-test",
+          "rawId": "ai-turing-test",
+          "titleI18n": {
+            "zh": "Turing Test Approach",
+            "en": "Turing Test Approach"
+          },
+          "title": "Turing Test Approach",
+          "summaryI18n": {
+            "zh": "通过文本交互不可区分于人类来判定机器是否表现出智能。",
+            "en": "通过文本交互不可区分于人类来判定机器是否表现出智能。"
+          },
+          "summary": "通过文本交互不可区分于人类来判定机器是否表现出智能。",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?",
+          "sectionId": "ai-ch1-sec1-1-1",
+          "sectionTitleI18n": {
+            "zh": "1.1.1 Acting Humanly: The Turing Test",
+            "en": "1.1.1 Acting Humanly: The Turing Test"
+          },
+          "sectionTitle": "1.1.1 Acting Humanly: The Turing Test"
+        },
+        {
+          "id": "section:ai-ch1-sec1-1-2",
+          "rawId": "ai-ch1-sec1-1-2",
+          "titleI18n": {
+            "zh": "1.1.2 Thinking Humanly",
+            "en": "1.1.2 Thinking Humanly"
+          },
+          "title": "1.1.2 Thinking Humanly",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?"
+        },
+        {
+          "id": "knowledge:ai-cognitive-modeling",
+          "rawId": "ai-cognitive-modeling",
+          "titleI18n": {
+            "zh": "Thinking Humanly: Cognitive Modeling",
+            "en": "Thinking Humanly: Cognitive Modeling"
+          },
+          "title": "Thinking Humanly: Cognitive Modeling",
+          "summaryI18n": {
+            "zh": "结合实验心理学与计算模型来刻画人的思维机制。",
+            "en": "结合实验心理学与计算模型来刻画人的思维机制。"
+          },
+          "summary": "结合实验心理学与计算模型来刻画人的思维机制。",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?",
+          "sectionId": "ai-ch1-sec1-1-2",
+          "sectionTitleI18n": {
+            "zh": "1.1.2 Thinking Humanly",
+            "en": "1.1.2 Thinking Humanly"
+          },
+          "sectionTitle": "1.1.2 Thinking Humanly"
+        },
+        {
+          "id": "section:ai-ch1-sec1-1-4",
+          "rawId": "ai-ch1-sec1-1-4",
+          "titleI18n": {
+            "zh": "1.1.4 Acting Rationally",
+            "en": "1.1.4 Acting Rationally"
+          },
+          "title": "1.1.4 Acting Rationally",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?"
+        },
+        {
+          "id": "knowledge:ai-rational-agent",
+          "rawId": "ai-rational-agent",
+          "titleI18n": {
+            "zh": "Rational Agent",
+            "en": "Rational Agent"
+          },
+          "title": "Rational Agent",
+          "summaryI18n": {
+            "zh": "理性智能体在不确定环境中选择期望结果最优的行动。",
+            "en": "理性智能体在不确定环境中选择期望结果最优的行动。"
+          },
+          "summary": "理性智能体在不确定环境中选择期望结果最优的行动。",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?",
+          "sectionId": "ai-ch1-sec1-1-4",
+          "sectionTitleI18n": {
+            "zh": "1.1.4 Acting Rationally",
+            "en": "1.1.4 Acting Rationally"
+          },
+          "sectionTitle": "1.1.4 Acting Rationally"
+        },
+        {
+          "id": "section:ai-ch1-sec1-1-5",
+          "rawId": "ai-ch1-sec1-1-5",
+          "titleI18n": {
+            "zh": "1.1.5 Beneficial Machines",
+            "en": "1.1.5 Beneficial Machines"
+          },
+          "title": "1.1.5 Beneficial Machines",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?"
+        },
+        {
+          "id": "knowledge:ai-value-alignment",
+          "rawId": "ai-value-alignment",
+          "titleI18n": {
+            "zh": "Value Alignment Problem",
+            "en": "Value Alignment Problem"
+          },
+          "title": "Value Alignment Problem",
+          "summaryI18n": {
+            "zh": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。",
+            "en": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。"
+          },
+          "summary": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-ai-aima-4e",
+          "bookTitleI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+          },
+          "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+          "chapterId": "ai-ch1",
+          "chapterTitleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "chapterTitle": "What Is AI?",
+          "sectionId": "ai-ch1-sec1-1-5",
+          "sectionTitleI18n": {
+            "zh": "1.1.5 Beneficial Machines",
+            "en": "1.1.5 Beneficial Machines"
+          },
+          "sectionTitle": "1.1.5 Beneficial Machines"
+        },
+        {
+          "id": "book:book-frontend-foundations",
+          "rawId": "book-frontend-foundations",
+          "titleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "title": "Frontend Foundations Handbook",
+          "type": "book",
+          "discipline": "computer-science"
+        },
+        {
+          "id": "chapter:fe-ch1",
+          "rawId": "fe-ch1",
+          "titleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "title": "HTML + CSS Core Skills",
+          "type": "chapter",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook"
+        },
+        {
+          "id": "section:fe-ch1-sec1",
+          "rawId": "fe-ch1-sec1",
+          "titleI18n": {
+            "zh": "1.1 Semantic Structure",
+            "en": "1.1 Semantic Structure"
+          },
+          "title": "1.1 Semantic Structure",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch1",
+          "chapterTitleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "chapterTitle": "HTML + CSS Core Skills"
+        },
+        {
+          "id": "knowledge:semantic-html",
+          "rawId": "semantic-html",
+          "titleI18n": {
+            "zh": "Semantic HTML",
+            "en": "Semantic HTML"
+          },
+          "title": "Semantic HTML",
+          "summaryI18n": {
+            "zh": "使用语义化标签提升结构清晰度、可访问性与可检索性。",
+            "en": "使用语义化标签提升结构清晰度、可访问性与可检索性。"
+          },
+          "summary": "使用语义化标签提升结构清晰度、可访问性与可检索性。",
+          "type": "knowledge",
+          "knowledgeType": "concept",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch1",
+          "chapterTitleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "chapterTitle": "HTML + CSS Core Skills",
+          "sectionId": "fe-ch1-sec1",
+          "sectionTitleI18n": {
+            "zh": "1.1 Semantic Structure",
+            "en": "1.1 Semantic Structure"
+          },
+          "sectionTitle": "1.1 Semantic Structure"
+        },
+        {
+          "id": "section:fe-ch1-sec2",
+          "rawId": "fe-ch1-sec2",
+          "titleI18n": {
+            "zh": "1.2 Flex Layout",
+            "en": "1.2 Flex Layout"
+          },
+          "title": "1.2 Flex Layout",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch1",
+          "chapterTitleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "chapterTitle": "HTML + CSS Core Skills"
+        },
+        {
+          "id": "knowledge:css-flexbox",
+          "rawId": "css-flexbox",
+          "titleI18n": {
+            "zh": "CSS Flexbox",
+            "en": "CSS Flexbox"
+          },
+          "title": "CSS Flexbox",
+          "summaryI18n": {
+            "zh": "一维布局系统，用于排列、对齐和换行。",
+            "en": "一维布局系统，用于排列、对齐和换行。"
+          },
+          "summary": "一维布局系统，用于排列、对齐和换行。",
+          "type": "knowledge",
+          "knowledgeType": "method",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch1",
+          "chapterTitleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "chapterTitle": "HTML + CSS Core Skills",
+          "sectionId": "fe-ch1-sec2",
+          "sectionTitleI18n": {
+            "zh": "1.2 Flex Layout",
+            "en": "1.2 Flex Layout"
+          },
+          "sectionTitle": "1.2 Flex Layout"
+        },
+        {
+          "id": "section:fe-ch1-sec3",
+          "rawId": "fe-ch1-sec3",
+          "titleI18n": {
+            "zh": "1.3 Animation Basics",
+            "en": "1.3 Animation Basics"
+          },
+          "title": "1.3 Animation Basics",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch1",
+          "chapterTitleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "chapterTitle": "HTML + CSS Core Skills"
+        },
+        {
+          "id": "knowledge:css-animation",
+          "rawId": "css-animation",
+          "titleI18n": {
+            "zh": "CSS Animation",
+            "en": "CSS Animation"
+          },
+          "title": "CSS Animation",
+          "summaryI18n": {
+            "zh": "通过 keyframes 与 transform 构建连续或状态动画。",
+            "en": "通过 keyframes 与 transform 构建连续或状态动画。"
+          },
+          "summary": "通过 keyframes 与 transform 构建连续或状态动画。",
+          "type": "knowledge",
+          "knowledgeType": "method",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch1",
+          "chapterTitleI18n": {
+            "zh": "HTML + CSS Core Skills",
+            "en": "HTML + CSS Core Skills"
+          },
+          "chapterTitle": "HTML + CSS Core Skills",
+          "sectionId": "fe-ch1-sec3",
+          "sectionTitleI18n": {
+            "zh": "1.3 Animation Basics",
+            "en": "1.3 Animation Basics"
+          },
+          "sectionTitle": "1.3 Animation Basics"
+        },
+        {
+          "id": "chapter:fe-ch2",
+          "rawId": "fe-ch2",
+          "titleI18n": {
+            "zh": "Practice Projects",
+            "en": "Practice Projects"
+          },
+          "title": "Practice Projects",
+          "type": "chapter",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook"
+        },
+        {
+          "id": "section:fe-ch2-sec1",
+          "rawId": "fe-ch2-sec1",
+          "titleI18n": {
+            "zh": "2.1 Gallery Project",
+            "en": "2.1 Gallery Project"
+          },
+          "title": "2.1 Gallery Project",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch2",
+          "chapterTitleI18n": {
+            "zh": "Practice Projects",
+            "en": "Practice Projects"
+          },
+          "chapterTitle": "Practice Projects"
+        },
+        {
+          "id": "knowledge:project-cat-photo-gallery",
+          "rawId": "project-cat-photo-gallery",
+          "titleI18n": {
+            "zh": "Cat Photo Gallery",
+            "en": "Cat Photo Gallery"
+          },
+          "title": "Cat Photo Gallery",
+          "summaryI18n": {
+            "zh": "用于练习语义结构和 Flex 布局的项目知识点。",
+            "en": "用于练习语义结构和 Flex 布局的项目知识点。"
+          },
+          "summary": "用于练习语义结构和 Flex 布局的项目知识点。",
+          "type": "knowledge",
+          "knowledgeType": "model",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch2",
+          "chapterTitleI18n": {
+            "zh": "Practice Projects",
+            "en": "Practice Projects"
+          },
+          "chapterTitle": "Practice Projects",
+          "sectionId": "fe-ch2-sec1",
+          "sectionTitleI18n": {
+            "zh": "2.1 Gallery Project",
+            "en": "2.1 Gallery Project"
+          },
+          "sectionTitle": "2.1 Gallery Project"
+        },
+        {
+          "id": "section:fe-ch2-sec2",
+          "rawId": "fe-ch2-sec2",
+          "titleI18n": {
+            "zh": "2.2 Ferris Wheel Animation",
+            "en": "2.2 Ferris Wheel Animation"
+          },
+          "title": "2.2 Ferris Wheel Animation",
+          "type": "section",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch2",
+          "chapterTitleI18n": {
+            "zh": "Practice Projects",
+            "en": "Practice Projects"
+          },
+          "chapterTitle": "Practice Projects"
+        },
+        {
+          "id": "knowledge:project-ferris-wheel",
+          "rawId": "project-ferris-wheel",
+          "titleI18n": {
+            "zh": "Ferris Wheel",
+            "en": "Ferris Wheel"
+          },
+          "title": "Ferris Wheel",
+          "summaryI18n": {
+            "zh": "用于练习 transform、timing、keyframes 的动画项目。",
+            "en": "用于练习 transform、timing、keyframes 的动画项目。"
+          },
+          "summary": "用于练习 transform、timing、keyframes 的动画项目。",
+          "type": "knowledge",
+          "knowledgeType": "model",
+          "discipline": "computer-science",
+          "bookId": "book-frontend-foundations",
+          "bookTitleI18n": {
+            "zh": "Frontend Foundations Handbook",
+            "en": "Frontend Foundations Handbook"
+          },
+          "bookTitle": "Frontend Foundations Handbook",
+          "chapterId": "fe-ch2",
+          "chapterTitleI18n": {
+            "zh": "Practice Projects",
+            "en": "Practice Projects"
+          },
+          "chapterTitle": "Practice Projects",
+          "sectionId": "fe-ch2-sec2",
+          "sectionTitleI18n": {
+            "zh": "2.2 Ferris Wheel Animation",
+            "en": "2.2 Ferris Wheel Animation"
+          },
+          "sectionTitle": "2.2 Ferris Wheel Animation"
         }
       ],
       "edges": [
@@ -506,163 +1571,501 @@
           "source": "book:book-math-analysis",
           "target": "chapter:math-ch1",
           "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "数学分析导论 包含章节 极限与连续",
+            "en": "数学分析导论 includes chapter 极限与连续"
+          },
           "reason": "数学分析导论 包含章节 极限与连续"
         },
         {
           "source": "chapter:math-ch1",
           "target": "section:math-ch1-sec1",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "极限与连续 包含小节 1.1 极限定义与ε-δ思想",
+            "en": "极限与连续 includes section 1.1 极限定义与ε-δ思想"
+          },
           "reason": "极限与连续 包含小节 1.1 极限定义与ε-δ思想"
         },
         {
           "source": "section:math-ch1-sec1",
           "target": "knowledge:k-limit-definition",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1 极限定义与ε-δ思想 涵盖知识点 函数极限定义",
+            "en": "1.1 极限定义与ε-δ思想 covers knowledge 函数极限定义"
+          },
           "reason": "1.1 极限定义与ε-δ思想 涵盖知识点 函数极限定义"
         },
         {
           "source": "section:math-ch1-sec1",
           "target": "knowledge:k-epsilon-delta-proof",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1 极限定义与ε-δ思想 涵盖知识点 ε-δ证明模板",
+            "en": "1.1 极限定义与ε-δ思想 covers knowledge ε-δ证明模板"
+          },
           "reason": "1.1 极限定义与ε-δ思想 涵盖知识点 ε-δ证明模板"
         },
         {
           "source": "chapter:math-ch1",
           "target": "section:math-ch1-sec2",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "极限与连续 包含小节 1.2 导数与线性近似",
+            "en": "极限与连续 includes section 1.2 导数与线性近似"
+          },
           "reason": "极限与连续 包含小节 1.2 导数与线性近似"
         },
         {
           "source": "section:math-ch1-sec2",
           "target": "knowledge:k-derivative-definition",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.2 导数与线性近似 涵盖知识点 导数定义",
+            "en": "1.2 导数与线性近似 covers knowledge 导数定义"
+          },
           "reason": "1.2 导数与线性近似 涵盖知识点 导数定义"
         },
         {
           "source": "book:book-math-analysis",
           "target": "chapter:math-ch2",
           "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "数学分析导论 包含章节 线性代数与变换",
+            "en": "数学分析导论 includes chapter 线性代数与变换"
+          },
           "reason": "数学分析导论 包含章节 线性代数与变换"
         },
         {
           "source": "chapter:math-ch2",
           "target": "section:math-ch2-sec1",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "线性代数与变换 包含小节 2.1 线性变换与频域观点",
+            "en": "线性代数与变换 includes section 2.1 线性变换与频域观点"
+          },
           "reason": "线性代数与变换 包含小节 2.1 线性变换与频域观点"
         },
         {
           "source": "section:math-ch2-sec1",
           "target": "knowledge:k-fourier-transform",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "2.1 线性变换与频域观点 涵盖知识点 傅里叶变换",
+            "en": "2.1 线性变换与频域观点 covers knowledge 傅里叶变换"
+          },
           "reason": "2.1 线性变换与频域观点 涵盖知识点 傅里叶变换"
         },
         {
           "source": "book:book-physics-mechanics",
           "target": "chapter:phy-ch1",
           "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "经典力学基础 包含章节 牛顿体系",
+            "en": "经典力学基础 includes chapter 牛顿体系"
+          },
           "reason": "经典力学基础 包含章节 牛顿体系"
         },
         {
           "source": "chapter:phy-ch1",
           "target": "section:phy-ch1-sec1",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "牛顿体系 包含小节 1.1 受力与加速度",
+            "en": "牛顿体系 includes section 1.1 受力与加速度"
+          },
           "reason": "牛顿体系 包含小节 1.1 受力与加速度"
         },
         {
           "source": "section:phy-ch1-sec1",
           "target": "knowledge:k-newton-second-law",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1 受力与加速度 涵盖知识点 牛顿第二定律",
+            "en": "1.1 受力与加速度 covers knowledge 牛顿第二定律"
+          },
           "reason": "1.1 受力与加速度 涵盖知识点 牛顿第二定律"
         },
         {
           "source": "chapter:phy-ch1",
           "target": "section:phy-ch1-sec2",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "牛顿体系 包含小节 1.2 碰撞与守恒",
+            "en": "牛顿体系 includes section 1.2 碰撞与守恒"
+          },
           "reason": "牛顿体系 包含小节 1.2 碰撞与守恒"
         },
         {
           "source": "section:phy-ch1-sec2",
           "target": "knowledge:k-momentum-conservation",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.2 碰撞与守恒 涵盖知识点 动量守恒",
+            "en": "1.2 碰撞与守恒 covers knowledge 动量守恒"
+          },
           "reason": "1.2 碰撞与守恒 涵盖知识点 动量守恒"
         },
         {
           "source": "book:book-physics-mechanics",
           "target": "chapter:phy-ch2",
           "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "经典力学基础 包含章节 电磁与波动",
+            "en": "经典力学基础 includes chapter 电磁与波动"
+          },
           "reason": "经典力学基础 包含章节 电磁与波动"
         },
         {
           "source": "chapter:phy-ch2",
           "target": "section:phy-ch2-sec1",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "电磁与波动 包含小节 2.1 场与方程组",
+            "en": "电磁与波动 includes section 2.1 场与方程组"
+          },
           "reason": "电磁与波动 包含小节 2.1 场与方程组"
         },
         {
           "source": "section:phy-ch2-sec1",
           "target": "knowledge:k-maxwell-equations",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "2.1 场与方程组 涵盖知识点 麦克斯韦方程组",
+            "en": "2.1 场与方程组 covers knowledge 麦克斯韦方程组"
+          },
           "reason": "2.1 场与方程组 涵盖知识点 麦克斯韦方程组"
         },
         {
           "source": "book:book-cs-foundations",
           "target": "chapter:cs-ch1",
           "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "计算机科学基础 包含章节 算法分析",
+            "en": "计算机科学基础 includes chapter 算法分析"
+          },
           "reason": "计算机科学基础 包含章节 算法分析"
         },
         {
           "source": "chapter:cs-ch1",
           "target": "section:cs-ch1-sec1",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "算法分析 包含小节 1.1 时间复杂度",
+            "en": "算法分析 includes section 1.1 时间复杂度"
+          },
           "reason": "算法分析 包含小节 1.1 时间复杂度"
         },
         {
           "source": "section:cs-ch1-sec1",
           "target": "knowledge:k-big-o-notation",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1 时间复杂度 涵盖知识点 大O记号",
+            "en": "1.1 时间复杂度 covers knowledge 大O记号"
+          },
           "reason": "1.1 时间复杂度 涵盖知识点 大O记号"
         },
         {
           "source": "chapter:cs-ch1",
           "target": "section:cs-ch1-sec2",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "算法分析 包含小节 1.2 分治策略",
+            "en": "算法分析 includes section 1.2 分治策略"
+          },
           "reason": "算法分析 包含小节 1.2 分治策略"
         },
         {
           "source": "section:cs-ch1-sec2",
           "target": "knowledge:k-divide-and-conquer",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.2 分治策略 涵盖知识点 分治法",
+            "en": "1.2 分治策略 covers knowledge 分治法"
+          },
           "reason": "1.2 分治策略 涵盖知识点 分治法"
         },
         {
           "source": "book:book-cs-foundations",
           "target": "chapter:cs-ch2",
           "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "计算机科学基础 包含章节 机器学习",
+            "en": "计算机科学基础 includes chapter 机器学习"
+          },
           "reason": "计算机科学基础 包含章节 机器学习"
         },
         {
           "source": "chapter:cs-ch2",
           "target": "section:cs-ch2-sec1",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "机器学习 包含小节 2.1 反向传播",
+            "en": "机器学习 includes section 2.1 反向传播"
+          },
           "reason": "机器学习 包含小节 2.1 反向传播"
         },
         {
           "source": "section:cs-ch2-sec1",
           "target": "knowledge:k-backpropagation",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "2.1 反向传播 涵盖知识点 反向传播算法",
+            "en": "2.1 反向传播 covers knowledge 反向传播算法"
+          },
           "reason": "2.1 反向传播 涵盖知识点 反向传播算法"
         },
         {
           "source": "chapter:cs-ch2",
           "target": "section:cs-ch2-sec2",
           "type": "has_section",
+          "reasonI18n": {
+            "zh": "机器学习 包含小节 2.2 卷积网络",
+            "en": "机器学习 includes section 2.2 卷积网络"
+          },
           "reason": "机器学习 包含小节 2.2 卷积网络"
         },
         {
           "source": "section:cs-ch2-sec2",
           "target": "knowledge:k-convolutional-neural-network",
           "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "2.2 卷积网络 涵盖知识点 卷积神经网络",
+            "en": "2.2 卷积网络 covers knowledge 卷积神经网络"
+          },
           "reason": "2.2 卷积网络 涵盖知识点 卷积神经网络"
+        },
+        {
+          "source": "book:book-ai-aima-4e",
+          "target": "chapter:ai-ch1",
+          "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "Artificial Intelligence: A Modern Approach (4th Edition) 包含章节 What Is AI?",
+            "en": "Artificial Intelligence: A Modern Approach (4th Edition) includes chapter What Is AI?"
+          },
+          "reason": "Artificial Intelligence: A Modern Approach (4th Edition) 包含章节 What Is AI?"
+        },
+        {
+          "source": "chapter:ai-ch1",
+          "target": "section:ai-ch1-sec1-1",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "What Is AI? 包含小节 1.1 What Is AI?",
+            "en": "What Is AI? includes section 1.1 What Is AI?"
+          },
+          "reason": "What Is AI? 包含小节 1.1 What Is AI?"
+        },
+        {
+          "source": "section:ai-ch1-sec1-1",
+          "target": "knowledge:ai-what-is-ai",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1 What Is AI? 涵盖知识点 What Is AI?",
+            "en": "1.1 What Is AI? covers knowledge What Is AI?"
+          },
+          "reason": "1.1 What Is AI? 涵盖知识点 What Is AI?"
+        },
+        {
+          "source": "chapter:ai-ch1",
+          "target": "section:ai-ch1-sec1-1-1",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "What Is AI? 包含小节 1.1.1 Acting Humanly: The Turing Test",
+            "en": "What Is AI? includes section 1.1.1 Acting Humanly: The Turing Test"
+          },
+          "reason": "What Is AI? 包含小节 1.1.1 Acting Humanly: The Turing Test"
+        },
+        {
+          "source": "section:ai-ch1-sec1-1-1",
+          "target": "knowledge:ai-turing-test",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1.1 Acting Humanly: The Turing Test 涵盖知识点 Turing Test Approach",
+            "en": "1.1.1 Acting Humanly: The Turing Test covers knowledge Turing Test Approach"
+          },
+          "reason": "1.1.1 Acting Humanly: The Turing Test 涵盖知识点 Turing Test Approach"
+        },
+        {
+          "source": "chapter:ai-ch1",
+          "target": "section:ai-ch1-sec1-1-2",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "What Is AI? 包含小节 1.1.2 Thinking Humanly",
+            "en": "What Is AI? includes section 1.1.2 Thinking Humanly"
+          },
+          "reason": "What Is AI? 包含小节 1.1.2 Thinking Humanly"
+        },
+        {
+          "source": "section:ai-ch1-sec1-1-2",
+          "target": "knowledge:ai-cognitive-modeling",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1.2 Thinking Humanly 涵盖知识点 Thinking Humanly: Cognitive Modeling",
+            "en": "1.1.2 Thinking Humanly covers knowledge Thinking Humanly: Cognitive Modeling"
+          },
+          "reason": "1.1.2 Thinking Humanly 涵盖知识点 Thinking Humanly: Cognitive Modeling"
+        },
+        {
+          "source": "chapter:ai-ch1",
+          "target": "section:ai-ch1-sec1-1-4",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "What Is AI? 包含小节 1.1.4 Acting Rationally",
+            "en": "What Is AI? includes section 1.1.4 Acting Rationally"
+          },
+          "reason": "What Is AI? 包含小节 1.1.4 Acting Rationally"
+        },
+        {
+          "source": "section:ai-ch1-sec1-1-4",
+          "target": "knowledge:ai-rational-agent",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1.4 Acting Rationally 涵盖知识点 Rational Agent",
+            "en": "1.1.4 Acting Rationally covers knowledge Rational Agent"
+          },
+          "reason": "1.1.4 Acting Rationally 涵盖知识点 Rational Agent"
+        },
+        {
+          "source": "chapter:ai-ch1",
+          "target": "section:ai-ch1-sec1-1-5",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "What Is AI? 包含小节 1.1.5 Beneficial Machines",
+            "en": "What Is AI? includes section 1.1.5 Beneficial Machines"
+          },
+          "reason": "What Is AI? 包含小节 1.1.5 Beneficial Machines"
+        },
+        {
+          "source": "section:ai-ch1-sec1-1-5",
+          "target": "knowledge:ai-value-alignment",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1.5 Beneficial Machines 涵盖知识点 Value Alignment Problem",
+            "en": "1.1.5 Beneficial Machines covers knowledge Value Alignment Problem"
+          },
+          "reason": "1.1.5 Beneficial Machines 涵盖知识点 Value Alignment Problem"
+        },
+        {
+          "source": "book:book-frontend-foundations",
+          "target": "chapter:fe-ch1",
+          "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "Frontend Foundations Handbook 包含章节 HTML + CSS Core Skills",
+            "en": "Frontend Foundations Handbook includes chapter HTML + CSS Core Skills"
+          },
+          "reason": "Frontend Foundations Handbook 包含章节 HTML + CSS Core Skills"
+        },
+        {
+          "source": "chapter:fe-ch1",
+          "target": "section:fe-ch1-sec1",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "HTML + CSS Core Skills 包含小节 1.1 Semantic Structure",
+            "en": "HTML + CSS Core Skills includes section 1.1 Semantic Structure"
+          },
+          "reason": "HTML + CSS Core Skills 包含小节 1.1 Semantic Structure"
+        },
+        {
+          "source": "section:fe-ch1-sec1",
+          "target": "knowledge:semantic-html",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.1 Semantic Structure 涵盖知识点 Semantic HTML",
+            "en": "1.1 Semantic Structure covers knowledge Semantic HTML"
+          },
+          "reason": "1.1 Semantic Structure 涵盖知识点 Semantic HTML"
+        },
+        {
+          "source": "chapter:fe-ch1",
+          "target": "section:fe-ch1-sec2",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "HTML + CSS Core Skills 包含小节 1.2 Flex Layout",
+            "en": "HTML + CSS Core Skills includes section 1.2 Flex Layout"
+          },
+          "reason": "HTML + CSS Core Skills 包含小节 1.2 Flex Layout"
+        },
+        {
+          "source": "section:fe-ch1-sec2",
+          "target": "knowledge:css-flexbox",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.2 Flex Layout 涵盖知识点 CSS Flexbox",
+            "en": "1.2 Flex Layout covers knowledge CSS Flexbox"
+          },
+          "reason": "1.2 Flex Layout 涵盖知识点 CSS Flexbox"
+        },
+        {
+          "source": "chapter:fe-ch1",
+          "target": "section:fe-ch1-sec3",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "HTML + CSS Core Skills 包含小节 1.3 Animation Basics",
+            "en": "HTML + CSS Core Skills includes section 1.3 Animation Basics"
+          },
+          "reason": "HTML + CSS Core Skills 包含小节 1.3 Animation Basics"
+        },
+        {
+          "source": "section:fe-ch1-sec3",
+          "target": "knowledge:css-animation",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "1.3 Animation Basics 涵盖知识点 CSS Animation",
+            "en": "1.3 Animation Basics covers knowledge CSS Animation"
+          },
+          "reason": "1.3 Animation Basics 涵盖知识点 CSS Animation"
+        },
+        {
+          "source": "book:book-frontend-foundations",
+          "target": "chapter:fe-ch2",
+          "type": "has_chapter",
+          "reasonI18n": {
+            "zh": "Frontend Foundations Handbook 包含章节 Practice Projects",
+            "en": "Frontend Foundations Handbook includes chapter Practice Projects"
+          },
+          "reason": "Frontend Foundations Handbook 包含章节 Practice Projects"
+        },
+        {
+          "source": "chapter:fe-ch2",
+          "target": "section:fe-ch2-sec1",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "Practice Projects 包含小节 2.1 Gallery Project",
+            "en": "Practice Projects includes section 2.1 Gallery Project"
+          },
+          "reason": "Practice Projects 包含小节 2.1 Gallery Project"
+        },
+        {
+          "source": "section:fe-ch2-sec1",
+          "target": "knowledge:project-cat-photo-gallery",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "2.1 Gallery Project 涵盖知识点 Cat Photo Gallery",
+            "en": "2.1 Gallery Project covers knowledge Cat Photo Gallery"
+          },
+          "reason": "2.1 Gallery Project 涵盖知识点 Cat Photo Gallery"
+        },
+        {
+          "source": "chapter:fe-ch2",
+          "target": "section:fe-ch2-sec2",
+          "type": "has_section",
+          "reasonI18n": {
+            "zh": "Practice Projects 包含小节 2.2 Ferris Wheel Animation",
+            "en": "Practice Projects includes section 2.2 Ferris Wheel Animation"
+          },
+          "reason": "Practice Projects 包含小节 2.2 Ferris Wheel Animation"
+        },
+        {
+          "source": "section:fe-ch2-sec2",
+          "target": "knowledge:project-ferris-wheel",
+          "type": "covers_knowledge",
+          "reasonI18n": {
+            "zh": "2.2 Ferris Wheel Animation 涵盖知识点 Ferris Wheel",
+            "en": "2.2 Ferris Wheel Animation covers knowledge Ferris Wheel"
+          },
+          "reason": "2.2 Ferris Wheel Animation 涵盖知识点 Ferris Wheel"
         }
       ]
     },
@@ -670,9 +2073,17 @@
       "nodes": [
         {
           "id": "k-limit-definition",
+          "titleI18n": {
+            "zh": "函数极限定义",
+            "en": "函数极限定义"
+          },
           "title": "函数极限定义",
           "type": "concept",
           "discipline": "mathematics",
+          "summaryI18n": {
+            "zh": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
+            "en": "通过邻域逼近刻画自变量趋近某点时函数值的行为。"
+          },
           "summary": "通过邻域逼近刻画自变量趋近某点时函数值的行为。",
           "difficulty": "beginner",
           "tags": [
@@ -684,6 +2095,18 @@
             {
               "type": "defined_in",
               "bookId": "book-math-analysis",
+              "bookTitleI18n": {
+                "zh": "数学分析导论",
+                "en": "数学分析导论"
+              },
+              "chapterI18n": {
+                "zh": "极限与连续",
+                "en": "极限与连续"
+              },
+              "sectionI18n": {
+                "zh": "1.1 极限定义与ε-δ思想",
+                "en": "1.1 极限定义与ε-δ思想"
+              },
               "bookTitle": "数学分析导论",
               "chapter": "极限与连续",
               "section": "1.1 极限定义与ε-δ思想",
@@ -693,9 +2116,17 @@
         },
         {
           "id": "k-epsilon-delta-proof",
+          "titleI18n": {
+            "zh": "ε-δ证明模板",
+            "en": "ε-δ证明模板"
+          },
           "title": "ε-δ证明模板",
           "type": "method",
           "discipline": "mathematics",
+          "summaryI18n": {
+            "zh": "将直觉性逼近转化为可验证的量化证明流程。",
+            "en": "将直觉性逼近转化为可验证的量化证明流程。"
+          },
           "summary": "将直觉性逼近转化为可验证的量化证明流程。",
           "difficulty": "intermediate",
           "tags": [
@@ -707,6 +2138,18 @@
             {
               "type": "defined_in",
               "bookId": "book-math-analysis",
+              "bookTitleI18n": {
+                "zh": "数学分析导论",
+                "en": "数学分析导论"
+              },
+              "chapterI18n": {
+                "zh": "极限与连续",
+                "en": "极限与连续"
+              },
+              "sectionI18n": {
+                "zh": "1.1 极限定义与ε-δ思想",
+                "en": "1.1 极限定义与ε-δ思想"
+              },
               "bookTitle": "数学分析导论",
               "chapter": "极限与连续",
               "section": "1.1 极限定义与ε-δ思想",
@@ -715,6 +2158,18 @@
             {
               "type": "cite_from",
               "bookId": "book-math-handbook",
+              "bookTitleI18n": {
+                "zh": "高等数学题解精编",
+                "en": "高等数学题解精编"
+              },
+              "chapterI18n": {
+                "zh": "证明技巧",
+                "en": "证明技巧"
+              },
+              "sectionI18n": {
+                "zh": "反向构造与估计",
+                "en": "反向构造与估计"
+              },
               "bookTitle": "高等数学题解精编",
               "chapter": "证明技巧",
               "section": "反向构造与估计",
@@ -724,9 +2179,17 @@
         },
         {
           "id": "k-derivative-definition",
+          "titleI18n": {
+            "zh": "导数定义",
+            "en": "导数定义"
+          },
           "title": "导数定义",
           "type": "concept",
           "discipline": "mathematics",
+          "summaryI18n": {
+            "zh": "导数是函数在一点处变化率的极限。",
+            "en": "导数是函数在一点处变化率的极限。"
+          },
           "summary": "导数是函数在一点处变化率的极限。",
           "difficulty": "beginner",
           "tags": [
@@ -738,6 +2201,18 @@
             {
               "type": "defined_in",
               "bookId": "book-math-analysis",
+              "bookTitleI18n": {
+                "zh": "数学分析导论",
+                "en": "数学分析导论"
+              },
+              "chapterI18n": {
+                "zh": "极限与连续",
+                "en": "极限与连续"
+              },
+              "sectionI18n": {
+                "zh": "1.2 导数与线性近似",
+                "en": "1.2 导数与线性近似"
+              },
               "bookTitle": "数学分析导论",
               "chapter": "极限与连续",
               "section": "1.2 导数与线性近似",
@@ -746,6 +2221,18 @@
             {
               "type": "support",
               "bookId": "book-physics-mechanics",
+              "bookTitleI18n": {
+                "zh": "经典力学基础",
+                "en": "经典力学基础"
+              },
+              "chapterI18n": {
+                "zh": "运动学",
+                "en": "运动学"
+              },
+              "sectionI18n": {
+                "zh": "瞬时速度",
+                "en": "瞬时速度"
+              },
               "bookTitle": "经典力学基础",
               "chapter": "运动学",
               "section": "瞬时速度",
@@ -755,9 +2242,17 @@
         },
         {
           "id": "k-fourier-transform",
+          "titleI18n": {
+            "zh": "傅里叶变换",
+            "en": "傅里叶变换"
+          },
           "title": "傅里叶变换",
           "type": "concept",
           "discipline": "mathematics",
+          "summaryI18n": {
+            "zh": "将时域信号映射到频域，以分解频率成分。",
+            "en": "将时域信号映射到频域，以分解频率成分。"
+          },
           "summary": "将时域信号映射到频域，以分解频率成分。",
           "difficulty": "intermediate",
           "tags": [
@@ -769,6 +2264,18 @@
             {
               "type": "defined_in",
               "bookId": "book-math-analysis",
+              "bookTitleI18n": {
+                "zh": "数学分析导论",
+                "en": "数学分析导论"
+              },
+              "chapterI18n": {
+                "zh": "线性代数与变换",
+                "en": "线性代数与变换"
+              },
+              "sectionI18n": {
+                "zh": "2.1 线性变换与频域观点",
+                "en": "2.1 线性变换与频域观点"
+              },
               "bookTitle": "数学分析导论",
               "chapter": "线性代数与变换",
               "section": "2.1 线性变换与频域观点",
@@ -778,9 +2285,17 @@
         },
         {
           "id": "k-newton-second-law",
+          "titleI18n": {
+            "zh": "牛顿第二定律",
+            "en": "牛顿第二定律"
+          },
           "title": "牛顿第二定律",
           "type": "law",
           "discipline": "physics",
+          "summaryI18n": {
+            "zh": "力等于质量与加速度的乘积，刻画动力学核心关系。",
+            "en": "力等于质量与加速度的乘积，刻画动力学核心关系。"
+          },
           "summary": "力等于质量与加速度的乘积，刻画动力学核心关系。",
           "difficulty": "beginner",
           "tags": [
@@ -792,6 +2307,18 @@
             {
               "type": "defined_in",
               "bookId": "book-physics-mechanics",
+              "bookTitleI18n": {
+                "zh": "经典力学基础",
+                "en": "经典力学基础"
+              },
+              "chapterI18n": {
+                "zh": "牛顿体系",
+                "en": "牛顿体系"
+              },
+              "sectionI18n": {
+                "zh": "1.1 受力与加速度",
+                "en": "1.1 受力与加速度"
+              },
               "bookTitle": "经典力学基础",
               "chapter": "牛顿体系",
               "section": "1.1 受力与加速度",
@@ -801,9 +2328,17 @@
         },
         {
           "id": "k-momentum-conservation",
+          "titleI18n": {
+            "zh": "动量守恒",
+            "en": "动量守恒"
+          },
           "title": "动量守恒",
           "type": "law",
           "discipline": "physics",
+          "summaryI18n": {
+            "zh": "孤立系统总动量保持不变。",
+            "en": "孤立系统总动量保持不变。"
+          },
           "summary": "孤立系统总动量保持不变。",
           "difficulty": "intermediate",
           "tags": [
@@ -815,6 +2350,18 @@
             {
               "type": "defined_in",
               "bookId": "book-physics-mechanics",
+              "bookTitleI18n": {
+                "zh": "经典力学基础",
+                "en": "经典力学基础"
+              },
+              "chapterI18n": {
+                "zh": "牛顿体系",
+                "en": "牛顿体系"
+              },
+              "sectionI18n": {
+                "zh": "1.2 碰撞与守恒",
+                "en": "1.2 碰撞与守恒"
+              },
               "bookTitle": "经典力学基础",
               "chapter": "牛顿体系",
               "section": "1.2 碰撞与守恒",
@@ -824,9 +2371,17 @@
         },
         {
           "id": "k-maxwell-equations",
+          "titleI18n": {
+            "zh": "麦克斯韦方程组",
+            "en": "麦克斯韦方程组"
+          },
           "title": "麦克斯韦方程组",
           "type": "theory",
           "discipline": "physics",
+          "summaryI18n": {
+            "zh": "统一描述电场与磁场的生成、耦合与传播。",
+            "en": "统一描述电场与磁场的生成、耦合与传播。"
+          },
           "summary": "统一描述电场与磁场的生成、耦合与传播。",
           "difficulty": "advanced",
           "tags": [
@@ -838,6 +2393,18 @@
             {
               "type": "defined_in",
               "bookId": "book-physics-mechanics",
+              "bookTitleI18n": {
+                "zh": "经典力学基础",
+                "en": "经典力学基础"
+              },
+              "chapterI18n": {
+                "zh": "电磁与波动",
+                "en": "电磁与波动"
+              },
+              "sectionI18n": {
+                "zh": "2.1 场与方程组",
+                "en": "2.1 场与方程组"
+              },
               "bookTitle": "经典力学基础",
               "chapter": "电磁与波动",
               "section": "2.1 场与方程组",
@@ -847,9 +2414,17 @@
         },
         {
           "id": "k-big-o-notation",
+          "titleI18n": {
+            "zh": "大O记号",
+            "en": "大O记号"
+          },
           "title": "大O记号",
           "type": "concept",
           "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "刻画算法增长阶的渐进上界。",
+            "en": "刻画算法增长阶的渐进上界。"
+          },
           "summary": "刻画算法增长阶的渐进上界。",
           "difficulty": "beginner",
           "tags": [
@@ -861,6 +2436,18 @@
             {
               "type": "defined_in",
               "bookId": "book-cs-foundations",
+              "bookTitleI18n": {
+                "zh": "计算机科学基础",
+                "en": "计算机科学基础"
+              },
+              "chapterI18n": {
+                "zh": "算法分析",
+                "en": "算法分析"
+              },
+              "sectionI18n": {
+                "zh": "1.1 时间复杂度",
+                "en": "1.1 时间复杂度"
+              },
               "bookTitle": "计算机科学基础",
               "chapter": "算法分析",
               "section": "1.1 时间复杂度",
@@ -870,9 +2457,17 @@
         },
         {
           "id": "k-divide-and-conquer",
+          "titleI18n": {
+            "zh": "分治法",
+            "en": "分治法"
+          },
           "title": "分治法",
           "type": "method",
           "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "将问题拆解为子问题递归求解后再合并。",
+            "en": "将问题拆解为子问题递归求解后再合并。"
+          },
           "summary": "将问题拆解为子问题递归求解后再合并。",
           "difficulty": "intermediate",
           "tags": [
@@ -884,6 +2479,18 @@
             {
               "type": "defined_in",
               "bookId": "book-cs-foundations",
+              "bookTitleI18n": {
+                "zh": "计算机科学基础",
+                "en": "计算机科学基础"
+              },
+              "chapterI18n": {
+                "zh": "算法分析",
+                "en": "算法分析"
+              },
+              "sectionI18n": {
+                "zh": "1.2 分治策略",
+                "en": "1.2 分治策略"
+              },
               "bookTitle": "计算机科学基础",
               "chapter": "算法分析",
               "section": "1.2 分治策略",
@@ -893,9 +2500,17 @@
         },
         {
           "id": "k-backpropagation",
+          "titleI18n": {
+            "zh": "反向传播算法",
+            "en": "反向传播算法"
+          },
           "title": "反向传播算法",
           "type": "algorithm",
           "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "利用链式法则高效计算神经网络参数梯度。",
+            "en": "利用链式法则高效计算神经网络参数梯度。"
+          },
           "summary": "利用链式法则高效计算神经网络参数梯度。",
           "difficulty": "intermediate",
           "tags": [
@@ -907,6 +2522,18 @@
             {
               "type": "defined_in",
               "bookId": "book-cs-foundations",
+              "bookTitleI18n": {
+                "zh": "计算机科学基础",
+                "en": "计算机科学基础"
+              },
+              "chapterI18n": {
+                "zh": "机器学习",
+                "en": "机器学习"
+              },
+              "sectionI18n": {
+                "zh": "2.1 反向传播",
+                "en": "2.1 反向传播"
+              },
               "bookTitle": "计算机科学基础",
               "chapter": "机器学习",
               "section": "2.1 反向传播",
@@ -916,9 +2543,17 @@
         },
         {
           "id": "k-convolutional-neural-network",
+          "titleI18n": {
+            "zh": "卷积神经网络",
+            "en": "卷积神经网络"
+          },
           "title": "卷积神经网络",
           "type": "model",
           "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "通过局部感受野与参数共享提取空间结构特征。",
+            "en": "通过局部感受野与参数共享提取空间结构特征。"
+          },
           "summary": "通过局部感受野与参数共享提取空间结构特征。",
           "difficulty": "intermediate",
           "tags": [
@@ -930,6 +2565,18 @@
             {
               "type": "defined_in",
               "bookId": "book-cs-foundations",
+              "bookTitleI18n": {
+                "zh": "计算机科学基础",
+                "en": "计算机科学基础"
+              },
+              "chapterI18n": {
+                "zh": "机器学习",
+                "en": "机器学习"
+              },
+              "sectionI18n": {
+                "zh": "2.2 卷积网络",
+                "en": "2.2 卷积网络"
+              },
               "bookTitle": "计算机科学基础",
               "chapter": "机器学习",
               "section": "2.2 卷积网络",
@@ -938,10 +2585,591 @@
             {
               "type": "cite_from",
               "bookId": "book-cs-deeplearning",
+              "bookTitleI18n": {
+                "zh": "Deep Learning",
+                "en": "Deep Learning"
+              },
+              "chapterI18n": {
+                "zh": "Convolutional Networks",
+                "en": "Convolutional Networks"
+              },
+              "sectionI18n": {
+                "zh": "Architectures",
+                "en": "Architectures"
+              },
               "bookTitle": "Deep Learning",
               "chapter": "Convolutional Networks",
               "section": "Architectures",
               "link": "graph/source.json?book=book-cs-foundations&chapter=cs-ch2&section=cs-ch2-sec2"
+            }
+          ]
+        },
+        {
+          "id": "ai-what-is-ai",
+          "titleI18n": {
+            "zh": "What Is AI?",
+            "en": "What Is AI?"
+          },
+          "title": "What Is AI?",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。",
+            "en": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。"
+          },
+          "summary": "AI 可由人类/理性与思维/行为两个维度组合成四种经典定义路径。",
+          "difficulty": "beginner",
+          "tags": [
+            "AI",
+            "定义",
+            "基础"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "What Is AI?",
+                "en": "What Is AI?"
+              },
+              "sectionI18n": {
+                "zh": "1.1 What Is AI?",
+                "en": "1.1 What Is AI?"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "What Is AI?",
+              "section": "1.1 What Is AI?",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1"
+            },
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1 What Is AI?",
+                "en": "1.1 What Is AI?"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1 What Is AI?",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1"
+            },
+            {
+              "type": "support",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1 What Is AI?",
+                "en": "1.1 What Is AI?"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1 What Is AI?",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1"
+            }
+          ]
+        },
+        {
+          "id": "ai-turing-test",
+          "titleI18n": {
+            "zh": "Turing Test Approach",
+            "en": "Turing Test Approach"
+          },
+          "title": "Turing Test Approach",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "通过文本交互不可区分于人类来判定机器是否表现出智能。",
+            "en": "通过文本交互不可区分于人类来判定机器是否表现出智能。"
+          },
+          "summary": "通过文本交互不可区分于人类来判定机器是否表现出智能。",
+          "difficulty": "intermediate",
+          "tags": [
+            "AI",
+            "图灵测试",
+            "NLP"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "What Is AI?",
+                "en": "What Is AI?"
+              },
+              "sectionI18n": {
+                "zh": "1.1.1 Acting Humanly: The Turing Test",
+                "en": "1.1.1 Acting Humanly: The Turing Test"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "What Is AI?",
+              "section": "1.1.1 Acting Humanly: The Turing Test",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-1"
+            },
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1.1 Acting Humanly",
+                "en": "1.1.1 Acting Humanly"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1.1 Acting Humanly",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-1"
+            }
+          ]
+        },
+        {
+          "id": "ai-cognitive-modeling",
+          "titleI18n": {
+            "zh": "Thinking Humanly: Cognitive Modeling",
+            "en": "Thinking Humanly: Cognitive Modeling"
+          },
+          "title": "Thinking Humanly: Cognitive Modeling",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "结合实验心理学与计算模型来刻画人的思维机制。",
+            "en": "结合实验心理学与计算模型来刻画人的思维机制。"
+          },
+          "summary": "结合实验心理学与计算模型来刻画人的思维机制。",
+          "difficulty": "intermediate",
+          "tags": [
+            "AI",
+            "认知科学"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "What Is AI?",
+                "en": "What Is AI?"
+              },
+              "sectionI18n": {
+                "zh": "1.1.2 Thinking Humanly",
+                "en": "1.1.2 Thinking Humanly"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "What Is AI?",
+              "section": "1.1.2 Thinking Humanly",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-2"
+            },
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1.2 Thinking Humanly",
+                "en": "1.1.2 Thinking Humanly"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1.2 Thinking Humanly",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-2"
+            }
+          ]
+        },
+        {
+          "id": "ai-rational-agent",
+          "titleI18n": {
+            "zh": "Rational Agent",
+            "en": "Rational Agent"
+          },
+          "title": "Rational Agent",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "理性智能体在不确定环境中选择期望结果最优的行动。",
+            "en": "理性智能体在不确定环境中选择期望结果最优的行动。"
+          },
+          "summary": "理性智能体在不确定环境中选择期望结果最优的行动。",
+          "difficulty": "intermediate",
+          "tags": [
+            "AI",
+            "智能体",
+            "决策"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "What Is AI?",
+                "en": "What Is AI?"
+              },
+              "sectionI18n": {
+                "zh": "1.1.4 Acting Rationally",
+                "en": "1.1.4 Acting Rationally"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "What Is AI?",
+              "section": "1.1.4 Acting Rationally",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-4"
+            },
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1.4 Acting Rationally",
+                "en": "1.1.4 Acting Rationally"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1.4 Acting Rationally",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-4"
+            }
+          ]
+        },
+        {
+          "id": "ai-value-alignment",
+          "titleI18n": {
+            "zh": "Value Alignment Problem",
+            "en": "Value Alignment Problem"
+          },
+          "title": "Value Alignment Problem",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。",
+            "en": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。"
+          },
+          "summary": "高能力系统若目标与人类偏好不一致，可能优化出非预期行为。",
+          "difficulty": "advanced",
+          "tags": [
+            "AI",
+            "安全",
+            "价值对齐"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "What Is AI?",
+                "en": "What Is AI?"
+              },
+              "sectionI18n": {
+                "zh": "1.1.5 Beneficial Machines",
+                "en": "1.1.5 Beneficial Machines"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "What Is AI?",
+              "section": "1.1.5 Beneficial Machines",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-5"
+            },
+            {
+              "type": "defined_in",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1.5 Beneficial Machines",
+                "en": "1.1.5 Beneficial Machines"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1.5 Beneficial Machines",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-5"
+            },
+            {
+              "type": "cite_from",
+              "bookId": "book-ai-aima-4e",
+              "bookTitleI18n": {
+                "zh": "Artificial Intelligence: A Modern Approach (4th Edition)",
+                "en": "Artificial Intelligence: A Modern Approach (4th Edition)"
+              },
+              "chapterI18n": {
+                "zh": "Chapter 1",
+                "en": "Chapter 1"
+              },
+              "sectionI18n": {
+                "zh": "1.1.5 Beneficial Machines",
+                "en": "1.1.5 Beneficial Machines"
+              },
+              "bookTitle": "Artificial Intelligence: A Modern Approach (4th Edition)",
+              "chapter": "Chapter 1",
+              "section": "1.1.5 Beneficial Machines",
+              "link": "graph/source.json?book=book-ai-aima-4e&chapter=ai-ch1&section=ai-ch1-sec1-1-5"
+            }
+          ]
+        },
+        {
+          "id": "semantic-html",
+          "titleI18n": {
+            "zh": "Semantic HTML",
+            "en": "Semantic HTML"
+          },
+          "title": "Semantic HTML",
+          "type": "concept",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "使用语义化标签提升结构清晰度、可访问性与可检索性。",
+            "en": "使用语义化标签提升结构清晰度、可访问性与可检索性。"
+          },
+          "summary": "使用语义化标签提升结构清晰度、可访问性与可检索性。",
+          "difficulty": "beginner",
+          "tags": [
+            "前端",
+            "HTML",
+            "语义化"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-frontend-foundations",
+              "bookTitleI18n": {
+                "zh": "Frontend Foundations Handbook",
+                "en": "Frontend Foundations Handbook"
+              },
+              "chapterI18n": {
+                "zh": "HTML + CSS Core Skills",
+                "en": "HTML + CSS Core Skills"
+              },
+              "sectionI18n": {
+                "zh": "1.1 Semantic Structure",
+                "en": "1.1 Semantic Structure"
+              },
+              "bookTitle": "Frontend Foundations Handbook",
+              "chapter": "HTML + CSS Core Skills",
+              "section": "1.1 Semantic Structure",
+              "link": "graph/source.json?book=book-frontend-foundations&chapter=fe-ch1&section=fe-ch1-sec1"
+            }
+          ]
+        },
+        {
+          "id": "css-flexbox",
+          "titleI18n": {
+            "zh": "CSS Flexbox",
+            "en": "CSS Flexbox"
+          },
+          "title": "CSS Flexbox",
+          "type": "method",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "一维布局系统，用于排列、对齐和换行。",
+            "en": "一维布局系统，用于排列、对齐和换行。"
+          },
+          "summary": "一维布局系统，用于排列、对齐和换行。",
+          "difficulty": "beginner",
+          "tags": [
+            "前端",
+            "CSS",
+            "布局"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-frontend-foundations",
+              "bookTitleI18n": {
+                "zh": "Frontend Foundations Handbook",
+                "en": "Frontend Foundations Handbook"
+              },
+              "chapterI18n": {
+                "zh": "HTML + CSS Core Skills",
+                "en": "HTML + CSS Core Skills"
+              },
+              "sectionI18n": {
+                "zh": "1.2 Flex Layout",
+                "en": "1.2 Flex Layout"
+              },
+              "bookTitle": "Frontend Foundations Handbook",
+              "chapter": "HTML + CSS Core Skills",
+              "section": "1.2 Flex Layout",
+              "link": "graph/source.json?book=book-frontend-foundations&chapter=fe-ch1&section=fe-ch1-sec2"
+            }
+          ]
+        },
+        {
+          "id": "css-animation",
+          "titleI18n": {
+            "zh": "CSS Animation",
+            "en": "CSS Animation"
+          },
+          "title": "CSS Animation",
+          "type": "method",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "通过 keyframes 与 transform 构建连续或状态动画。",
+            "en": "通过 keyframes 与 transform 构建连续或状态动画。"
+          },
+          "summary": "通过 keyframes 与 transform 构建连续或状态动画。",
+          "difficulty": "intermediate",
+          "tags": [
+            "前端",
+            "CSS",
+            "动画"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-frontend-foundations",
+              "bookTitleI18n": {
+                "zh": "Frontend Foundations Handbook",
+                "en": "Frontend Foundations Handbook"
+              },
+              "chapterI18n": {
+                "zh": "HTML + CSS Core Skills",
+                "en": "HTML + CSS Core Skills"
+              },
+              "sectionI18n": {
+                "zh": "1.3 Animation Basics",
+                "en": "1.3 Animation Basics"
+              },
+              "bookTitle": "Frontend Foundations Handbook",
+              "chapter": "HTML + CSS Core Skills",
+              "section": "1.3 Animation Basics",
+              "link": "graph/source.json?book=book-frontend-foundations&chapter=fe-ch1&section=fe-ch1-sec3"
+            }
+          ]
+        },
+        {
+          "id": "project-cat-photo-gallery",
+          "titleI18n": {
+            "zh": "Cat Photo Gallery",
+            "en": "Cat Photo Gallery"
+          },
+          "title": "Cat Photo Gallery",
+          "type": "model",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "用于练习语义结构和 Flex 布局的项目知识点。",
+            "en": "用于练习语义结构和 Flex 布局的项目知识点。"
+          },
+          "summary": "用于练习语义结构和 Flex 布局的项目知识点。",
+          "difficulty": "beginner",
+          "tags": [
+            "前端",
+            "项目",
+            "画廊"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-frontend-foundations",
+              "bookTitleI18n": {
+                "zh": "Frontend Foundations Handbook",
+                "en": "Frontend Foundations Handbook"
+              },
+              "chapterI18n": {
+                "zh": "Practice Projects",
+                "en": "Practice Projects"
+              },
+              "sectionI18n": {
+                "zh": "2.1 Gallery Project",
+                "en": "2.1 Gallery Project"
+              },
+              "bookTitle": "Frontend Foundations Handbook",
+              "chapter": "Practice Projects",
+              "section": "2.1 Gallery Project",
+              "link": "graph/source.json?book=book-frontend-foundations&chapter=fe-ch2&section=fe-ch2-sec1"
+            }
+          ]
+        },
+        {
+          "id": "project-ferris-wheel",
+          "titleI18n": {
+            "zh": "Ferris Wheel",
+            "en": "Ferris Wheel"
+          },
+          "title": "Ferris Wheel",
+          "type": "model",
+          "discipline": "computer-science",
+          "summaryI18n": {
+            "zh": "用于练习 transform、timing、keyframes 的动画项目。",
+            "en": "用于练习 transform、timing、keyframes 的动画项目。"
+          },
+          "summary": "用于练习 transform、timing、keyframes 的动画项目。",
+          "difficulty": "intermediate",
+          "tags": [
+            "前端",
+            "项目",
+            "动画"
+          ],
+          "provenanceLinks": [
+            {
+              "type": "defined_in",
+              "bookId": "book-frontend-foundations",
+              "bookTitleI18n": {
+                "zh": "Frontend Foundations Handbook",
+                "en": "Frontend Foundations Handbook"
+              },
+              "chapterI18n": {
+                "zh": "Practice Projects",
+                "en": "Practice Projects"
+              },
+              "sectionI18n": {
+                "zh": "2.2 Ferris Wheel Animation",
+                "en": "2.2 Ferris Wheel Animation"
+              },
+              "bookTitle": "Frontend Foundations Handbook",
+              "chapter": "Practice Projects",
+              "section": "2.2 Ferris Wheel Animation",
+              "link": "graph/source.json?book=book-frontend-foundations&chapter=fe-ch2&section=fe-ch2-sec2"
             }
           ]
         }
@@ -952,6 +3180,10 @@
           "target": "k-epsilon-delta-proof",
           "type": "prerequisite_of",
           "domain": "common",
+          "reasonI18n": {
+            "zh": "掌握极限定义是使用ε-δ证明的前置条件。",
+            "en": "掌握极限定义是使用ε-δ证明的前置条件。"
+          },
           "reason": "掌握极限定义是使用ε-δ证明的前置条件。",
           "weight": 0.95
         },
@@ -960,6 +3192,10 @@
           "target": "k-derivative-definition",
           "type": "proves",
           "domain": "mathematics",
+          "reasonI18n": {
+            "zh": "导数定义的严谨性依赖极限证明模板。",
+            "en": "导数定义的严谨性依赖极限证明模板。"
+          },
           "reason": "导数定义的严谨性依赖极限证明模板。",
           "weight": 0.78
         },
@@ -968,6 +3204,10 @@
           "target": "k-newton-second-law",
           "type": "models",
           "domain": "common",
+          "reasonI18n": {
+            "zh": "瞬时变化率是加速度定义的数学基础。",
+            "en": "瞬时变化率是加速度定义的数学基础。"
+          },
           "reason": "瞬时变化率是加速度定义的数学基础。",
           "weight": 0.66
         },
@@ -976,6 +3216,10 @@
           "target": "k-momentum-conservation",
           "type": "causes",
           "domain": "physics",
+          "reasonI18n": {
+            "zh": "在封闭系统下可推导守恒规律。",
+            "en": "在封闭系统下可推导守恒规律。"
+          },
           "reason": "在封闭系统下可推导守恒规律。",
           "weight": 0.72
         },
@@ -984,6 +3228,10 @@
           "target": "k-fourier-transform",
           "type": "analyzed_by",
           "domain": "physics",
+          "reasonI18n": {
+            "zh": "电磁波传播常转到频域分析。",
+            "en": "电磁波传播常转到频域分析。"
+          },
           "reason": "电磁波传播常转到频域分析。",
           "weight": 0.63
         },
@@ -992,6 +3240,10 @@
           "target": "k-divide-and-conquer",
           "type": "analyzes",
           "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "分治算法复杂度通常用大O记号评估。",
+            "en": "分治算法复杂度通常用大O记号评估。"
+          },
           "reason": "分治算法复杂度通常用大O记号评估。",
           "weight": 0.93
         },
@@ -1000,6 +3252,10 @@
           "target": "k-backpropagation",
           "type": "related_to",
           "domain": "common",
+          "reasonI18n": {
+            "zh": "都体现将复杂问题拆解再组合的计算思想。",
+            "en": "都体现将复杂问题拆解再组合的计算思想。"
+          },
           "reason": "都体现将复杂问题拆解再组合的计算思想。",
           "weight": 0.39
         },
@@ -1008,6 +3264,10 @@
           "target": "k-convolutional-neural-network",
           "type": "optimizes",
           "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "CNN训练依赖反向传播求梯度并更新参数。",
+            "en": "CNN训练依赖反向传播求梯度并更新参数。"
+          },
           "reason": "CNN训练依赖反向传播求梯度并更新参数。",
           "weight": 0.97
         },
@@ -1016,8 +3276,120 @@
           "target": "k-convolutional-neural-network",
           "type": "related_to",
           "domain": "common",
+          "reasonI18n": {
+            "zh": "卷积与频域分析存在理论联系。",
+            "en": "卷积与频域分析存在理论联系。"
+          },
           "reason": "卷积与频域分析存在理论联系。",
           "weight": 0.44
+        },
+        {
+          "source": "semantic-html",
+          "target": "css-flexbox",
+          "type": "prerequisite_of",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "先有语义结构，再做布局组织会更稳健。",
+            "en": "先有语义结构，再做布局组织会更稳健。"
+          },
+          "reason": "先有语义结构，再做布局组织会更稳健。",
+          "weight": 0.72
+        },
+        {
+          "source": "css-flexbox",
+          "target": "css-animation",
+          "type": "related_to",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "二者经常共同用于前端交互界面。",
+            "en": "二者经常共同用于前端交互界面。"
+          },
+          "reason": "二者经常共同用于前端交互界面。",
+          "weight": 0.48
+        },
+        {
+          "source": "css-flexbox",
+          "target": "project-cat-photo-gallery",
+          "type": "implements",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "画廊项目直接实现了 Flex 布局实践。",
+            "en": "画廊项目直接实现了 Flex 布局实践。"
+          },
+          "reason": "画廊项目直接实现了 Flex 布局实践。",
+          "weight": 0.94
+        },
+        {
+          "source": "css-animation",
+          "target": "project-ferris-wheel",
+          "type": "implements",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "摩天轮项目由关键帧与变换动画构成。",
+            "en": "摩天轮项目由关键帧与变换动画构成。"
+          },
+          "reason": "摩天轮项目由关键帧与变换动画构成。",
+          "weight": 0.97
+        },
+        {
+          "source": "ai-what-is-ai",
+          "target": "ai-turing-test",
+          "type": "prerequisite_of",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "理解 AI 四分法是理解图灵测试路径的前置。",
+            "en": "理解 AI 四分法是理解图灵测试路径的前置。"
+          },
+          "reason": "理解 AI 四分法是理解图灵测试路径的前置。",
+          "weight": 0.85
+        },
+        {
+          "source": "ai-what-is-ai",
+          "target": "ai-cognitive-modeling",
+          "type": "related_to",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "认知建模是 AI 定义谱系中的核心分支。",
+            "en": "认知建模是 AI 定义谱系中的核心分支。"
+          },
+          "reason": "认知建模是 AI 定义谱系中的核心分支。",
+          "weight": 0.74
+        },
+        {
+          "source": "ai-what-is-ai",
+          "target": "ai-rational-agent",
+          "type": "related_to",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "理性智能体是现代 AI 主流框架之一。",
+            "en": "理性智能体是现代 AI 主流框架之一。"
+          },
+          "reason": "理性智能体是现代 AI 主流框架之一。",
+          "weight": 0.86
+        },
+        {
+          "source": "ai-rational-agent",
+          "target": "ai-value-alignment",
+          "type": "related_to",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "价值对齐问题是理性目标设定在现实中的延伸。",
+            "en": "价值对齐问题是理性目标设定在现实中的延伸。"
+          },
+          "reason": "价值对齐问题是理性目标设定在现实中的延伸。",
+          "weight": 0.82
+        },
+        {
+          "source": "ai-turing-test",
+          "target": "ai-rational-agent",
+          "type": "related_to",
+          "domain": "computer-science",
+          "reasonI18n": {
+            "zh": "两者分别代表行为主义与理性主义 AI 评价路径。",
+            "en": "两者分别代表行为主义与理性主义 AI 评价路径。"
+          },
+          "reason": "两者分别代表行为主义与理性主义 AI 评价路径。",
+          "weight": 0.66
         }
       ]
     }

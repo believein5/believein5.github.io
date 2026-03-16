@@ -720,6 +720,20 @@ body[data-page="graph"] .page-shell {
   font-size: 0.86rem;
 }
 
+.legend-section {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.legend-glyph {
+  display: inline-block;
+  min-width: 1.4rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--text);
+  margin-right: 0.2rem;
+}
+
 .legend-dot {
   width: 10px;
   height: 10px;
@@ -1051,6 +1065,48 @@ body.knowledge-sidebar-collapsed .domain-group {
   padding: 1.2rem;
   text-align: center;
   color: var(--muted);
+}
+
+.vis-tooltip {
+  max-width: 420px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 12px 32px color-mix(in srgb, #000 16%, transparent);
+}
+
+.graph-tooltip-card {
+  max-width: 390px;
+  line-height: 1.5;
+}
+
+.graph-tooltip-title {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.graph-tooltip-summary {
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.graph-tooltip-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.graph-tooltip-subtitle {
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.graph-tooltip-list {
+  margin: 0.35rem 0 0;
+  padding: 0 0 0 1rem;
+  display: grid;
+  gap: 0.25rem;
 }
 
 .muted {

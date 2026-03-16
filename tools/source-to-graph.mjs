@@ -12,6 +12,21 @@ const outputPath = path.join(rootDir, 'graph', 'knowledge-graph.json');
 
 const PROVENANCE_TYPES = new Set(['defined_in', 'cite_from', 'support']);
 
+function asI18n(value, fallback = '') {
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const zh = String(value.zh ?? value.en ?? fallback ?? '').trim();
+    const en = String(value.en ?? value.zh ?? fallback ?? '').trim();
+    return { zh, en };
+  }
+  const text = String(value ?? fallback ?? '').trim();
+  return { zh: text, en: text };
+}
+
+function pickLang(i18n, lang = 'zh') {
+  const normalized = asI18n(i18n, '');
+  return normalized[lang] || normalized.zh || normalized.en || '';
+}
+
 function today() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -35,12 +50,19 @@ async function writeJson(filePath, data) {
 }
 
 function normalizeProvenance(base, book, chapter, section) {
+  const bookTitleI18n = asI18n(base?.bookTitleI18n ?? base?.bookTitle ?? book.titleI18n ?? book.title, book.title);
+  const chapterI18n = asI18n(base?.chapterI18n ?? base?.chapter ?? chapter.titleI18n ?? chapter.title, chapter.title);
+  const sectionI18n = asI18n(base?.sectionI18n ?? base?.section ?? section.titleI18n ?? section.title, section.title);
+
   return {
     type: base?.type || 'defined_in',
     bookId: base?.bookId || book.id,
-    bookTitle: base?.bookTitle || book.title,
-    chapter: base?.chapter || chapter.title,
-    section: base?.section || section.title,
+    bookTitleI18n,
+    chapterI18n,
+    sectionI18n,
+    bookTitle: pickLang(bookTitleI18n, 'zh'),
+    chapter: pickLang(chapterI18n, 'zh'),
+    section: pickLang(sectionI18n, 'zh'),
     link: base?.link || `graph/source.json?book=${encodeURIComponent(book.id)}&chapter=${encodeURIComponent(chapter.id)}&section=${encodeURIComponent(section.id)}`
   };
 }
@@ -66,75 +88,110 @@ function buildGraphs(sourceTree, relationTypes) {
 
   for (const book of sourceTree.books || []) {
     const bookNodeId = `book:${book.id}`;
+    const bookTitleI18n = asI18n(book.titleI18n ?? book.title, book.title);
     bookNodes.push({
       id: bookNodeId,
       rawId: book.id,
-      title: book.title,
+      titleI18n: bookTitleI18n,
+      title: pickLang(bookTitleI18n, 'zh'),
       type: 'book',
       discipline: book.discipline
     });
 
     for (const chapter of book.chapters || []) {
       const chapterNodeId = `chapter:${chapter.id}`;
+      const chapterTitleI18n = asI18n(chapter.titleI18n ?? chapter.title, chapter.title);
       bookNodes.push({
         id: chapterNodeId,
         rawId: chapter.id,
-        title: chapter.title,
+        titleI18n: chapterTitleI18n,
+        title: pickLang(chapterTitleI18n, 'zh'),
         type: 'chapter',
         discipline: book.discipline,
         bookId: book.id,
-        bookTitle: book.title
+        bookTitleI18n,
+        bookTitle: pickLang(bookTitleI18n, 'zh')
       });
+
+      const hasChapterReasonI18n = {
+        zh: `${pickLang(bookTitleI18n, 'zh')} 包含章节 ${pickLang(chapterTitleI18n, 'zh')}`,
+        en: `${pickLang(bookTitleI18n, 'en')} includes chapter ${pickLang(chapterTitleI18n, 'en')}`
+      };
       bookEdges.push({
         source: bookNodeId,
         target: chapterNodeId,
         type: 'has_chapter',
-        reason: `${book.title} 包含章节 ${chapter.title}`
+        reasonI18n: hasChapterReasonI18n,
+        reason: pickLang(hasChapterReasonI18n, 'zh')
       });
 
       for (const section of chapter.sections || []) {
         const sectionNodeId = `section:${section.id}`;
+        const sectionTitleI18n = asI18n(section.titleI18n ?? section.title, section.title);
         bookNodes.push({
           id: sectionNodeId,
           rawId: section.id,
-          title: section.title,
+          titleI18n: sectionTitleI18n,
+          title: pickLang(sectionTitleI18n, 'zh'),
           type: 'section',
           discipline: book.discipline,
           bookId: book.id,
-          bookTitle: book.title,
+          bookTitleI18n,
+          bookTitle: pickLang(bookTitleI18n, 'zh'),
           chapterId: chapter.id,
-          chapterTitle: chapter.title
+          chapterTitleI18n,
+          chapterTitle: pickLang(chapterTitleI18n, 'zh')
         });
+
+        const hasSectionReasonI18n = {
+          zh: `${pickLang(chapterTitleI18n, 'zh')} 包含小节 ${pickLang(sectionTitleI18n, 'zh')}`,
+          en: `${pickLang(chapterTitleI18n, 'en')} includes section ${pickLang(sectionTitleI18n, 'en')}`
+        };
         bookEdges.push({
           source: chapterNodeId,
           target: sectionNodeId,
           type: 'has_section',
-          reason: `${chapter.title} 包含小节 ${section.title}`
+          reasonI18n: hasSectionReasonI18n,
+          reason: pickLang(hasSectionReasonI18n, 'zh')
         });
 
         for (const knowledge of section.knowledge || []) {
           const knowledgeNodeId = `knowledge:${knowledge.id}`;
+          const knowledgeTitleI18n = asI18n(knowledge.titleI18n ?? knowledge.title, knowledge.title);
+          const knowledgeSummaryI18n = asI18n(knowledge.summaryI18n ?? knowledge.summary, knowledge.summary);
 
           bookNodes.push({
             id: knowledgeNodeId,
             rawId: knowledge.id,
-            title: knowledge.title,
+            titleI18n: knowledgeTitleI18n,
+            title: pickLang(knowledgeTitleI18n, 'zh'),
+            summaryI18n: knowledgeSummaryI18n,
+            summary: pickLang(knowledgeSummaryI18n, 'zh'),
             type: 'knowledge',
             knowledgeType: knowledge.type || 'concept',
             discipline: book.discipline,
             bookId: book.id,
-            bookTitle: book.title,
+            bookTitleI18n,
+            bookTitle: pickLang(bookTitleI18n, 'zh'),
             chapterId: chapter.id,
-            chapterTitle: chapter.title,
+            chapterTitleI18n,
+            chapterTitle: pickLang(chapterTitleI18n, 'zh'),
             sectionId: section.id,
-            sectionTitle: section.title
+            sectionTitleI18n,
+            sectionTitle: pickLang(sectionTitleI18n, 'zh')
           });
+
+          const coversReasonI18n = {
+            zh: `${pickLang(sectionTitleI18n, 'zh')} 涵盖知识点 ${pickLang(knowledgeTitleI18n, 'zh')}`,
+            en: `${pickLang(sectionTitleI18n, 'en')} covers knowledge ${pickLang(knowledgeTitleI18n, 'en')}`
+          };
 
           bookEdges.push({
             source: sectionNodeId,
             target: knowledgeNodeId,
             type: 'covers_knowledge',
-            reason: `${section.title} 涵盖知识点 ${knowledge.title}`
+            reasonI18n: coversReasonI18n,
+            reason: pickLang(coversReasonI18n, 'zh')
           });
 
           const defaultDefinedIn = normalizeProvenance({ type: 'defined_in' }, book, chapter, section);
@@ -144,10 +201,12 @@ function buildGraphs(sourceTree, relationTypes) {
 
           const merged = knowledgeMap.get(knowledge.id) || {
             id: knowledge.id,
-            title: knowledge.title,
+            titleI18n: knowledgeTitleI18n,
+            title: pickLang(knowledgeTitleI18n, 'zh'),
             type: knowledge.type || 'concept',
             discipline: book.discipline,
-            summary: knowledge.summary || '',
+            summaryI18n: knowledgeSummaryI18n,
+            summary: pickLang(knowledgeSummaryI18n, 'zh'),
             difficulty: knowledge.difficulty || 'beginner',
             tags: knowledge.tags || [],
             provenanceLinks: []
@@ -156,6 +215,8 @@ function buildGraphs(sourceTree, relationTypes) {
           merged.provenanceLinks.push(defaultDefinedIn, ...explicitLinks);
           merged.tags = [...new Set([...(merged.tags || []), ...(knowledge.tags || [])])];
           if (!merged.summary && knowledge.summary) merged.summary = knowledge.summary;
+          merged.titleI18n = asI18n(merged.titleI18n ?? knowledgeTitleI18n, knowledge.title);
+          merged.summaryI18n = asI18n(merged.summaryI18n ?? knowledgeSummaryI18n, knowledge.summary);
 
           knowledgeMap.set(knowledge.id, merged);
         }
@@ -184,9 +245,12 @@ function buildGraphs(sourceTree, relationTypes) {
       target: rel.target,
       type: rel.type,
       domain: rel.domain || 'common',
+      reasonI18n: asI18n(rel.reasonI18n ?? rel.reason, rel.reason),
       reason: rel.reason || '',
       weight: rel.weight ?? null
     };
+
+    normalized.reason = pickLang(normalized.reasonI18n, 'zh');
 
     edgeMap.set(edgeKey(normalized), normalized);
   }

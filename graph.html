@@ -49,14 +49,14 @@
           <div class="graph-control-block">
             <label data-i18n-zh="显示模式" data-i18n-en="Display mode">显示模式</label>
             <div class="graph-mode-switch" data-graph-mode-switch>
-              <button class="filter-chip is-active" type="button" data-graph-mode="book">书籍 Graph</button>
-              <button class="filter-chip" type="button" data-graph-mode="knowledge">知识 Graph</button>
+              <button class="filter-chip is-active" type="button" data-graph-mode="book" data-i18n-zh="书籍层级" data-i18n-en="Book Hierarchy">书籍层级</button>
+              <button class="filter-chip" type="button" data-graph-mode="knowledge" data-i18n-zh="知识网络" data-i18n-en="Knowledge Network">知识网络</button>
             </div>
           </div>
 
           <div class="graph-control-block">
             <label for="graph-search" data-i18n-zh="搜索节点" data-i18n-en="Search nodes">搜索节点</label>
-            <input id="graph-search" class="search-input" type="search" placeholder="输入标题 / 标签 / 关键词" data-graph-search>
+            <input id="graph-search" class="search-input" type="search" placeholder="输入标题 / 标签 / 关键词" data-i18n-ph-zh="输入标题 / 标签 / 关键词" data-i18n-ph-en="Type title / tags / keywords" data-graph-search>
           </div>
 
           <div class="graph-control-block">
@@ -99,7 +99,7 @@
 
         <aside class="graph-detail panel" data-graph-detail>
           <h2 data-i18n-zh="节点详情" data-i18n-en="Node details">节点详情</h2>
-          <p class="muted" data-i18n-zh="书籍模式可折叠层级；知识模式悬停可看 defined_in/cite_from/support 来源链接。" data-i18n-en="Book mode supports fold/unfold hierarchy; knowledge mode shows provenance links on hover.">书籍模式可折叠层级；知识模式悬停可看 defined_in/cite_from/support 来源链接。</p>
+          <p class="muted" data-i18n-zh="书籍层级模式可折叠；知识网络模式悬停可看 defined_in/cite_from/support 来源链接。" data-i18n-en="Book Hierarchy supports folding; Knowledge Network shows defined_in/cite_from/support links on hover.">书籍层级模式可折叠；知识网络模式悬停可看 defined_in/cite_from/support 来源链接。</p>
         </aside>
       </section>
     </main>

@@ -183,6 +183,10 @@ const KnowledgeGraphSite = (() => {
     }
 
     updateThemeButton();
+
+    document.dispatchEvent(new CustomEvent('kg:languagechange', {
+      detail: { lang: currentLang }
+    }));
   }
 
   function setLanguage(lang) {
