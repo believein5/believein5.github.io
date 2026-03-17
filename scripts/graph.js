@@ -736,6 +736,8 @@ const GraphWorkspace = (() => {
       let semanticBorder = disciplineColor(node);
       let semanticShadowColor = renderPreset.nodeShadowColor;
 
+      const visual = nodeVisualByType(node); // <-- moved up before borderWidth usage
+
       if (!isSelected) {
         if (isUpstream && !isDownstream) {
           semanticBorder = renderPreset.upstreamBorder;
@@ -755,7 +757,6 @@ const GraphWorkspace = (() => {
           ? Math.max(visual.borderWidth + 0.8, 2.2)
           : visual.borderWidth;
 
-      const visual = nodeVisualByType(node);
       const tooltip = buildKnowledgeTooltip(node);
 
       const fadedByFocus = hasSelectedFocus && !inFocus;
