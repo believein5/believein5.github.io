@@ -18,4 +18,3 @@ Example:
 
 - node id: `src-aima-4e-ch1-sec1-1-4`
 - file: `aima-4e-ch1-sec1.1.4.md`
-

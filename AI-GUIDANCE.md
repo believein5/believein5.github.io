@@ -5,14 +5,17 @@ This file is a compact guidance document for AI agents that modify this project.
 ## Project intent
 
 - This repository is a static personal knowledge graph site.
-- The graph pipeline is **source-first**.
-- `graph/source.json` is the single source of truth for hierarchy + knowledge relations.
+- The graph pipeline is now **DB-first**.
+- `db/schema.sql` + `db/graph.db` are the primary data processing center.
+- `graph/source.json` is a migration-stage editable input, not the final runtime source.
 
 ## Critical workflow
 
-1. Edit `graph/source.json` and (if needed) `graph/relation-types.json`.
-2. Run `tools/source-to-graph.mjs` to regenerate `graph/knowledge-graph.json`.
-3. Verify graph page behavior in both modes:
+1. (Optional migration input) Edit `graph/source.json` and `graph/relation-types.json`.
+2. Run `tools/source-to-db-sql.mjs` to refresh `db/import-source.sql`.
+3. Run `tools/pdf-bookshelf-to-db.py --db db/graph.db --bookshelf BookShelf --migrate-source`.
+4. Run `tools/db-to-graph.py --db db/graph.db --out graph/knowledge-graph.json`.
+5. Verify graph page behavior in both modes:
    - Book Hierarchy
    - Knowledge Network
 

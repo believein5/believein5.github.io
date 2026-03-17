@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book detail hierarchy page with collapsible bullet structure.">
+    <title>Book | Personal Knowledge Graph</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/site.css">
+    <script defer src="scripts/site.js"></script>
+  </head>
+  <body data-page="book-detail">
+    <header class="site-header">
+      <div class="site-nav">
+        <a class="brand" href="index.html">
+          <span class="brand-title" data-i18n-zh="Knowledge Graph" data-i18n-en="Knowledge Graph">Knowledge Graph</span>
+          <span class="brand-subtitle" data-i18n-zh="Book 层次结构视图" data-i18n-en="Book hierarchy view">Book 层次结构视图</span>
+        </a>
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="library.html" data-nav="library" data-i18n-zh="Library" data-i18n-en="Library">Library</a>
+            <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
+            <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
+            <a href="graph.html" data-nav="graph" data-i18n-zh="Graph" data-i18n-en="Graph">Graph</a>
+            <a href="contact.html" data-nav="contact" data-i18n-zh="CONTACT" data-i18n-en="CONTACT">CONTACT</a>
+          </nav>
+          <div class="nav-controls">
+            <button class="icon-btn" type="button" data-theme-toggle>
+              <i class="fas fa-moon" aria-hidden="true"></i>
+              <span data-theme-label>Dark</span>
+            </button>
+            <button class="icon-btn" type="button" data-lang-toggle>
+              <i class="fas fa-language" aria-hidden="true"></i>
+              <span data-lang-label>EN</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell" data-book-page>
+      <section class="hero-block">
+        <span class="hero-kicker"><i class="fas fa-sitemap"></i> <span data-i18n-zh="书籍结构" data-i18n-en="Book structure">书籍结构</span></span>
+        <h1 class="hero-title" data-book-title>Loading...</h1>
+        <p class="hero-subtitle"><strong data-i18n-zh="作者：" data-i18n-en="Author:">作者：</strong><span data-book-author>-</span></p>
+        <p class="hero-subtitle"><strong data-i18n-zh="学科：" data-i18n-en="Discipline:">学科：</strong><span data-book-discipline>-</span></p>
+        <a class="inline-link" href="library.html" data-i18n-zh="返回 Library" data-i18n-en="Back to Library">返回 Library</a>
+      </section>
+
+      <section class="panel book-tree-panel">
+        <h3 data-i18n-zh="层次结构（点击三角展开/折叠）" data-i18n-en="Hierarchy (click triangle to expand/collapse)">层次结构（点击三角展开/折叠）</h3>
+        <ul class="book-tree" data-book-tree>
+          <li class="muted">Loading...</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="page-shell footer">
+      <span data-i18n-zh="Book 页面展示 chapter → section → knowledge 结构。" data-i18n-en="Book page shows chapter → section → knowledge hierarchy.">Book 页面展示 chapter → section → knowledge 结构。</span>
+      <span><a class="inline-link" href="library.html" data-i18n-zh="返回 Library" data-i18n-en="Back to Library">返回 Library</a></span>
+    </footer>
+  </body>
+</html>

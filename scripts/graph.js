@@ -11,15 +11,20 @@ const GraphWorkspace = (() => {
   const state = {
     graphData: null,
     network: null,
-    mode: 'book',
+    mode: 'knowledge',
     selectedNodeId: null,
+    focusMode: 'neighbors',
+    depthMode: 'undirected',
     search: '',
     localDepth: 0,
     queryResultIds: new Set(),
     nodeTypeFilters: new Set(),
     domainFilters: new Set(),
+    highlightedDomains: new Set(),
+    domainHighlightOnly: false,
     edgeTypeFilters: new Set(),
     collapsedBookNodes: new Set(),
+    roadmapExpandedNodes: new Set(),
     tuning: { ...DEFAULT_TUNING },
     lang: document.documentElement.lang?.toLowerCase().startsWith('zh') ? 'zh' : 'en'
   };
@@ -30,6 +35,7 @@ const GraphWorkspace = (() => {
     zh: {
       bookMode: '书籍模式',
       knowledgeMode: '知识模式',
+      roadmapMode: '学习路线模式',
       clickNode: '点击任意节点查看详情。',
       incoming: '入边关系',
       outgoing: '出边关系',
@@ -46,12 +52,18 @@ const GraphWorkspace = (() => {
       qWeakSupport: 'support 来源较弱的节点',
       qTopDegree: '连接度最高的知识节点',
       qCleared: '查询已清空',
+      summary: '关系摘要',
+      directUpstream: '直接前置数量',
+      directDownstream: '直接后继数量',
+      transitiveUpstream: '传递前置数量',
+      transitiveDownstream: '传递后继数量',
       rendererFail: '图渲染器加载失败，请检查网络资源。',
       dataFail: '图谱数据加载失败。'
     },
     en: {
       bookMode: 'Book Hierarchy',
       knowledgeMode: 'Knowledge Network',
+      roadmapMode: 'Roadmap',
       clickNode: 'Click any node to inspect details.',
       incoming: 'Incoming relations',
       outgoing: 'Outgoing relations',
@@ -68,6 +80,11 @@ const GraphWorkspace = (() => {
       qWeakSupport: 'Nodes with weak support provenance',
       qTopDegree: 'Top degree knowledge nodes',
       qCleared: 'Query cleared',
+      summary: 'Relation summary',
+      directUpstream: 'Direct prerequisites',
+      directDownstream: 'Direct dependents',
+      transitiveUpstream: 'Transitive prerequisites',
+      transitiveDownstream: 'Transitive dependents',
       rendererFail: 'Graph renderer failed to load. Please check CDN resources.',
       dataFail: 'Unable to load graph data.'
     }
@@ -148,6 +165,20 @@ const GraphWorkspace = (() => {
     common: { zh: '通用', en: 'Common' }
   };
 
+  const DISCIPLINE_COLORS = {
+    philosophy: '#6b7280',
+    mathematics: '#4b5563',
+    physics: '#475569',
+    economics: '#52525b',
+    neuroscience: '#0f766e',
+    psychology: '#7c3f52',
+    'computer-science': '#334155',
+    'control-theory-cybernetics': '#0f766e',
+    linguistics: '#5b21b6',
+    'artificial-intelligence': '#1d4ed8',
+    common: '#64748b'
+  };
+
   const EDGE_LABEL_I18N = {
     has_chapter: { zh: '包含章节', en: 'has_chapter' },
     has_section: { zh: '包含小节', en: 'has_section' },
@@ -216,7 +247,7 @@ const GraphWorkspace = (() => {
   function nodeTitle(node) {
     return pickI18nText(
       node?.titleI18n,
-      labelOf(NODE_I18N, node?.rawId || node?.id, node?.title || node?.id || '')
+      node?.title || labelOf(NODE_I18N, node?.rawId || node?.id, node?.id || '')
     );
   }
 
@@ -242,6 +273,15 @@ const GraphWorkspace = (() => {
 
   function resolveDomain(node) {
     return node?.taxonomyDomain || node?.discipline || 'common';
+  }
+
+  function disciplineColor(nodeOrDomain) {
+    const domain = typeof nodeOrDomain === 'string' ? nodeOrDomain : resolveDomain(nodeOrDomain);
+    return DISCIPLINE_COLORS[domain] || DISCIPLINE_COLORS.common;
+  }
+
+  function isKnowledgeNodeType(type = '') {
+    return type === 'knowledge' || ['concept', 'method', 'law', 'theory', 'algorithm', 'model'].includes(type);
   }
 
   function cssVar(name, fallback) {
@@ -289,7 +329,7 @@ const GraphWorkspace = (() => {
   }
 
   function getCurrentView() {
-    return state.mode === 'book' ? state.graphData?.views?.book : state.graphData?.views?.knowledge;
+    return state.graphData?.views?.knowledge;
   }
 
   function getNodeMap() {
@@ -405,12 +445,16 @@ const GraphWorkspace = (() => {
     if (state.mode !== 'knowledge') return baseNodeIds;
     if (!state.selectedNodeId || state.localDepth <= 0 || !baseNodeIds.has(state.selectedNodeId)) return baseNodeIds;
 
-    const adjacency = new Map();
+    const outgoing = new Map();
+    const undirected = new Map();
     for (const edge of edges) {
-      if (!adjacency.has(edge.source)) adjacency.set(edge.source, new Set());
-      if (!adjacency.has(edge.target)) adjacency.set(edge.target, new Set());
-      adjacency.get(edge.source).add(edge.target);
-      adjacency.get(edge.target).add(edge.source);
+      if (!outgoing.has(edge.source)) outgoing.set(edge.source, new Set());
+      outgoing.get(edge.source).add(edge.target);
+
+      if (!undirected.has(edge.source)) undirected.set(edge.source, new Set());
+      if (!undirected.has(edge.target)) undirected.set(edge.target, new Set());
+      undirected.get(edge.source).add(edge.target);
+      undirected.get(edge.target).add(edge.source);
     }
 
     const visited = new Set([state.selectedNodeId]);
@@ -419,7 +463,11 @@ const GraphWorkspace = (() => {
     for (let depth = 0; depth < state.localDepth; depth += 1) {
       const next = new Set();
       for (const current of frontier) {
-        for (const neighbor of adjacency.get(current) || []) {
+        const neighbors = state.depthMode === 'directed'
+          ? (outgoing.get(current) || [])
+          : (undirected.get(current) || []);
+
+        for (const neighbor of neighbors) {
           if (!visited.has(neighbor)) {
             visited.add(neighbor);
             next.add(neighbor);
@@ -431,30 +479,6 @@ const GraphWorkspace = (() => {
     }
 
     return visited;
-  }
-
-  function getHiddenByCollapse(edges) {
-    if (state.mode !== 'book' || state.collapsedBookNodes.size === 0) return new Set();
-
-    const childrenMap = new Map();
-    for (const edge of edges) {
-      if (!childrenMap.has(edge.source)) childrenMap.set(edge.source, new Set());
-      childrenMap.get(edge.source).add(edge.target);
-    }
-
-    const hidden = new Set();
-    for (const root of state.collapsedBookNodes) {
-      const stack = [...(childrenMap.get(root) || [])];
-      while (stack.length) {
-        const current = stack.pop();
-        if (hidden.has(current)) continue;
-        hidden.add(current);
-        for (const child of childrenMap.get(current) || []) {
-          stack.push(child);
-        }
-      }
-    }
-    return hidden;
   }
 
   function getFilteredNodeIds(view) {
@@ -471,6 +495,107 @@ const GraphWorkspace = (() => {
     }
 
     return ids;
+  }
+
+  function getFilteredBaseSubgraph(view = getCurrentView()) {
+    const nodeIds = getFilteredNodeIds(view);
+    const edges = (view?.edges || []).filter((edge) => {
+      if (!state.edgeTypeFilters.has(edge.type)) return false;
+      return nodeIds.has(edge.source) && nodeIds.has(edge.target);
+    });
+    return { nodeIds, edges };
+  }
+
+  function computeFocusContext(selectedId, baseNodeIds, edges) {
+    const empty = {
+      selected: selectedId,
+      directNeighbors: new Set(),
+      upstream: new Set(),
+      downstream: new Set(),
+      focusNodeIds: new Set(),
+      directEdgeIds: new Set()
+    };
+
+    if (!selectedId || !baseNodeIds.has(selectedId)) return empty;
+
+    const incomingMap = new Map();
+    const outgoingMap = new Map();
+    for (const edge of edges) {
+      if (!outgoingMap.has(edge.source)) outgoingMap.set(edge.source, []);
+      if (!incomingMap.has(edge.target)) incomingMap.set(edge.target, []);
+      outgoingMap.get(edge.source).push(edge.target);
+      incomingMap.get(edge.target).push(edge.source);
+    }
+
+    const collectTransitive = (seed, map) => {
+      const visited = new Set();
+      const stack = [...(map.get(seed) || [])];
+      while (stack.length) {
+        const id = stack.pop();
+        if (visited.has(id)) continue;
+        visited.add(id);
+        for (const next of map.get(id) || []) {
+          if (!visited.has(next)) stack.push(next);
+        }
+      }
+      return visited;
+    };
+
+    const directOutgoing = new Set(outgoingMap.get(selectedId) || []);
+    const directIncoming = new Set(incomingMap.get(selectedId) || []);
+
+    for (const id of directOutgoing) empty.directNeighbors.add(id);
+    for (const id of directIncoming) empty.directNeighbors.add(id);
+
+    empty.upstream = collectTransitive(selectedId, incomingMap);
+    empty.downstream = collectTransitive(selectedId, outgoingMap);
+
+    for (const edge of edges) {
+      if (edge.source === selectedId || edge.target === selectedId) {
+        empty.directEdgeIds.add(`${edge.source}-${edge.type}-${edge.target}`);
+      }
+    }
+
+    const focusNodeIds = new Set([selectedId]);
+    if (state.focusMode === 'neighbors' || state.focusMode === 'both') {
+      for (const id of empty.directNeighbors) focusNodeIds.add(id);
+    }
+    if (state.focusMode === 'upstream' || state.focusMode === 'both') {
+      for (const id of empty.upstream) focusNodeIds.add(id);
+    }
+    if (state.focusMode === 'downstream' || state.focusMode === 'both') {
+      for (const id of empty.downstream) focusNodeIds.add(id);
+    }
+
+    empty.focusNodeIds = focusNodeIds;
+    return empty;
+  }
+
+  function computeRoadmapVisibleNodeIds(baseNodeIds, edges, nodeMap) {
+    const visible = new Set();
+    const childrenMap = new Map();
+
+    for (const edge of edges) {
+      if (!childrenMap.has(edge.source)) childrenMap.set(edge.source, []);
+      childrenMap.get(edge.source).push(edge.target);
+    }
+
+    const roots = [...baseNodeIds].filter((id) => nodeMap.get(id)?.type === 'book');
+    const stack = [...roots];
+    roots.forEach((id) => visible.add(id));
+
+    while (stack.length) {
+      const current = stack.pop();
+      if (!state.roadmapExpandedNodes.has(current)) continue;
+
+      for (const childId of childrenMap.get(current) || []) {
+        if (!baseNodeIds.has(childId) || visible.has(childId)) continue;
+        visible.add(childId);
+        stack.push(childId);
+      }
+    }
+
+    return visible;
   }
 
   function buildKnowledgeTooltip(node) {
@@ -513,27 +638,38 @@ const GraphWorkspace = (() => {
   function buildDatasets() {
     const view = getCurrentView();
     const nodeMap = getNodeMap();
-    const baseNodeIds = getFilteredNodeIds(view);
-    const baseEdges = (view?.edges || []).filter(
-      (edge) => state.edgeTypeFilters.has(edge.type) && baseNodeIds.has(edge.source) && baseNodeIds.has(edge.target)
-    );
+    const { nodeIds: baseNodeIds, edges: baseEdges } = getFilteredBaseSubgraph(view);
 
     let visibleNodeIds = computeLocalGraph(baseNodeIds, baseEdges);
 
-    if (state.mode === 'book') {
-      const hidden = getHiddenByCollapse(baseEdges);
-      visibleNodeIds = new Set([...visibleNodeIds].filter((id) => !hidden.has(id)));
-    }
-
     const edges = baseEdges.filter((edge) => visibleNodeIds.has(edge.source) && visibleNodeIds.has(edge.target));
+    const focusContext = computeFocusContext(state.selectedNodeId, visibleNodeIds, edges);
+    const hasSelectedFocus = Boolean(state.selectedNodeId && visibleNodeIds.has(state.selectedNodeId));
+    const hasDomainHighlights = state.highlightedDomains.size > 0;
 
     const nodes = [...visibleNodeIds].map((id) => {
       const node = nodeMap.get(id);
       const degree = edges.filter((edge) => edge.source === id || edge.target === id).length;
       const isSelected = state.selectedNodeId === id;
-      const color = nodeColorByType(node);
+      const isUpstream = focusContext.upstream.has(id);
+      const isDownstream = focusContext.downstream.has(id);
+      const inFocus = focusContext.focusNodeIds.has(id);
+      const domain = resolveDomain(node);
+      const domainMatched = state.highlightedDomains.has(domain);
+
+      let color = nodeColorByType(node);
+      if (!isSelected) {
+        if (isUpstream && !isDownstream) color = '#7c3aed';
+        if (isDownstream && !isUpstream) color = '#c2410c';
+        if (isUpstream && isDownstream) color = '#9a3412';
+      }
+
       const visual = nodeVisualByType(node);
-      const tooltip = state.mode === 'knowledge' ? buildKnowledgeTooltip(node) : buildBookTooltip(node);
+      const tooltip = buildKnowledgeTooltip(node);
+
+      const fadedByFocus = hasSelectedFocus && !inFocus;
+      const fadedByDomain = hasDomainHighlights && !domainMatched;
+      const opacity = (fadedByFocus || fadedByDomain) ? 0.18 : 1;
 
       return {
         id,
@@ -545,9 +681,10 @@ const GraphWorkspace = (() => {
           (visual.baseSize || 16) * state.tuning.nodeSizeScale + Math.log2(1 + degree) * state.tuning.degreeGain
         ),
         borderWidth: visual.borderWidth,
+        opacity,
         color: {
           background: color,
-          border: isSelected ? cssVar('--solid-bg', '#111827') : cssVar('--line', '#e4e4e7'),
+          border: isSelected ? cssVar('--solid-bg', '#111827') : disciplineColor(node),
           highlight: {
             background: color,
             border: cssVar('--accent', '#2563eb')
@@ -562,13 +699,25 @@ const GraphWorkspace = (() => {
 
     const visEdges = edges.map((edge) => {
       const visual = edgeVisualByType(edge.type);
+      const edgeId = `${edge.source}-${edge.type}-${edge.target}`;
+      const isDirect = focusContext.directEdgeIds.has(edgeId);
+      const inFocus = focusContext.focusNodeIds.has(edge.source) && focusContext.focusNodeIds.has(edge.target);
+      const fadedByFocus = hasSelectedFocus && !inFocus;
+      const sourceDomain = resolveDomain(nodeMap.get(edge.source));
+      const targetDomain = resolveDomain(nodeMap.get(edge.target));
+      const domainMatched = !hasDomainHighlights
+        || state.highlightedDomains.has(sourceDomain)
+        || state.highlightedDomains.has(targetDomain);
+      const opacity = (fadedByFocus || !domainMatched) ? 0.16 : 1;
+
       return {
         ...visual,
-        width: (visual.width || 1.8) * state.tuning.edgeWidthScale,
-        id: `${edge.source}-${edge.type}-${edge.target}`,
+        width: (visual.width || 1.8) * state.tuning.edgeWidthScale * (isDirect ? 1.9 : 1),
+        id: edgeId,
         from: edge.source,
         to: edge.target,
         label: edgeLabel(edge.type),
+        opacity,
         color: {
           color: edgeColorByType(edge.type),
           highlight: cssVar('--accent', '#2563eb')
@@ -583,31 +732,66 @@ const GraphWorkspace = (() => {
     return { nodes, edges: visEdges };
   }
 
-  function getIncomingEdges(nodeId) {
-    const view = getCurrentView();
-    return (view?.edges || []).filter((edge) => edge.target === nodeId);
+  function getIncomingEdges(nodeId, edges) {
+    return (edges || []).filter((edge) => edge.target === nodeId);
   }
 
-  function getOutgoingEdges(nodeId) {
-    const view = getCurrentView();
-    return (view?.edges || []).filter((edge) => edge.source === nodeId);
+  function getOutgoingEdges(nodeId, edges) {
+    return (edges || []).filter((edge) => edge.source === nodeId);
+  }
+
+  function computeRelationSummary(nodeId, edges) {
+    const incoming = getIncomingEdges(nodeId, edges);
+    const outgoing = getOutgoingEdges(nodeId, edges);
+
+    const incomingMap = new Map();
+    const outgoingMap = new Map();
+    for (const edge of edges) {
+      if (!incomingMap.has(edge.target)) incomingMap.set(edge.target, []);
+      if (!outgoingMap.has(edge.source)) outgoingMap.set(edge.source, []);
+      incomingMap.get(edge.target).push(edge.source);
+      outgoingMap.get(edge.source).push(edge.target);
+    }
+
+    const walk = (map, seed) => {
+      const visited = new Set();
+      const stack = [...(map.get(seed) || [])];
+      while (stack.length) {
+        const id = stack.pop();
+        if (visited.has(id)) continue;
+        visited.add(id);
+        for (const next of map.get(id) || []) {
+          if (!visited.has(next)) stack.push(next);
+        }
+      }
+      return visited;
+    };
+
+    return {
+      directUpstream: incoming.length,
+      directDownstream: outgoing.length,
+      transitiveUpstream: walk(incomingMap, nodeId).size,
+      transitiveDownstream: walk(outgoingMap, nodeId).size
+    };
   }
 
   function renderDetail() {
     if (!EL.detail) return;
     const nodeMap = getNodeMap();
     const node = nodeMap.get(state.selectedNodeId);
+    const { edges: activeEdges } = getFilteredBaseSubgraph();
 
     if (!node) {
       EL.detail.innerHTML = `
         <h2>Node details</h2>
-        <p class="muted">${state.mode === 'book' ? t('bookMode') : t('knowledgeMode')} · ${t('clickNode')}</p>
+        <p class="muted">${t('knowledgeMode')} · ${t('clickNode')}</p>
       `;
       return;
     }
 
-    const incoming = getIncomingEdges(node.id);
-    const outgoing = getOutgoingEdges(node.id);
+    const incoming = getIncomingEdges(node.id, activeEdges);
+    const outgoing = getOutgoingEdges(node.id, activeEdges);
+    const summary = computeRelationSummary(node.id, activeEdges);
 
     const relationList = (list, dir) => {
       if (!list.length) return `<li class="muted">${t('noData')}</li>`;
@@ -623,7 +807,7 @@ const GraphWorkspace = (() => {
     const provenance = (node.provenanceLinks || []).length
       ? node.provenanceLinks
           .map((p) => {
-            const book = labelOf(NODE_I18N, p.bookId, p.bookTitle || p.bookId || '');
+            const book = p.bookTitle || p.bookId || '';
             const chapter = pickI18nText(p.chapterI18n, p.chapter || '');
             const section = pickI18nText(p.sectionI18n, p.section || '');
             const bookLabel = pickI18nText(p.bookTitleI18n, book);
@@ -648,7 +832,16 @@ const GraphWorkspace = (() => {
         <h4>${t('incoming')}</h4>
         <ul class="mini-list">${relationList(incoming, 'in')}</ul>
       </div>
-      ${state.mode === 'knowledge' ? `
+      <div class="detail-section">
+        <h4>${t('summary')}</h4>
+        <ul class="mini-list">
+          <li>${t('directUpstream')}: <strong>${summary.directUpstream}</strong></li>
+          <li>${t('directDownstream')}: <strong>${summary.directDownstream}</strong></li>
+          <li>${t('transitiveUpstream')}: <strong>${summary.transitiveUpstream}</strong></li>
+          <li>${t('transitiveDownstream')}: <strong>${summary.transitiveDownstream}</strong></li>
+        </ul>
+      </div>
+      ${isKnowledgeNodeType(node.type) ? `
       <div class="detail-section">
         <h4>${t('provenance')}</h4>
         <ul class="mini-list">${provenance}</ul>
@@ -715,22 +908,6 @@ const GraphWorkspace = (() => {
       edges: { smooth: { type: 'dynamic' } }
     };
 
-    if (state.mode === 'book') {
-      return {
-        ...common,
-        physics: { enabled: false },
-        layout: {
-          hierarchical: {
-            enabled: true,
-            direction: 'UD',
-            levelSeparation: state.tuning.levelSeparation,
-            nodeSpacing: state.tuning.nodeSpacing,
-            sortMethod: 'directed'
-          }
-        }
-      };
-    }
-
     return {
       ...common,
       physics: {
@@ -766,17 +943,6 @@ const GraphWorkspace = (() => {
         const nodeId = params.nodes?.[0] || null;
         state.selectedNodeId = nodeId;
 
-        if (state.mode === 'book' && nodeId) {
-          const view = getCurrentView();
-          const hasChild = (view?.edges || []).some((edge) => edge.source === nodeId);
-          if (hasChild) {
-            if (state.collapsedBookNodes.has(nodeId)) state.collapsedBookNodes.delete(nodeId);
-            else state.collapsedBookNodes.add(nodeId);
-            renderNetwork();
-            return;
-          }
-        }
-
         renderDetail();
       });
     } else {
@@ -794,9 +960,13 @@ const GraphWorkspace = (() => {
 
   function resetFiltersForMode() {
     const view = getCurrentView();
-    state.nodeTypeFilters = new Set((view?.nodes || []).map((n) => n.type));
-    state.domainFilters = new Set((view?.nodes || []).map((n) => resolveDomain(n)));
-    state.edgeTypeFilters = new Set((view?.edges || []).map((e) => e.type));
+    const nodes = view?.nodes || [];
+    const edges = view?.edges || [];
+
+    state.nodeTypeFilters = new Set(nodes.map((n) => n.type));
+    state.domainFilters = new Set(nodes.map((n) => resolveDomain(n)));
+    state.highlightedDomains = new Set(state.domainFilters);
+    state.edgeTypeFilters = new Set(edges.map((e) => e.type));
   }
 
   function renderTypeFilters() {
@@ -834,19 +1004,38 @@ const GraphWorkspace = (() => {
 
     EL.domainFilters.innerHTML = domains
       .map((domain) => {
-        const active = state.domainFilters.has(domain) ? 'is-active' : '';
-        return `<button class="filter-chip ${active}" type="button" data-domain="${domain}">${escapeHtml(disciplineLabel(domain))}</button>`;
+        const active = state.domainHighlightOnly
+          ? state.highlightedDomains.has(domain)
+          : state.domainFilters.has(domain);
+        const activeClass = active ? 'is-active' : '';
+        const border = disciplineColor(domain);
+        return `<button class="filter-chip ${activeClass}" type="button" data-domain="${domain}" style="border-color:${border};">${escapeHtml(disciplineLabel(domain))}</button>`;
       })
       .join('');
 
     EL.domainFilters.querySelectorAll('[data-domain]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const domain = btn.dataset.domain;
-        if (state.domainFilters.has(domain)) state.domainFilters.delete(domain);
-        else state.domainFilters.add(domain);
+        if (state.domainHighlightOnly) {
+          const allHighlighted = state.highlightedDomains.size === domains.length;
+          if (allHighlighted) {
+            state.highlightedDomains = new Set([domain]);
+          } else if (state.highlightedDomains.has(domain)) {
+            state.highlightedDomains.delete(domain);
+          } else {
+            state.highlightedDomains.add(domain);
+          }
 
-        if (state.domainFilters.size === 0) {
-          state.domainFilters = new Set(domains);
+          if (state.highlightedDomains.size === 0) {
+            state.highlightedDomains = new Set(domains);
+          }
+        } else {
+          if (state.domainFilters.has(domain)) state.domainFilters.delete(domain);
+          else state.domainFilters.add(domain);
+
+          if (state.domainFilters.size === 0) {
+            state.domainFilters = new Set(domains);
+          }
         }
 
         renderDomainFilters();
@@ -949,20 +1138,27 @@ const GraphWorkspace = (() => {
   function refreshModeUI() {
     if (EL.modeSwitch) {
       EL.modeSwitch.querySelectorAll('[data-graph-mode]').forEach((btn) => {
-        btn.classList.toggle('is-active', btn.dataset.graphMode === state.mode);
+        btn.classList.toggle('is-active', btn.dataset.graphMode === 'knowledge');
       });
     }
 
-    state.queryResultIds = state.mode === 'knowledge' ? state.queryResultIds : new Set();
+    state.mode = 'knowledge';
+
+    EL.focusModeSwitch?.querySelectorAll('[data-focus-mode]').forEach((btn) => {
+      btn.classList.toggle('is-active', btn.dataset.focusMode === state.focusMode);
+    });
+    EL.depthModeSwitch?.querySelectorAll('[data-depth-mode]').forEach((btn) => {
+      btn.classList.toggle('is-active', btn.dataset.depthMode === state.depthMode);
+    });
+    if (EL.domainHighlightOnly) {
+      EL.domainHighlightOnly.checked = state.domainHighlightOnly;
+    }
+
     resetFiltersForMode();
     renderTypeFilters();
     renderDomainFilters();
     renderEdgeFilters();
     renderNetwork();
-
-    if (state.mode !== 'knowledge') {
-      renderQueryResults(t('queryBookPaused'), new Set());
-    }
   }
 
   function bindControls() {
@@ -977,22 +1173,37 @@ const GraphWorkspace = (() => {
       renderNetwork();
     });
 
-    EL.modeSwitch?.querySelectorAll('[data-graph-mode]').forEach((btn) => {
+    EL.depthModeSwitch?.querySelectorAll('[data-depth-mode]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const nextMode = btn.dataset.graphMode;
-        if (nextMode === state.mode) return;
-        state.mode = nextMode;
-        state.selectedNodeId = null;
-        refreshModeUI();
+        state.depthMode = btn.dataset.depthMode === 'directed' ? 'directed' : 'undirected';
+        EL.depthModeSwitch.querySelectorAll('[data-depth-mode]').forEach((item) => {
+          item.classList.toggle('is-active', item === btn);
+        });
+        renderNetwork();
       });
+    });
+
+    EL.focusModeSwitch?.querySelectorAll('[data-focus-mode]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.focusMode = btn.dataset.focusMode || 'neighbors';
+        EL.focusModeSwitch.querySelectorAll('[data-focus-mode]').forEach((item) => {
+          item.classList.toggle('is-active', item === btn);
+        });
+        renderNetwork();
+      });
+    });
+
+    EL.domainHighlightOnly?.addEventListener('change', () => {
+      state.domainHighlightOnly = Boolean(EL.domainHighlightOnly.checked);
+      if (state.domainHighlightOnly && state.highlightedDomains.size === 0) {
+        state.highlightedDomains = new Set(state.domainFilters);
+      }
+      renderDomainFilters();
+      renderNetwork();
     });
 
     document.querySelectorAll('[data-query]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        if (state.mode !== 'knowledge') {
-          renderQueryResults(t('queryNeedKnowledge'), new Set());
-          return;
-        }
         const kind = btn.dataset.query;
         const { title, ids } = runQuery(kind);
         state.queryResultIds = ids;
@@ -1023,8 +1234,11 @@ const GraphWorkspace = (() => {
     EL.search = document.querySelector('[data-graph-search]');
     EL.depth = document.querySelector('[data-graph-depth]');
     EL.depthLabel = document.querySelector('[data-graph-depth-label]');
+    EL.depthModeSwitch = document.querySelector('[data-depth-mode-switch]');
+    EL.focusModeSwitch = document.querySelector('[data-focus-mode-switch]');
     EL.nodeTypeFilters = document.querySelector('[data-node-type-filters]');
     EL.domainFilters = document.querySelector('[data-domain-filters]');
+    EL.domainHighlightOnly = document.querySelector('[data-domain-highlight-only]');
     EL.edgeTypeFilters = document.querySelector('[data-edge-type-filters]');
     EL.queryResults = document.querySelector('[data-query-results]');
     EL.modeSwitch = document.querySelector('[data-graph-mode-switch]');
@@ -1035,7 +1249,7 @@ const GraphWorkspace = (() => {
   }
 
   async function loadGraph() {
-    const response = await fetch('graph/knowledge-graph.json');
+    const response = await fetch(`graph/knowledge-graph.json?v=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`Failed to load graph data: ${response.status}`);
     }
@@ -1081,6 +1295,29 @@ const GraphWorkspace = (() => {
         state.lang = nextLang;
         refreshModeUI();
       });
+
+      document.addEventListener('kg:themechange', () => {
+        renderNetwork();
+      });
+
+      document.addEventListener('kg:datarefresh', async () => {
+        try {
+          state.graphData = await loadGraph();
+          state.selectedNodeId = null;
+          resetFiltersForMode();
+          refreshModeUI();
+          renderQueryResults(t('queryReady'), new Set());
+        } catch (error) {
+          console.error(error);
+          if (EL.detail) {
+            EL.detail.innerHTML = `<h2>Node details</h2><p class="muted">${t('dataFail')}</p>`;
+          }
+          if (EL.canvas) {
+            EL.canvas.innerHTML = `<div class="empty-state">${t('dataFail')}</div>`;
+          }
+        }
+      });
+
       refreshModeUI();
       renderQueryResults(t('queryReady'), new Set());
     } catch (error) {

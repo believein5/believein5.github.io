@@ -1,9 +1,11 @@
 # Graph directory
 
-This folder now uses a **source-first architecture** with two graph views:
+This folder now provides graph snapshots consumed by the frontend with two graph views:
 
 - **Book Graph**: `Book -> Chapter -> Section -> Knowledge`
 - **Knowledge Graph**: knowledge nodes linked by semantic relations (no source nodes shown)
+
+> Current project phase is migrating to **DB-first**. `knowledge-graph.json` can now be generated from DB using `tools/db-to-graph.py`.
 
 ## Core files
 
@@ -23,13 +25,11 @@ The following source relations are **tooltip-only** in knowledge mode (not rende
 
 They are stored under each knowledge node as `provenanceLinks`.
 
-## Generation flow
+## DB-first export flow (recommended)
 
-1. Edit `source.json` (book hierarchy + knowledge nodes + knowledgeRelations).
-2. Edit `relation-types.json` when adding new edge semantics.
-3. Run `tools/source-to-graph.mjs` to generate `knowledge-graph.json`.
-4. Open `graph.html` and switch between **书籍 Graph** and **知识 Graph**.
-5. (Optional) adjust persistent rendering defaults in `tuning-config.json`.
+1. Import source/PDF data into DB (see `db/README.md`).
+2. Run `tools/db-to-graph.py --db db/graph.db --out graph/knowledge-graph.json`.
+3. Open `graph.html` to view the latest DB-exported snapshot.
 
 ## Manual tuning interface
 

@@ -15,6 +15,7 @@ It maps your knowledge + graph data into one canonical model:
 ## Files
 
 - `schema.sql`: full schema + indexes + taxonomy seed data.
+- `import-source.sql`: generated SQL snapshot from source (migration input).
 
 ## DB structure overview
 
@@ -54,7 +55,7 @@ These views are intended as the direct source for `db -> graph/knowledge-graph.j
 
 ## Source import/update workflow
 
-This repo now provides a generator script:
+This repo provides a generator script:
 
 - `tools/source-to-db-sql.mjs`
 
@@ -73,23 +74,27 @@ And outputs:
 - re-inserts data from current source
 - supports repeated execution after source updates
 
-Recommended cycle:
+## PDF BookShelf import workflow (new)
 
-1. Edit `graph/source.json`
-2. Regenerate `db/import-source.sql`
-3. Apply `db/import-source.sql` to your SQLite DB
-4. Export DB -> `graph/knowledge-graph.json` for frontend
+Use:
 
-## Recommended ETL order (source.json -> DB)
+- `tools/pdf-bookshelf-to-db.py`
 
-1. Insert books
-2. Insert chapters
-3. Insert sections
-4. Upsert knowledge nodes
-5. Insert section_knowledge mapping
-6. Insert tags
-7. Insert semantic relations (`knowledge_relations`)
-8. Insert provenance links (`provenance_links`)
+It can:
+
+- scan `BookShelf/*.pdf`
+- infer chapters/sections from TOC-like page text (when bookmarks are unavailable)
+- create book/chapter/section hierarchy in DB
+- create section-level knowledge placeholders + provenance links
+- optionally chain chapter core nodes via `prerequisite_of`
+
+Suggested command sequence:
+
+1. `tools/source-to-db-sql.mjs` (optional if you still maintain source.json)
+2. `tools/pdf-bookshelf-to-db.py --db db/graph.db --bookshelf BookShelf --migrate-source`
+3. `tools/db-to-graph.py --db db/graph.db --out graph/knowledge-graph.json`
+
+This is now the recommended DB-first pipeline.
 
 ## Minimal validation checks after import
 
@@ -100,7 +105,7 @@ Recommended cycle:
 
 ## Next pipeline step
 
-After data is in DB, export back to `graph/knowledge-graph.json` for frontend rendering.
+After data is in DB, export back to `graph/knowledge-graph.json` using `tools/db-to-graph.py`.
 This keeps runtime static and fast while authoring/storage becomes structured.
 
 ## Should source be kept after import?
@@ -110,4 +115,3 @@ Short term: yes. Long term: optional.
 - During migration, keep `source.json` as human-editable upstream source.
 - After DB workflows stabilize, you may switch to DB as SSOT and keep `source.json` as exported snapshot/archive.
 - Do not edit generated `db/import-source.sql` manually.
-

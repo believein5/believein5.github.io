@@ -2,11 +2,14 @@ const KnowledgeGraphSite = (() => {
   let cachedGraph = null;
   let currentLang = 'zh';
   let resyncTopNavOverflow = null;
+  let isRefreshingGraphData = false;
 
   const STORAGE_KEYS = {
     theme: 'kg-theme',
     lang: 'kg-lang',
     knowledgeSidebarCollapsed: 'kg-knowledge-sidebar-collapsed',
+    librarySidebarCollapsed: 'kg-library-sidebar-collapsed',
+    projectSidebarCollapsed: 'kg-project-sidebar-collapsed',
     topNavExpanded: 'kg-top-nav-expanded'
   };
 
@@ -15,6 +18,8 @@ const KnowledgeGraphSite = (() => {
       themeLight: '白天',
       themeDark: '黑夜',
       langLabel: 'EN',
+      refreshData: '刷新',
+      refreshingData: '刷新中...',
       readInKnowledge: '进入 Knowledge',
       noKnowledgeNodes: '暂无知识节点。',
       loadingLatest: '正在加载最新知识节点...',
@@ -43,6 +48,8 @@ const KnowledgeGraphSite = (() => {
       themeLight: 'Light',
       themeDark: 'Dark',
       langLabel: '中文',
+      refreshData: 'Refresh',
+      refreshingData: 'Refreshing...',
       readInKnowledge: 'Read in Knowledge',
       noKnowledgeNodes: 'No knowledge nodes yet.',
       loadingLatest: 'Loading latest knowledge notes...',
@@ -102,13 +109,13 @@ const KnowledgeGraphSite = (() => {
       navControls.prepend(button);
     }
 
-    let overflowPanel = siteNav.querySelector('[data-topnav-overflow-panel]');
+    let overflowPanel = navControls.querySelector('[data-topnav-overflow-panel]');
     if (!overflowPanel) {
       overflowPanel = document.createElement('div');
       overflowPanel.className = 'topnav-overflow-panel';
       overflowPanel.setAttribute('data-topnav-overflow-panel', '');
       overflowPanel.setAttribute('aria-label', 'Overflow navigation');
-      siteNav.append(overflowPanel);
+      navControls.append(overflowPanel);
     }
 
     let storedExpanded = localStorage.getItem(STORAGE_KEYS.topNavExpanded) === '1';
@@ -129,6 +136,10 @@ const KnowledgeGraphSite = (() => {
           return `<a class="topnav-overflow-link ${active}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
         })
         .join('');
+
+      overflowPanel.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => setExpanded(false));
+      });
     };
 
     const syncOverflow = () => {
@@ -138,6 +149,7 @@ const KnowledgeGraphSite = (() => {
 
       if (links.length < 2) {
         siteNav.classList.remove('has-overflow-links', 'overflow-expanded');
+        button.hidden = true;
         updateTopNavToggle();
         return;
       }
@@ -147,6 +159,7 @@ const KnowledgeGraphSite = (() => {
 
       if (!overflowLinks.length) {
         siteNav.classList.remove('has-overflow-links', 'overflow-expanded');
+        button.hidden = true;
         updateTopNavToggle();
         return;
       }
@@ -154,12 +167,27 @@ const KnowledgeGraphSite = (() => {
       overflowLinks.forEach((link) => link.classList.add('is-overflow-hidden'));
       renderOverflowPanel(overflowLinks);
       siteNav.classList.add('has-overflow-links');
+      button.hidden = false;
       setExpanded(storedExpanded);
     };
 
     button.addEventListener('click', () => {
       if (!siteNav.classList.contains('has-overflow-links')) return;
       setExpanded(!siteNav.classList.contains('overflow-expanded'));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!siteNav.classList.contains('overflow-expanded')) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (navControls.contains(target)) return;
+      setExpanded(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && siteNav.classList.contains('overflow-expanded')) {
+        setExpanded(false);
+      }
     });
 
     window.addEventListener('resize', syncOverflow);
@@ -181,20 +209,85 @@ const KnowledgeGraphSite = (() => {
     'artificial-intelligence': ['artificial intelligence', 'ai', 'machine learning', 'deep learning', 'llm', 'agent', '人工智能', '机器学习', '深度学习']
   };
 
+  const DISCIPLINE_LABELS = {
+    mathematics: { zh: '数学', en: 'Mathematics' },
+    physics: { zh: '物理', en: 'Physics' },
+    economics: { zh: '经济学', en: 'Economics' },
+    neuroscience: { zh: '神经科学', en: 'Neuroscience' },
+    psychology: { zh: '心理学', en: 'Psychology' },
+    'computer-science': { zh: '计算机科学', en: 'Computer Science' },
+    'control-theory-cybernetics': { zh: '控制理论与控制论', en: 'Control Theory & Cybernetics' },
+    linguistics: { zh: '语言学', en: 'Linguistics' },
+    philosophy: { zh: '哲学', en: 'Philosophy' },
+    'artificial-intelligence': { zh: '人工智能', en: 'Artificial Intelligence' }
+  };
+
+  const BOOK_AUTHOR_OVERRIDES = {
+    'book-ai-aima-4e': 'Stuart Russell, Peter Norvig',
+    'book-pdf-artificial-intelligence-a-modern-approach': 'Stuart Russell, Peter Norvig'
+  };
+
   function t(key) {
     return UI[currentLang][key] ?? UI.en[key] ?? key;
+  }
+
+  function updateSidebarCollapseButton(button, textNode, collapsedClassName) {
+    if (!button) return;
+
+    const isCollapsed = document.body.classList.contains(collapsedClassName);
+    if (textNode) {
+      textNode.textContent = isCollapsed ? '>>' : '<<';
+    }
+
+    const title = isCollapsed ? t('expandSidebar') : t('collapseSidebar');
+    button.setAttribute('title', title);
+    button.setAttribute('aria-label', title);
   }
 
   async function loadGraph() {
     if (cachedGraph) {
       return cachedGraph;
     }
-    const response = await fetch('graph/knowledge-graph.json');
+    const response = await fetch(`graph/knowledge-graph.json?v=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`Failed to load graph: ${response.status}`);
     }
     cachedGraph = await response.json();
     return cachedGraph;
+  }
+
+  function normalizeKnowledgeGraphPayload(graph) {
+    const rawNodes = graph?.views?.knowledge?.nodes || graph?.nodes || [];
+    const rawEdges = graph?.views?.knowledge?.edges || graph?.edges || [];
+
+    const nodes = rawNodes.map((node) => {
+      const normalizedType = node.knowledgeType || node.type || 'concept';
+      return {
+        ...node,
+        type: normalizedType,
+        summary: node.summary || '',
+        difficulty: node.difficulty || 'intermediate',
+        tags: Array.isArray(node.tags) ? node.tags : [],
+        provenanceLinks: Array.isArray(node.provenanceLinks) ? node.provenanceLinks : [],
+        taxonomyDomain: node.taxonomyDomain || 'computer-science'
+      };
+    });
+
+    return {
+      ...graph,
+      nodes,
+      edges: rawEdges
+    };
+  }
+
+  function normalizeBookGraphPayload(graph) {
+    const rawNodes = graph?.views?.book?.nodes || [];
+    const rawEdges = graph?.views?.book?.edges || [];
+    return {
+      ...graph,
+      nodes: rawNodes,
+      edges: rawEdges
+    };
   }
 
   function escapeHtml(value = '') {
@@ -206,6 +299,297 @@ const KnowledgeGraphSite = (() => {
       .replaceAll("'", '&#39;');
   }
 
+  function pickLocalizedText(node, fallback = '') {
+    const i18n = node?.titleI18n;
+    if (i18n && typeof i18n === 'object') {
+      return currentLang === 'en'
+        ? (i18n.en || i18n.zh || fallback || node?.title || '')
+        : (i18n.zh || i18n.en || fallback || node?.title || '');
+    }
+    return node?.title || fallback;
+  }
+
+  function disciplineName(domain) {
+    const label = DISCIPLINE_LABELS[domain];
+    if (!label) return domain || '-';
+    return currentLang === 'en' ? (label.en || label.zh || domain) : (label.zh || label.en || domain);
+  }
+
+  function inferBookAuthor(book) {
+    const key = book?.bookId || book?.rawId || '';
+    return BOOK_AUTHOR_OVERRIDES[key] || (currentLang === 'en' ? 'Unknown' : '未知');
+  }
+
+  function normalizeBookTitleKey(title = '') {
+    return String(title)
+      .toLowerCase()
+      .replace(/\(.*?\)/g, ' ')
+      .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function canonicalBookGroupId(book) {
+    const key = normalizeBookTitleKey(pickLocalizedText(book, book?.title || ''));
+    if (key.includes('artificial intelligence') && key.includes('modern approach')) {
+      return 'merged-book-ai-aima';
+    }
+    return `single-${book?.bookId || book?.rawId || book?.id}`;
+  }
+
+  function createBookGroups(bookGraph) {
+    const books = (bookGraph.nodes || []).filter((node) => node.type === 'book');
+    const groups = new Map();
+
+    books.forEach((book) => {
+      const groupId = canonicalBookGroupId(book);
+      if (!groups.has(groupId)) {
+        groups.set(groupId, {
+          id: groupId,
+          books: []
+        });
+      }
+      groups.get(groupId).books.push(book);
+    });
+
+    return [...groups.values()].map((group) => {
+      const preferred = group.books.find((book) => (book.bookId || '').includes('aima-4e')) || group.books[0];
+      return {
+        id: group.id,
+        books: group.books,
+        preferred,
+        title: pickLocalizedText(preferred, preferred?.title || preferred?.id || ''),
+        author: inferBookAuthor(preferred),
+        domain: preferred?.taxonomyDomain || preferred?.discipline || 'other'
+      };
+    });
+  }
+
+  function stripLeadingHierarchyNumber(title = '') {
+    return String(title).replace(/^\s*\d+(?:\.\d+)*[\s、.)-]*/, '').trim();
+  }
+
+  function initLibraryDatabase(bookGraph) {
+    if (document.body.dataset.page !== 'library') {
+      return;
+    }
+
+    const rows = document.querySelector('[data-library-book-rows]');
+    const search = document.querySelector('[data-library-search]');
+    const domainButtons = Array.from(document.querySelectorAll('[data-library-domain-filter]'));
+
+    if (!rows || !search || !domainButtons.length) {
+      return;
+    }
+
+    const books = createBookGroups(bookGraph);
+    let activeDomain = 'all';
+
+    function matchesBook(book, query) {
+      const normalized = query.trim().toLowerCase();
+      if (!normalized) return true;
+      const title = pickLocalizedText(book, '').toLowerCase();
+      const author = inferBookAuthor(book).toLowerCase();
+      return title.includes(normalized) || author.includes(normalized);
+    }
+
+    function renderRows() {
+      const query = search.value || '';
+      const visible = books.filter((book) => {
+        const domainPass = activeDomain === 'all' || (book.domain || 'other') === activeDomain;
+        const queryPass = matchesBook(book, query);
+        return domainPass && queryPass;
+      });
+
+      if (!visible.length) {
+        rows.innerHTML = `<tr><td colspan="2" class="muted">${currentLang === 'en' ? 'No books found.' : '没有匹配的书籍。'}</td></tr>`;
+        return;
+      }
+
+      rows.innerHTML = visible.map((book) => {
+        const bookId = encodeURIComponent(book.id);
+        return `
+          <tr class="library-row" data-book-jump="${bookId}" tabindex="0" role="button">
+            <td>${escapeHtml(book.title)}</td>
+            <td>${escapeHtml(book.author)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    rows.onclick = (event) => {
+      const row = event.target.closest('[data-book-jump]');
+      if (!row) return;
+      window.location.href = `book.html?book=${row.dataset.bookJump}`;
+    };
+
+    rows.onkeydown = (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const row = event.target.closest('[data-book-jump]');
+      if (!row) return;
+      event.preventDefault();
+      window.location.href = `book.html?book=${row.dataset.bookJump}`;
+    };
+
+    search.oninput = () => renderRows();
+
+    domainButtons.forEach((button) => {
+      button.onclick = () => {
+        activeDomain = button.dataset.libraryDomainFilter || 'all';
+        domainButtons.forEach((item) => item.classList.remove('is-active'));
+        button.classList.add('is-active');
+        document.body.classList.remove('library-sidebar-open');
+        renderRows();
+      };
+    });
+
+    const activeButton = domainButtons.find((button) => button.classList.contains('is-active'));
+    activeDomain = activeButton?.dataset.libraryDomainFilter || 'all';
+    renderRows();
+  }
+
+  function initBookHierarchyPage(bookGraph) {
+    if (document.body.dataset.page !== 'book-detail') {
+      return;
+    }
+
+    const titleEl = document.querySelector('[data-book-title]');
+    const authorEl = document.querySelector('[data-book-author]');
+    const disciplineEl = document.querySelector('[data-book-discipline]');
+    const treeRoot = document.querySelector('[data-book-tree]');
+    if (!titleEl || !authorEl || !disciplineEl || !treeRoot) {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('book');
+    const groups = createBookGroups(bookGraph);
+    const selectedGroup = groups.find((group) => {
+      if (group.id === target) return true;
+      return group.books.some((item) => {
+        const candidates = [item.bookId, item.rawId, item.id, `book:${item.bookId}`, `book:${item.rawId}`].filter(Boolean);
+        return candidates.includes(target);
+      });
+    }) || groups[0];
+
+    if (!selectedGroup) {
+      treeRoot.innerHTML = `<li class="muted">${currentLang === 'en' ? 'No book available.' : '暂无可展示书籍。'}</li>`;
+      return;
+    }
+
+    const nodeMap = new Map((bookGraph.nodes || []).map((node) => [node.id, node]));
+    const edges = bookGraph.edges || [];
+
+    function childrenOf(sourceIds, type) {
+      const sourceSet = new Set(Array.isArray(sourceIds) ? sourceIds : [sourceIds]);
+      const result = [];
+      const seen = new Set();
+
+      edges.forEach((edge) => {
+        if (!sourceSet.has(edge.source) || edge.type !== type) return;
+        const node = nodeMap.get(edge.target);
+        if (!node || seen.has(node.id)) return;
+        seen.add(node.id);
+        result.push(node);
+      });
+
+      return result;
+    }
+
+    function createLeaf(text) {
+      const li = document.createElement('li');
+      li.textContent = text;
+      return li;
+    }
+
+    function createToggleBranch(text, childList) {
+      const li = document.createElement('li');
+      li.className = 'book-tree-branch';
+
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'book-tree-toggle';
+      toggle.textContent = '▸';
+      toggle.setAttribute('aria-expanded', 'false');
+
+      const label = document.createElement('button');
+      label.type = 'button';
+      label.className = 'book-tree-label';
+      label.textContent = text;
+
+      const header = document.createElement('div');
+      header.className = 'book-tree-item';
+      header.append(toggle, label);
+
+      childList.classList.add('book-tree-children');
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        toggle.textContent = expanded ? '▸' : '▾';
+        childList.classList.toggle('is-open', !expanded);
+      });
+
+      label.addEventListener('click', () => {
+        toggle.click();
+      });
+
+      li.append(header, childList);
+      return li;
+    }
+
+    const hierarchyBooks = selectedGroup.id === 'merged-book-ai-aima'
+      ? selectedGroup.books.filter((book) => String(book.bookId || '').startsWith('book-pdf-'))
+      : selectedGroup.books;
+
+    const bookNodeIds = hierarchyBooks
+      .map((book) => book.id)
+      .filter(Boolean);
+    const chapters = childrenOf(bookNodeIds, 'has_chapter');
+
+    titleEl.textContent = selectedGroup.title;
+    authorEl.textContent = selectedGroup.author;
+    disciplineEl.textContent = disciplineName(selectedGroup.domain || 'other');
+
+    if (!chapters.length) {
+      treeRoot.innerHTML = `<li class="muted">${currentLang === 'en' ? 'No chapter hierarchy found.' : '未找到章节结构。'}</li>`;
+      return;
+    }
+
+    treeRoot.innerHTML = '';
+
+    chapters.forEach((chapter, chapterIndex) => {
+      const sectionList = document.createElement('ul');
+
+      const sections = childrenOf(chapter.id, 'has_section');
+      sections.forEach((section, sectionIndex) => {
+        const knowledgeList = document.createElement('ul');
+        const knowledgeNodes = childrenOf(section.id, 'covers_knowledge');
+
+        if (!knowledgeNodes.length) {
+          knowledgeList.append(createLeaf(currentLang === 'en' ? 'No knowledge points' : '暂无知识点'));
+        } else {
+          knowledgeNodes.forEach((knowledge, knowledgeIndex) => {
+            const prefix = `${chapterIndex + 1}.${sectionIndex + 1}.${knowledgeIndex + 1}`;
+            const title = stripLeadingHierarchyNumber(pickLocalizedText(knowledge, knowledge.id));
+            knowledgeList.append(createLeaf(`${prefix} ${title}`));
+          });
+        }
+
+        const sectionPrefix = `${chapterIndex + 1}.${sectionIndex + 1}`;
+        const sectionTitle = stripLeadingHierarchyNumber(pickLocalizedText(section, section.id));
+        sectionList.append(createToggleBranch(`${sectionPrefix} ${sectionTitle}`, knowledgeList));
+      });
+
+      if (!sections.length) {
+        sectionList.append(createLeaf(currentLang === 'en' ? 'No sections' : '暂无小节'));
+      }
+
+      const chapterPrefix = `${chapterIndex + 1}`;
+      const chapterTitle = stripLeadingHierarchyNumber(pickLocalizedText(chapter, chapter.id));
+      treeRoot.append(createToggleBranch(`${chapterPrefix}. ${chapterTitle}`, sectionList));
+    });
+  }
+
   function setActiveNav() {
     const page = document.body.dataset.page;
     document.querySelectorAll('[data-nav]').forEach((link) => {
@@ -213,6 +597,8 @@ const KnowledgeGraphSite = (() => {
         link.classList.add('active');
       }
     });
+    // Active chip styling can change width and trigger overflow after initial nav sync.
+    resyncTopNavOverflow?.();
   }
 
   function getStoredTheme() {
@@ -228,13 +614,25 @@ const KnowledgeGraphSite = (() => {
     localStorage.setItem(STORAGE_KEYS.theme, theme);
     updateThemeButton();
 
-    const collapseButton = document.querySelector('[data-sidebar-collapse]');
-    if (collapseButton) {
-      const isCollapsed = document.body.classList.contains('knowledge-sidebar-collapsed');
-      const title = isCollapsed ? t('expandSidebar') : t('collapseSidebar');
-      collapseButton.setAttribute('title', title);
-      collapseButton.setAttribute('aria-label', title);
-    }
+    updateSidebarCollapseButton(
+      document.querySelector('[data-sidebar-collapse]'),
+      document.querySelector('[data-sidebar-toggle-text]'),
+      'knowledge-sidebar-collapsed'
+    );
+    updateSidebarCollapseButton(
+      document.querySelector('[data-library-sidebar-collapse]'),
+      document.querySelector('[data-library-sidebar-toggle-text]'),
+      'library-sidebar-collapsed'
+    );
+    updateSidebarCollapseButton(
+      document.querySelector('[data-project-sidebar-collapse]'),
+      document.querySelector('[data-project-sidebar-toggle-text]'),
+      'project-sidebar-collapsed'
+    );
+
+    document.dispatchEvent(new CustomEvent('kg:themechange', {
+      detail: { theme }
+    }));
   }
 
   function updateThemeButton() {
@@ -251,6 +649,54 @@ const KnowledgeGraphSite = (() => {
     if (btn) {
       btn.setAttribute('aria-label', isDark ? t('themeLight') : t('themeDark'));
       btn.setAttribute('title', isDark ? t('themeLight') : t('themeDark'));
+    }
+  }
+
+  function updateRefreshButtonState() {
+    const refreshButton = document.querySelector('[data-refresh-graph]');
+    const refreshLabel = document.querySelector('[data-refresh-label]');
+    if (!refreshButton || !refreshLabel) {
+      return;
+    }
+
+    refreshButton.disabled = isRefreshingGraphData;
+    refreshLabel.textContent = isRefreshingGraphData ? t('refreshingData') : t('refreshData');
+    const label = isRefreshingGraphData ? t('refreshingData') : t('refreshData');
+    refreshButton.setAttribute('aria-label', label);
+    refreshButton.setAttribute('title', label);
+  }
+
+  async function refreshGraphData() {
+    if (isRefreshingGraphData) {
+      return;
+    }
+
+    isRefreshingGraphData = true;
+    updateRefreshButtonState();
+
+    try {
+      cachedGraph = null;
+      const rawGraph = await loadGraph();
+      const knowledgeGraph = normalizeKnowledgeGraphPayload(rawGraph);
+      const bookGraph = normalizeBookGraphPayload(rawGraph);
+
+      renderHomeStats(knowledgeGraph);
+      renderLatestKnowledge(knowledgeGraph.nodes);
+      renderKnowledgeExplorer(knowledgeGraph);
+      initLibraryDatabase(bookGraph);
+      initBookHierarchyPage(bookGraph);
+
+      document.dispatchEvent(new CustomEvent('kg:datarefresh'));
+    } catch (error) {
+      console.error(error);
+      document.querySelectorAll('[data-latest-knowledge], [data-node-list], [data-node-detail], [data-library-book-rows], [data-book-tree]').forEach((element) => {
+        if (element) {
+          element.innerHTML = `<div class="empty-state">${t('graphLoadError')}</div>`;
+        }
+      });
+    } finally {
+      isRefreshingGraphData = false;
+      updateRefreshButtonState();
     }
   }
 
@@ -287,6 +733,7 @@ const KnowledgeGraphSite = (() => {
     }
 
     updateThemeButton();
+    updateRefreshButtonState();
     updateTopNavToggle();
     resyncTopNavOverflow?.();
 
@@ -301,13 +748,28 @@ const KnowledgeGraphSite = (() => {
     applyLanguage();
 
     if (cachedGraph) {
-      renderLatestKnowledge(cachedGraph.nodes);
-      renderKnowledgeExplorer(cachedGraph);
+      const knowledgeGraph = normalizeKnowledgeGraphPayload(cachedGraph);
+      const bookGraph = normalizeBookGraphPayload(cachedGraph);
+      renderLatestKnowledge(knowledgeGraph.nodes);
+      renderKnowledgeExplorer(knowledgeGraph);
+      initLibraryDatabase(bookGraph);
+      initBookHierarchyPage(bookGraph);
     }
   }
 
   function initControls() {
     initTopNavCollapse();
+
+    const navControls = document.querySelector('.nav-controls');
+    if (navControls && !navControls.querySelector('[data-refresh-graph]')) {
+      const refreshButton = document.createElement('button');
+      refreshButton.type = 'button';
+      refreshButton.className = 'icon-btn';
+      refreshButton.setAttribute('data-refresh-graph', '');
+      refreshButton.innerHTML = '<i class="fas fa-rotate" aria-hidden="true"></i><span data-refresh-label></span>';
+      navControls.prepend(refreshButton);
+    }
+
     setTheme(getStoredTheme());
     currentLang = getStoredLang();
     applyLanguage();
@@ -326,6 +788,15 @@ const KnowledgeGraphSite = (() => {
         setLanguage(currentLang === 'zh' ? 'en' : 'zh');
       });
     }
+
+    const refreshButton = document.querySelector('[data-refresh-graph]');
+    if (refreshButton) {
+      refreshButton.addEventListener('click', () => {
+        refreshGraphData();
+      });
+    }
+
+    updateRefreshButtonState();
   }
 
   function initKnowledgeSidebar() {
@@ -342,16 +813,11 @@ const KnowledgeGraphSite = (() => {
     document.body.classList.toggle('knowledge-sidebar-collapsed', storedCollapsed);
 
     function updateSidebarButton() {
-      const isCollapsed = document.body.classList.contains('knowledge-sidebar-collapsed');
-      const text = collapseButton?.querySelector('[data-sidebar-toggle-text]');
-      if (text) {
-        text.textContent = isCollapsed ? '>>' : '<<';
-      }
-      if (collapseButton) {
-        const title = isCollapsed ? t('expandSidebar') : t('collapseSidebar');
-        collapseButton.setAttribute('title', title);
-        collapseButton.setAttribute('aria-label', title);
-      }
+      updateSidebarCollapseButton(
+        collapseButton,
+        collapseButton?.querySelector('[data-sidebar-toggle-text]'),
+        'knowledge-sidebar-collapsed'
+      );
     }
 
     updateSidebarButton();
@@ -380,6 +846,148 @@ const KnowledgeGraphSite = (() => {
         trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
     });
+  }
+
+  function initLibraryDomainTree() {
+    if (document.body.dataset.page !== 'library') {
+      return;
+    }
+
+    const collapseButton = document.querySelector('[data-library-sidebar-collapse]');
+    const openButton = document.querySelector('[data-library-sidebar-open]');
+    const backdrop = document.querySelector('[data-library-sidebar-backdrop]');
+    const toggles = document.querySelectorAll('[data-library-domain-toggle]');
+
+    const storedCollapsed = localStorage.getItem(STORAGE_KEYS.librarySidebarCollapsed) === '1';
+    document.body.classList.toggle('library-sidebar-collapsed', storedCollapsed);
+
+    function updateSidebarButton() {
+      updateSidebarCollapseButton(
+        collapseButton,
+        collapseButton?.querySelector('[data-library-sidebar-toggle-text]'),
+        'library-sidebar-collapsed'
+      );
+    }
+
+    updateSidebarButton();
+
+    collapseButton?.addEventListener('click', () => {
+      const isCollapsed = document.body.classList.toggle('library-sidebar-collapsed');
+      localStorage.setItem(STORAGE_KEYS.librarySidebarCollapsed, isCollapsed ? '1' : '0');
+      updateSidebarButton();
+    });
+
+    openButton?.addEventListener('click', () => {
+      document.body.classList.add('library-sidebar-open');
+    });
+
+    backdrop?.addEventListener('click', () => {
+      document.body.classList.remove('library-sidebar-open');
+    });
+
+    toggles.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const group = trigger.closest('[data-library-domain-group]');
+        if (!group) return;
+        const isOpen = group.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  }
+
+  function initProjectSidebar() {
+    if (document.body.dataset.page !== 'projects') {
+      return;
+    }
+
+    const collapseButton = document.querySelector('[data-project-sidebar-collapse]');
+    const openButton = document.querySelector('[data-project-sidebar-open]');
+    const backdrop = document.querySelector('[data-project-sidebar-backdrop]');
+    const toggles = document.querySelectorAll('[data-project-domain-toggle]');
+
+    const storedCollapsed = localStorage.getItem(STORAGE_KEYS.projectSidebarCollapsed) === '1';
+    document.body.classList.toggle('project-sidebar-collapsed', storedCollapsed);
+
+    function updateSidebarButton() {
+      updateSidebarCollapseButton(
+        collapseButton,
+        collapseButton?.querySelector('[data-project-sidebar-toggle-text]'),
+        'project-sidebar-collapsed'
+      );
+    }
+
+    updateSidebarButton();
+
+    collapseButton?.addEventListener('click', () => {
+      const isCollapsed = document.body.classList.toggle('project-sidebar-collapsed');
+      localStorage.setItem(STORAGE_KEYS.projectSidebarCollapsed, isCollapsed ? '1' : '0');
+      updateSidebarButton();
+    });
+
+    openButton?.addEventListener('click', () => {
+      document.body.classList.add('project-sidebar-open');
+    });
+
+    backdrop?.addEventListener('click', () => {
+      document.body.classList.remove('project-sidebar-open');
+    });
+
+    toggles.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const group = trigger.closest('[data-project-domain-group]');
+        if (!group) return;
+        const isOpen = group.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  }
+
+  function initProjectFilters() {
+    if (document.body.dataset.page !== 'projects') {
+      return;
+    }
+
+    const filterButtons = Array.from(document.querySelectorAll('[data-project-filter]'));
+    const cards = Array.from(document.querySelectorAll('[data-project-card]'));
+    const sections = Array.from(document.querySelectorAll('[data-project-section]'));
+
+    if (!filterButtons.length || !cards.length) {
+      return;
+    }
+
+    const matchesCard = (card, filter) => {
+      if (filter === 'all') return true;
+      const categories = String(card.dataset.projectCategories || '')
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean);
+      return categories.includes(filter);
+    };
+
+    const render = (filter) => {
+      cards.forEach((card) => {
+        card.hidden = !matchesCard(card, filter);
+      });
+
+      sections.forEach((section) => {
+        const sectionCards = Array.from(section.querySelectorAll('[data-project-card]'));
+        const hasVisible = sectionCards.some((card) => !card.hidden);
+        section.hidden = !hasVisible;
+      });
+    };
+
+    filterButtons.forEach((button) => {
+      button.onclick = () => {
+        const filter = button.dataset.projectFilter || 'all';
+        filterButtons.forEach((item) => item.classList.remove('is-active'));
+        button.classList.add('is-active');
+        render(filter);
+        document.body.classList.remove('project-sidebar-open');
+      };
+    });
+
+    const activeButton = filterButtons.find((button) => button.classList.contains('is-active'));
+    render(activeButton?.dataset.projectFilter || 'all');
   }
 
   function renderLatestKnowledge(nodes) {
@@ -435,6 +1043,10 @@ const KnowledgeGraphSite = (() => {
       return true;
     }
 
+    if ((node.taxonomyDomain || '').toLowerCase() === domainFilter.toLowerCase()) {
+      return true;
+    }
+
     const keywords = DOMAIN_KEYWORDS[domainFilter] || [domainFilter];
     const haystack = [
       node.id,
@@ -455,11 +1067,6 @@ const KnowledgeGraphSite = (() => {
     }
 
     const nodes = graph.nodes.filter((node) => node.type !== 'project' && node.type !== 'source');
-    const sourceNodeMap = new Map(
-      graph.nodes
-        .filter((node) => node.type === 'source')
-        .map((node) => [node.id, node])
-    );
     const list = root.querySelector('[data-node-list]');
     const detail = root.querySelector('[data-node-detail]');
     const input = root.querySelector('[data-node-search]');
@@ -480,31 +1087,28 @@ const KnowledgeGraphSite = (() => {
         return;
       }
 
-      const formatSourceItem = (source, relationReason) => {
-        const locator = source.locator || [source.chapter && `Ch.${source.chapter}`, source.section && `Sec.${source.section}`].filter(Boolean).join(' · ');
-        const authorInfo = Array.isArray(source.authors) ? source.authors.join(', ') : '';
-        const meta = [authorInfo, source.year, locator].filter(Boolean).join(' · ');
-        const path = source.sourcePath ? `<a class="inline-link" href="${escapeHtml(source.sourcePath)}">${t('openMarkdown')} <span aria-hidden="true">→</span></a>` : '';
+      const formatSourceItem = (source) => {
+        const bookTitle = source.bookTitleI18n?.[currentLang] || source.bookTitleI18n?.zh || source.bookTitle || source.bookId || '';
+        const chapterTitle = source.chapterI18n?.[currentLang] || source.chapterI18n?.zh || source.chapter || '';
+        const sectionTitle = source.sectionI18n?.[currentLang] || source.sectionI18n?.zh || source.section || '';
+        const locator = [bookTitle, chapterTitle, sectionTitle].filter(Boolean).join(' · ');
+        const link = source.link ? `<a class="inline-link" href="${escapeHtml(source.link)}" target="_blank" rel="noopener">${t('openMarkdown')} <span aria-hidden="true">→</span></a>` : '';
         return `
           <li>
-            <strong>${escapeHtml(source.title || source.id)}</strong>
-            ${meta ? `<p class="muted">${escapeHtml(meta)}</p>` : ''}
-            ${relationReason ? `<p class="muted">${escapeHtml(relationReason)}</p>` : ''}
-            ${path}
+            <strong>${escapeHtml(source.type || 'defined_in')}</strong>
+            ${locator ? `<p class="muted">${escapeHtml(locator)}</p>` : ''}
+            ${link}
           </li>
         `;
       };
 
       const sourceByRelation = (relationType) => {
-        return graph.edges
-          .filter((edge) => edge.source === node.id && edge.type === relationType)
-          .map((edge) => ({ source: sourceNodeMap.get(edge.target), reason: edge.reason }))
-          .filter((item) => Boolean(item.source));
+        return (node.provenanceLinks || []).filter((item) => item.type === relationType);
       };
 
       const definedIn = sourceByRelation('defined_in');
-      const supportedBy = sourceByRelation('supported_by');
-      const citedFrom = sourceByRelation('cited_from');
+      const supportedBy = sourceByRelation('support');
+      const citedFrom = sourceByRelation('cite_from');
 
       const projectLinks = (node.projectLinks || []).map((link) => `<li><a href="${escapeHtml(link)}">${escapeHtml(link)}</a></li>`).join('');
       const tags = (node.tags || []).map((tag) => `<span class="badge">${escapeHtml(tag)}</span>`).join('');
@@ -538,19 +1142,21 @@ const KnowledgeGraphSite = (() => {
         </div>
         <div class="detail-section">
           <h4>${t('definitionSource')}</h4>
-          <ul class="mini-list">${definedIn.map((item) => formatSourceItem(item.source, item.reason)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
+          <ul class="mini-list">${definedIn.map((item) => formatSourceItem(item)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
         </div>
         <div class="detail-section">
           <h4>${t('supportingSources')}</h4>
-          <ul class="mini-list">${supportedBy.map((item) => formatSourceItem(item.source, item.reason)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
+          <ul class="mini-list">${supportedBy.map((item) => formatSourceItem(item)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
         </div>
         <div class="detail-section">
           <h4>${t('citedSources')}</h4>
-          <ul class="mini-list">${citedFrom.map((item) => formatSourceItem(item.source, item.reason)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
+          <ul class="mini-list">${citedFrom.map((item) => formatSourceItem(item)).join('') || `<li>${t('noSourceRefs')}</li>`}</ul>
         </div>
         <div class="detail-section">
           <h4>${t('sourceNode')}</h4>
-          <a class="inline-link" href="${escapeHtml(node.sourcePath || '#')}">${t('openMarkdown')} <span aria-hidden="true">→</span></a>
+          ${node.provenanceLinks?.[0]?.link
+            ? `<a class="inline-link" href="${escapeHtml(node.provenanceLinks[0].link)}" target="_blank" rel="noopener">${t('openMarkdown')} <span aria-hidden="true">→</span></a>`
+            : `<span class="muted">${t('noSourceRefs')}</span>`}
         </div>
       `;
     }
@@ -615,9 +1221,18 @@ const KnowledgeGraphSite = (() => {
         const isAlreadyActive = selected === activeDomainFilter;
 
         domainButtons.forEach((item) => item.classList.remove('is-active'));
-        activeDomainFilter = isAlreadyActive ? 'all' : selected;
-        if (!isAlreadyActive) {
+
+        if (selected === 'all') {
+          activeDomainFilter = 'all';
           button.classList.add('is-active');
+        } else {
+          activeDomainFilter = isAlreadyActive ? 'all' : selected;
+          if (activeDomainFilter === 'all') {
+            const allButton = domainButtons.find((item) => (item.dataset.domainFilter || '') === 'all');
+            allButton?.classList.add('is-active');
+          } else {
+            button.classList.add('is-active');
+          }
         }
 
         document.body.classList.remove('knowledge-sidebar-open');
@@ -631,6 +1246,9 @@ const KnowledgeGraphSite = (() => {
   async function init() {
     initControls();
     initKnowledgeSidebar();
+    initLibraryDomainTree();
+    initProjectSidebar();
+    initProjectFilters();
     setActiveNav();
 
     const latest = document.querySelector('[data-latest-knowledge]');
@@ -639,13 +1257,18 @@ const KnowledgeGraphSite = (() => {
     }
 
     try {
-      const graph = await loadGraph();
-      renderHomeStats(graph);
-      renderLatestKnowledge(graph.nodes);
-      renderKnowledgeExplorer(graph);
+      const rawGraph = await loadGraph();
+      const knowledgeGraph = normalizeKnowledgeGraphPayload(rawGraph);
+      const bookGraph = normalizeBookGraphPayload(rawGraph);
+
+      renderHomeStats(knowledgeGraph);
+      renderLatestKnowledge(knowledgeGraph.nodes);
+      renderKnowledgeExplorer(knowledgeGraph);
+      initLibraryDatabase(bookGraph);
+      initBookHierarchyPage(bookGraph);
     } catch (error) {
       console.error(error);
-      document.querySelectorAll('[data-latest-knowledge], [data-node-list], [data-node-detail]').forEach((element) => {
+      document.querySelectorAll('[data-latest-knowledge], [data-node-list], [data-node-detail], [data-library-book-rows], [data-book-tree]').forEach((element) => {
         if (element) {
           element.innerHTML = `<div class="empty-state">${t('graphLoadError')}</div>`;
         }

@@ -10,6 +10,7 @@
   --solid-fg: #ffffff;
   --radius: 12px;
   --content-width: 980px;
+  --nav-width: 1360px;
 }
 
 html[data-theme="dark"] {
@@ -22,6 +23,27 @@ html[data-theme="dark"] {
   --accent: #60a5fa;
   --solid-bg: #f4f4f5;
   --solid-fg: #09090b;
+}
+
+html[data-theme="dark"] .nav-links a {
+  color: #d4d4d8;
+}
+
+html[data-theme="dark"] .nav-links a:hover,
+html[data-theme="dark"] .nav-links a.active {
+  color: #fafafa;
+}
+
+html[data-theme="dark"] .site-header .icon-btn {
+  background: #18181b;
+  border-color: #3f3f46;
+  color: #f4f4f5;
+}
+
+html[data-theme="dark"] .site-header .icon-btn:hover {
+  background: #27272a;
+  border-color: #52525b;
+  color: #ffffff;
 }
 
 * {
@@ -59,14 +81,14 @@ a {
 }
 
 .site-nav {
-  max-width: var(--content-width);
+  max-width: var(--nav-width);
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 0 0 0.35rem;
   min-height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.7rem;
 }
 
 .brand {
@@ -74,6 +96,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  margin-right: 0.4rem;
 }
 
 .brand-title {
@@ -91,18 +114,21 @@ a {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  flex: 1;
 }
 
 .nav-links {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.28rem;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav-links a {
   text-decoration: none;
-  padding: 0.64rem 0.86rem;
+  padding: 0.56rem 0.72rem;
   border-radius: 999px;
   color: var(--muted);
   font-weight: 600;
@@ -120,14 +146,23 @@ a {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  position: relative;
+  margin-left: auto;
+  margin-right: 0.1rem;
 }
 
 .topnav-toggle {
   display: none;
 }
 
-.site-nav.has-overflow-links {
-  flex-wrap: wrap;
+.topnav-toggle[hidden] {
+  display: none !important;
+}
+
+.topnav-toggle [data-topnav-toggle-text] {
+  display: inline-block;
+  font-size: 1.5em;
+  line-height: 1;
 }
 
 .site-nav.has-overflow-links .topnav-toggle {
@@ -140,11 +175,19 @@ a {
 
 .topnav-overflow-panel {
   display: none;
-  flex: 0 0 100%;
-  order: 3;
-  padding: 0.35rem 0 0.55rem;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 120;
+  min-width: 180px;
+  max-width: min(72vw, 300px);
+  padding: 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 12px 26px color-mix(in srgb, #000 16%, transparent);
+  gap: 0.35rem;
+  flex-direction: column;
 }
 
 .site-nav.has-overflow-links.overflow-expanded .topnav-overflow-panel {
@@ -153,13 +196,14 @@ a {
 
 .topnav-overflow-link {
   text-decoration: none;
-  padding: 0.5rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--line);
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
   color: var(--muted);
   font-weight: 600;
   letter-spacing: 0.03em;
   background: var(--surface);
+  white-space: nowrap;
 }
 
 .topnav-overflow-link:hover,
@@ -483,6 +527,14 @@ body[data-page="knowledge"] .page-shell {
   max-width: none;
 }
 
+body[data-page="library"] .page-shell {
+  max-width: none;
+}
+
+body[data-page="projects"] .page-shell {
+  max-width: none;
+}
+
 .knowledge-page-shell {
   position: relative;
   padding: 0 0 3rem;
@@ -626,6 +678,308 @@ body[data-page="knowledge"] .page-shell {
   margin: 0 auto;
 }
 
+/* Library + Book pages */
+.library-page-shell {
+  position: relative;
+  padding: calc(var(--nav-height) + 2rem) 0 3rem;
+  min-height: calc(100vh - 68px);
+}
+
+.library-left-rail {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+  z-index: 60;
+  padding: 1rem 0.95rem 1.2rem;
+  overflow: auto;
+  transition: width 0.2s ease, transform 0.2s ease;
+}
+
+.library-main-area {
+  margin-left: 300px;
+  padding: 0 1.25rem;
+}
+
+.library-main-area .hero-block,
+.library-main-area .library-toolbar,
+.library-main-area .library-layout {
+  max-width: none;
+  margin: 0;
+}
+
+.library-left-rail .rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+}
+
+.library-left-rail .rail-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.library-left-rail .rail-intro {
+  margin: 0.7rem 0 0.95rem;
+  line-height: 1.65;
+  font-size: 0.88rem;
+}
+
+.library-domain-tree {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.library-all-link {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 0.72rem 0.78rem;
+  font-weight: 700;
+}
+
+.library-all-link:hover {
+  background: var(--surface-soft);
+}
+
+.library-toolbar {
+  margin-bottom: 1rem;
+}
+
+.library-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  gap: 1rem;
+  align-items: start;
+}
+
+.library-center,
+.library-right,
+.book-tree-panel {
+  padding: 1rem;
+}
+
+.library-table-wrap {
+  overflow: auto;
+}
+
+.library-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.library-table th,
+.library-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.75rem 0.6rem;
+  text-align: left;
+}
+
+.library-table th {
+  color: var(--muted);
+  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+}
+
+.library-row {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.library-row:hover,
+.library-row:focus {
+  background: var(--surface-soft);
+  outline: none;
+}
+
+.library-sidebar-backdrop {
+  display: none;
+}
+
+.project-page-shell {
+  position: relative;
+  padding: calc(var(--nav-height) + 2rem) 0 3rem;
+  min-height: calc(100vh - 68px);
+}
+
+.project-left-rail {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+  z-index: 60;
+  padding: 1rem 0.95rem 1.2rem;
+  overflow: auto;
+  transition: width 0.2s ease, transform 0.2s ease;
+}
+
+.project-main-area {
+  margin-left: 300px;
+  padding: 0 1.25rem;
+}
+
+.project-main-area .hero-block,
+.project-main-area .project-toolbar,
+.project-main-area .section {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.project-toolbar {
+  margin-bottom: 1rem;
+}
+
+.project-sidebar-backdrop {
+  display: none;
+}
+
+body.library-sidebar-collapsed .library-left-rail {
+  width: 0;
+  padding: 0;
+  border-right: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+body.library-sidebar-collapsed .library-main-area {
+  margin-left: 24px;
+}
+
+body.library-sidebar-collapsed .library-left-rail .rail-header h3,
+body.library-sidebar-collapsed .library-left-rail .rail-intro,
+body.library-sidebar-collapsed .library-left-rail .domain-toggle-label,
+body.library-sidebar-collapsed .library-left-rail .domain-children,
+body.library-sidebar-collapsed .library-left-rail .library-all-link {
+  display: none;
+}
+
+body.library-sidebar-collapsed .library-left-rail .rail-header {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+body.library-sidebar-collapsed .library-left-rail .rail-toggle {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px color-mix(in srgb, #000 10%, transparent);
+}
+
+body.library-sidebar-collapsed .library-left-rail .domain-tree,
+body.library-sidebar-collapsed .library-left-rail .domain-group {
+  display: none;
+}
+
+body.project-sidebar-collapsed .project-left-rail {
+  width: 0;
+  padding: 0;
+  border-right: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+body.project-sidebar-collapsed .project-main-area {
+  margin-left: 24px;
+}
+
+body.project-sidebar-collapsed .project-left-rail .rail-header h3,
+body.project-sidebar-collapsed .project-left-rail .rail-intro,
+body.project-sidebar-collapsed .project-left-rail .domain-toggle-label,
+body.project-sidebar-collapsed .project-left-rail .domain-children,
+body.project-sidebar-collapsed .project-left-rail .domain-link[data-project-filter="all"] {
+  display: none;
+}
+
+body.project-sidebar-collapsed .project-left-rail .rail-header {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+body.project-sidebar-collapsed .project-left-rail .rail-toggle {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px color-mix(in srgb, #000 10%, transparent);
+}
+
+body.project-sidebar-collapsed .project-left-rail .domain-tree,
+body.project-sidebar-collapsed .project-left-rail .domain-group {
+  display: none;
+}
+
+.book-tree {
+  margin: 0;
+  padding-left: 0;
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.book-tree ul {
+  margin: 0.35rem 0 0.35rem 1rem;
+  padding-left: 0.4rem;
+  list-style: none;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.book-tree li,
+.book-tree li::marker {
+  list-style: none;
+  content: '';
+}
+
+.book-tree ul.book-tree-children {
+  display: none;
+}
+
+.book-tree ul.book-tree-children.is-open {
+  display: grid;
+}
+
+.book-tree-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.book-tree-toggle {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  width: 1.1rem;
+  padding: 0;
+}
+
+.book-tree-label {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text);
+}
+
 /* Graph workspace */
 body[data-page="graph"] .page-shell {
   max-width: none;
@@ -655,6 +1009,13 @@ body[data-page="graph"] .page-shell {
 .graph-detail,
 .graph-legend {
   padding: 1rem;
+}
+
+.graph-controls {
+  position: sticky;
+  top: 92px;
+  max-height: calc(100vh - 108px);
+  overflow: auto;
 }
 
 .graph-controls h2,
@@ -1206,6 +1567,7 @@ code {
   .content-grid,
   .knowledge-layout,
   .knowledge-content-grid,
+  .library-layout,
   .graph-layout,
   .contact-grid,
   .project-grid {
@@ -1214,12 +1576,15 @@ code {
 
   .sidebar-stack,
   .knowledge-sidebar,
+  .graph-controls,
   .graph-detail,
   .detail-panel {
     position: static;
   }
 
-  .knowledge-left-rail {
+  .knowledge-left-rail,
+  .library-left-rail,
+  .project-left-rail {
     top: 68px;
     width: min(86vw, 320px);
     transform: translateX(-102%);
@@ -1231,14 +1596,44 @@ code {
     box-shadow: 8px 0 32px color-mix(in srgb, #000 24%, transparent);
   }
 
+  body.library-sidebar-open .library-left-rail {
+    transform: translateX(0);
+    box-shadow: 8px 0 32px color-mix(in srgb, #000 24%, transparent);
+  }
+
+  body.project-sidebar-open .project-left-rail {
+    transform: translateX(0);
+    box-shadow: 8px 0 32px color-mix(in srgb, #000 24%, transparent);
+  }
+
   .knowledge-main-area,
-  body.knowledge-sidebar-collapsed .knowledge-main-area {
+  body.knowledge-sidebar-collapsed .knowledge-main-area,
+  .library-main-area,
+  body.library-sidebar-collapsed .library-main-area,
+  .project-main-area,
+  body.project-sidebar-collapsed .project-main-area {
     margin-left: 0;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
 
   body.knowledge-sidebar-collapsed .knowledge-left-rail {
+    width: min(86vw, 320px);
+    padding: 1rem 0.95rem 1.2rem;
+    border-right: 1px solid var(--line);
+    background: var(--surface);
+    overflow: auto;
+  }
+
+  body.library-sidebar-collapsed .library-left-rail {
+    width: min(86vw, 320px);
+    padding: 1rem 0.95rem 1.2rem;
+    border-right: 1px solid var(--line);
+    background: var(--surface);
+    overflow: auto;
+  }
+
+  body.project-sidebar-collapsed .project-left-rail {
     width: min(86vw, 320px);
     padding: 1rem 0.95rem 1.2rem;
     border-right: 1px solid var(--line);
@@ -1253,7 +1648,37 @@ code {
     display: initial;
   }
 
+  body.library-sidebar-collapsed .library-left-rail .rail-header h3,
+  body.library-sidebar-collapsed .library-left-rail .rail-intro,
+  body.library-sidebar-collapsed .library-left-rail .domain-toggle-label,
+  body.library-sidebar-collapsed .library-left-rail .domain-children,
+  body.library-sidebar-collapsed .library-left-rail .library-all-link {
+    display: initial;
+  }
+
+  body.project-sidebar-collapsed .project-left-rail .rail-header h3,
+  body.project-sidebar-collapsed .project-left-rail .rail-intro,
+  body.project-sidebar-collapsed .project-left-rail .domain-toggle-label,
+  body.project-sidebar-collapsed .project-left-rail .domain-children,
+  body.project-sidebar-collapsed .project-left-rail .domain-link[data-project-filter="all"] {
+    display: initial;
+  }
+
   body.knowledge-sidebar-collapsed .rail-header {
+    position: static;
+    display: flex;
+    width: auto;
+    height: auto;
+  }
+
+  body.library-sidebar-collapsed .library-left-rail .rail-header {
+    position: static;
+    display: flex;
+    width: auto;
+    height: auto;
+  }
+
+  body.project-sidebar-collapsed .project-left-rail .rail-header {
     position: static;
     display: flex;
     width: auto;
@@ -1265,7 +1690,25 @@ code {
     box-shadow: none;
   }
 
+  body.library-sidebar-collapsed .library-left-rail .rail-toggle {
+    position: static;
+    box-shadow: none;
+  }
+
+  body.project-sidebar-collapsed .project-left-rail .rail-toggle {
+    position: static;
+    box-shadow: none;
+  }
+
   body.knowledge-sidebar-collapsed .domain-group:not(.is-open) .domain-children {
+    display: none;
+  }
+
+  body.library-sidebar-collapsed .library-left-rail .domain-group:not(.is-open) .domain-children {
+    display: none;
+  }
+
+  body.project-sidebar-collapsed .project-left-rail .domain-group:not(.is-open) .domain-children {
     display: none;
   }
 
@@ -1273,7 +1716,9 @@ code {
     display: inline-flex;
   }
 
-  .knowledge-sidebar-backdrop {
+  .knowledge-sidebar-backdrop,
+  .library-sidebar-backdrop,
+  .project-sidebar-backdrop {
     border: 0;
     background: color-mix(in srgb, #000 40%, transparent);
     position: fixed;
@@ -1283,6 +1728,14 @@ code {
   }
 
   body.knowledge-sidebar-open .knowledge-sidebar-backdrop {
+    display: block;
+  }
+
+  body.library-sidebar-open .library-sidebar-backdrop {
+    display: block;
+  }
+
+  body.project-sidebar-open .project-sidebar-backdrop {
     display: block;
   }
 

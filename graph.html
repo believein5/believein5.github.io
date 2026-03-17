@@ -22,6 +22,7 @@
         <div class="nav-right">
           <nav class="nav-links" aria-label="Main navigation">
             <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="library.html" data-nav="library" data-i18n-zh="Library" data-i18n-en="Library">Library</a>
             <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
             <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
             <a href="graph.html" data-nav="graph" data-i18n-zh="Graph" data-i18n-en="Graph">Graph</a>
@@ -49,8 +50,7 @@
           <div class="graph-control-block">
             <label data-i18n-zh="显示模式" data-i18n-en="Display mode">显示模式</label>
             <div class="graph-mode-switch" data-graph-mode-switch>
-              <button class="filter-chip is-active" type="button" data-graph-mode="book" data-i18n-zh="书籍层级" data-i18n-en="Book Hierarchy">书籍层级</button>
-              <button class="filter-chip" type="button" data-graph-mode="knowledge" data-i18n-zh="知识网络" data-i18n-en="Knowledge Network">知识网络</button>
+              <button class="filter-chip is-active" type="button" data-graph-mode="knowledge" data-i18n-zh="知识网络" data-i18n-en="Knowledge Network">知识网络</button>
             </div>
           </div>
 
@@ -60,10 +60,24 @@
           </div>
 
           <div class="graph-control-block">
-            <label for="graph-local-depth" data-i18n-zh="本地子图深度（知识模式）" data-i18n-en="Local graph depth (knowledge mode)">本地子图深度（知识模式）</label>
+            <label for="graph-local-depth" data-i18n-zh="本地子图深度" data-i18n-en="Local graph depth">本地子图深度</label>
             <div class="graph-range-row">
               <input id="graph-local-depth" type="range" min="0" max="3" step="1" value="0" data-graph-depth>
               <span class="note-inline" data-graph-depth-label>0</span>
+            </div>
+            <div class="filter-group graph-chip-group" data-depth-mode-switch>
+              <button class="filter-chip is-active" type="button" data-depth-mode="undirected" data-i18n-zh="Undirected depth" data-i18n-en="Undirected depth">Undirected depth</button>
+              <button class="filter-chip" type="button" data-depth-mode="directed" data-i18n-zh="Directed depth" data-i18n-en="Directed depth">Directed depth</button>
+            </div>
+          </div>
+
+          <div class="graph-control-block">
+            <label data-i18n-zh="聚焦模式" data-i18n-en="Focus mode">聚焦模式</label>
+            <div class="filter-group graph-chip-group" data-focus-mode-switch>
+              <button class="filter-chip is-active" type="button" data-focus-mode="neighbors">Neighbors</button>
+              <button class="filter-chip" type="button" data-focus-mode="upstream">Upstream</button>
+              <button class="filter-chip" type="button" data-focus-mode="downstream">Downstream</button>
+              <button class="filter-chip" type="button" data-focus-mode="both">Both</button>
             </div>
           </div>
 
@@ -92,21 +106,21 @@
                 </div>
               </div>
               <div class="graph-tuning-item">
-                <span data-i18n-zh="层级间距（书籍模式）" data-i18n-en="Level separation (book mode)">层级间距（书籍模式）</span>
+                <span data-i18n-zh="层级间距" data-i18n-en="Level separation">层级间距</span>
                 <div class="graph-range-row">
                   <input type="range" min="80" max="220" step="5" value="120" data-tuning-key="levelSeparation">
                   <span class="note-inline" data-tuning-value="levelSeparation">120</span>
                 </div>
               </div>
               <div class="graph-tuning-item">
-                <span data-i18n-zh="节点间距（书籍模式）" data-i18n-en="Node spacing (book mode)">节点间距（书籍模式）</span>
+                <span data-i18n-zh="节点间距" data-i18n-en="Node spacing">节点间距</span>
                 <div class="graph-range-row">
                   <input type="range" min="120" max="300" step="10" value="170" data-tuning-key="nodeSpacing">
                   <span class="note-inline" data-tuning-value="nodeSpacing">170</span>
                 </div>
               </div>
               <div class="graph-tuning-item">
-                <span data-i18n-zh="物理迭代（知识模式）" data-i18n-en="Physics iterations (knowledge mode)">物理迭代（知识模式）</span>
+                <span data-i18n-zh="物理迭代" data-i18n-en="Physics iterations">物理迭代</span>
                 <div class="graph-range-row">
                   <input type="range" min="80" max="400" step="10" value="180" data-tuning-key="physicsIterations">
                   <span class="note-inline" data-tuning-value="physicsIterations">180</span>
@@ -125,6 +139,10 @@
 
           <div class="graph-control-block">
             <label data-i18n-zh="学科分类（当前模式）" data-i18n-en="Disciplines (current mode)">学科分类（当前模式）</label>
+            <label class="graph-edge-option">
+              <input type="checkbox" data-domain-highlight-only>
+              <span data-i18n-zh="仅高亮（不筛掉其它节点）" data-i18n-en="Highlight only (keep full context)">仅高亮（不筛掉其它节点）</span>
+            </label>
             <div class="filter-group graph-chip-group" data-domain-filters></div>
           </div>
 
@@ -134,7 +152,7 @@
           </div>
 
           <div class="graph-control-block">
-            <label data-i18n-zh="快速查询（知识模式）" data-i18n-en="Quick queries (knowledge mode)">快速查询（知识模式）</label>
+            <label data-i18n-zh="快速查询" data-i18n-en="Quick queries">快速查询</label>
             <div class="graph-query-actions">
               <button class="filter-chip" type="button" data-query="missing-defined">Missing defined_in</button>
               <button class="filter-chip" type="button" data-query="weak-support">Weak support</button>
@@ -155,13 +173,13 @@
 
         <aside class="graph-detail panel" data-graph-detail>
           <h2 data-i18n-zh="节点详情" data-i18n-en="Node details">节点详情</h2>
-          <p class="muted" data-i18n-zh="书籍层级模式可折叠；知识网络模式悬停可看 defined_in/cite_from/support 来源链接。" data-i18n-en="Book Hierarchy supports folding; Knowledge Network shows defined_in/cite_from/support links on hover.">书籍层级模式可折叠；知识网络模式悬停可看 defined_in/cite_from/support 来源链接。</p>
+          <p class="muted" data-i18n-zh="图谱工作台仅展示知识网络，并支持查看 defined_in/cite_from/support 来源链接。" data-i18n-en="The graph workspace now focuses on knowledge network only, with defined_in/cite_from/support provenance links.">图谱工作台仅展示知识网络，并支持查看 defined_in/cite_from/support 来源链接。</p>
         </aside>
       </section>
     </main>
 
     <footer class="page-shell footer">
-      <span data-i18n-zh="Graph 工作台支持书籍层次图与知识关系图双模式。" data-i18n-en="Graph workspace supports both hierarchy view and knowledge relation view.">Graph 工作台支持书籍层次图与知识关系图双模式。</span>
+      <span data-i18n-zh="Graph 工作台聚焦知识关系图与来源追溯。" data-i18n-en="Graph workspace focuses on knowledge relations and provenance tracing.">Graph 工作台聚焦知识关系图与来源追溯。</span>
       <span><a class="inline-link" href="graph/knowledge-graph.json" data-i18n-zh="打开图谱原始数据" data-i18n-en="Open raw graph data">打开图谱原始数据</a></span>
     </footer>
   </body>

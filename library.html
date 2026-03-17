@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Library database view for books, disciplines, and structured reading entries.">
+    <title>Library | Personal Knowledge Graph</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/site.css">
+    <script defer src="scripts/site.js"></script>
+  </head>
+  <body data-page="library">
+    <header class="site-header">
+      <div class="site-nav">
+        <a class="brand" href="index.html">
+          <span class="brand-title" data-i18n-zh="Knowledge Graph" data-i18n-en="Knowledge Graph">Knowledge Graph</span>
+          <span class="brand-subtitle" data-i18n-zh="Library：书籍与文献数据库" data-i18n-en="Library: book and literature database">Library：书籍与文献数据库</span>
+        </a>
+        <div class="nav-right">
+          <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html" data-nav="home" data-i18n-zh="HOME" data-i18n-en="HOME">HOME</a>
+            <a href="library.html" data-nav="library" data-i18n-zh="Library" data-i18n-en="Library">Library</a>
+            <a href="knowledge.html" data-nav="knowledge" data-i18n-zh="Knowledge" data-i18n-en="Knowledge">Knowledge</a>
+            <a href="projects.html" data-nav="projects" data-i18n-zh="Project" data-i18n-en="Project">Project</a>
+            <a href="graph.html" data-nav="graph" data-i18n-zh="Graph" data-i18n-en="Graph">Graph</a>
+            <a href="contact.html" data-nav="contact" data-i18n-zh="CONTACT" data-i18n-en="CONTACT">CONTACT</a>
+          </nav>
+          <div class="nav-controls">
+            <button class="icon-btn" type="button" data-theme-toggle>
+              <i class="fas fa-moon" aria-hidden="true"></i>
+              <span data-theme-label>Dark</span>
+            </button>
+            <button class="icon-btn" type="button" data-lang-toggle>
+              <i class="fas fa-language" aria-hidden="true"></i>
+              <span data-lang-label>EN</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell knowledge-page-shell library-page-shell" data-library-page>
+      <aside class="knowledge-left-rail library-left-rail" data-library-sidebar>
+        <div class="rail-header">
+          <h3 data-i18n-zh="学科分类" data-i18n-en="Disciplines">学科分类</h3>
+          <button class="rail-toggle" type="button" data-library-sidebar-collapse aria-label="收起侧边栏" title="收起侧边栏">
+            <span class="rail-toggle-text" data-library-sidebar-toggle-text>&lt;&lt;</span>
+          </button>
+        </div>
+        <p class="muted rail-intro" data-i18n-zh="左侧按学科筛选书籍，点击分类即可刷新数据库列表。" data-i18n-en="Filter books by discipline from the left rail. Click a category to refresh the database list.">左侧按学科筛选书籍，点击分类即可刷新数据库列表。</p>
+
+        <nav class="domain-tree library-domain-tree" aria-label="Library disciplines">
+          <button class="domain-link is-active library-all-link" type="button" data-library-domain-filter="all" data-i18n-zh="全部" data-i18n-en="All">全部</button>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="philosophy" data-i18n-zh="哲学与智能本体相关书籍" data-i18n-en="Philosophy-related books">哲学与智能本体相关书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="数学" data-i18n-en="Mathematics">数学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="mathematics" data-i18n-zh="数学分析、代数与概率书籍" data-i18n-en="Books on analysis, algebra, and probability">数学分析、代数与概率书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="物理学" data-i18n-en="Physics">物理学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="physics" data-i18n-zh="力学、电磁与复杂系统书籍" data-i18n-en="Books on mechanics, electromagnetism, and complex systems">力学、电磁与复杂系统书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="经济学" data-i18n-en="Economics">经济学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="economics" data-i18n-zh="经济与决策书籍" data-i18n-en="Books on economics and decision-making">经济与决策书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="神经科学" data-i18n-en="Neuroscience">神经科学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="neuroscience" data-i18n-zh="神经机制与认知书籍" data-i18n-en="Books on neural mechanisms and cognition">神经机制与认知书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="心理学" data-i18n-en="Psychology">心理学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="psychology" data-i18n-zh="认知与行为书籍" data-i18n-en="Books on cognition and behavior">认知与行为书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="计算机科学" data-i18n-en="Computer Science">计算机科学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="computer-science" data-i18n-zh="算法、系统与工程书籍" data-i18n-en="Books on algorithms, systems, and engineering">算法、系统与工程书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="控制理论与控制论" data-i18n-en="Control Theory & Cybernetics">控制理论与控制论</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="control-theory-cybernetics" data-i18n-zh="控制、反馈与系统辨识书籍" data-i18n-en="Books on control, feedback, and system identification">控制、反馈与系统辨识书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="linguistics" data-i18n-zh="语言与语义书籍" data-i18n-en="Books on language and semantics">语言与语义书籍</button></li>
+              </ul>
+            </section>
+
+            <section class="domain-group" data-library-domain-group>
+              <button class="domain-toggle" type="button" data-library-domain-toggle aria-expanded="false">
+                <span class="domain-toggle-label" data-i18n-zh="人工智能" data-i18n-en="Artificial Intelligence">人工智能</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="domain-children">
+                <li><button class="domain-link" type="button" data-library-domain-filter="artificial-intelligence" data-i18n-zh="AI、机器学习与推理系统书籍" data-i18n-en="Books on AI, machine learning, and reasoning">AI、机器学习与推理系统书籍</button></li>
+              </ul>
+            </section>
+          </nav>
+      </aside>
+
+      <div class="knowledge-main-area library-main-area">
+        <section class="hero-block">
+          <span class="hero-kicker" data-i18n-zh="Library 数据库视图" data-i18n-en="Library database view"><i class="fas fa-book"></i> Library 数据库视图</span>
+          <h1 class="hero-title" data-i18n-zh="按学科筛选书籍，<span class='accent'>逐本进入层次结构。</span>" data-i18n-en="Filter by discipline, <span class='accent'>open each book structure.</span>">按学科筛选书籍，<span class="accent">逐本进入层次结构。</span></h1>
+        </section>
+
+        <div class="toolbar library-toolbar">
+          <button class="icon-btn sidebar-open-btn" type="button" data-library-sidebar-open>
+            <i class="fas fa-bars" aria-hidden="true"></i>
+            <span data-i18n-zh="学科" data-i18n-en="Disciplines">学科</span>
+          </button>
+        </div>
+
+        <section class="library-layout">
+          <section class="panel library-center">
+            <h3 data-i18n-zh="书籍数据库" data-i18n-en="Book database">书籍数据库</h3>
+            <div class="library-table-wrap">
+              <table class="library-table">
+                <thead>
+                  <tr>
+                    <th data-i18n-zh="书籍名称" data-i18n-en="Book">书籍名称</th>
+                    <th data-i18n-zh="作者" data-i18n-en="Author">作者</th>
+                  </tr>
+                </thead>
+                <tbody data-library-book-rows>
+                  <tr><td colspan="2" class="muted">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="panel library-right">
+            <h3 data-i18n-zh="搜索" data-i18n-en="Search">搜索</h3>
+            <input class="search-input" type="search" data-library-search placeholder="搜索书名 / 作者" data-i18n-ph-zh="搜索书名 / 作者" data-i18n-ph-en="Search by book / author">
+            <p class="muted" data-i18n-zh="支持按书名和作者模糊检索。" data-i18n-en="Fuzzy search by title and author.">支持按书名和作者模糊检索。</p>
+          </aside>
+        </section>
+      </div>
+
+      <button class="knowledge-sidebar-backdrop library-sidebar-backdrop" type="button" data-library-sidebar-backdrop aria-label="关闭学科侧栏"></button>
+    </main>
+
+    <footer class="page-shell footer">
+      <span data-i18n-zh="Library 页面按数据库风格管理书籍入口。" data-i18n-en="Library page manages books in a database-like view.">Library 页面按数据库风格管理书籍入口。</span>
+      <span><a class="inline-link" href="graph/knowledge-graph.json" data-i18n-zh="打开图谱原始数据" data-i18n-en="Open raw graph data">打开图谱原始数据</a></span>
+    </footer>
+  </body>
+</html>
