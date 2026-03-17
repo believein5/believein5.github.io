@@ -2,12 +2,12 @@
   "version": "1.0.0",
   "description": "Manual tuning profile for graph workspace. Edit values here for persistent visual/debug adjustments.",
   "graphTuning": {
-    "nodeSizeScale": 1,
-    "degreeGain": 3,
-    "edgeWidthScale": 1,
-    "levelSeparation": 120,
-    "nodeSpacing": 170,
-    "physicsIterations": 180
+    "nodeSizeScale": 0.95,
+    "degreeGain": 2.6,
+    "edgeWidthScale": 1.1,
+    "levelSeparation": 150,
+    "nodeSpacing": 210,
+    "physicsIterations": 240
   },
   "notes": [
     "nodeSizeScale: multiply base node size",

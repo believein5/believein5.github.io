@@ -1,11 +1,11 @@
 const GraphWorkspace = (() => {
   const DEFAULT_TUNING = {
-    nodeSizeScale: 1,
-    degreeGain: 3,
-    edgeWidthScale: 1,
-    levelSeparation: 120,
-    nodeSpacing: 170,
-    physicsIterations: 180
+    nodeSizeScale: 0.95,
+    degreeGain: 2.6,
+    edgeWidthScale: 1.1,
+    levelSeparation: 150,
+    nodeSpacing: 210,
+    physicsIterations: 240
   };
 
   const state = {
@@ -26,6 +26,9 @@ const GraphWorkspace = (() => {
     collapsedBookNodes: new Set(),
     roadmapExpandedNodes: new Set(),
     tuning: { ...DEFAULT_TUNING },
+    settingsDragged: false,
+    shouldRefocus: false,
+    pendingViewport: null,
     lang: document.documentElement.lang?.toLowerCase().startsWith('zh') ? 'zh' : 'en'
   };
 
@@ -160,23 +163,73 @@ const GraphWorkspace = (() => {
     psychology: { zh: '心理学', en: 'Psychology' },
     'computer-science': { zh: '计算机', en: 'Computer Science' },
     'control-theory-cybernetics': { zh: '控制理论与控制论', en: 'Control Theory & Cybernetics' },
+    'robotics-engineering': { zh: '机器人工程', en: 'Robotics Engineering' },
     linguistics: { zh: '语言学', en: 'Linguistics' },
     'artificial-intelligence': { zh: '人工智能', en: 'Artificial Intelligence' },
     common: { zh: '通用', en: 'Common' }
   };
 
   const DISCIPLINE_COLORS = {
-    philosophy: '#6b7280',
-    mathematics: '#4b5563',
-    physics: '#475569',
-    economics: '#52525b',
-    neuroscience: '#0f766e',
-    psychology: '#7c3f52',
-    'computer-science': '#334155',
-    'control-theory-cybernetics': '#0f766e',
-    linguistics: '#5b21b6',
-    'artificial-intelligence': '#1d4ed8',
-    common: '#64748b'
+    philosophy: '#808080',
+    mathematics: '#00ffff',
+    physics: '#6040ff',
+    economics: '#804000',
+    neuroscience: '#ff00ff',
+    psychology: '#ff8080',
+    'computer-science': '#404080',
+    'control-theory-cybernetics': '#00ff00',
+    'robotics-engineering': '#008040',
+    linguistics: '#8000ff',
+    'artificial-intelligence': '#ff2040',
+    common: '#404040'
+  };
+
+  const DISCIPLINE_DISPLAY_ORDER = [
+    'artificial-intelligence',
+    'philosophy',
+    'mathematics',
+    'physics',
+    'economics',
+    'neuroscience',
+    'psychology',
+    'computer-science',
+    'control-theory-cybernetics',
+    'robotics-engineering',
+    'linguistics',
+    'common'
+  ];
+
+  const THEME_RENDER_PRESETS = {
+    light: {
+      fadedNodeOpacity: 0.24,
+      fadedEdgeOpacity: 0.2,
+      nodeShadowColor: 'rgba(15, 23, 42, 0.14)',
+      nodeShadowSize: 10,
+      edgeShadowColor: 'rgba(37, 99, 235, 0.18)',
+      edgeShadowSize: 6,
+      selectedBorder: '#0f172a',
+      focusBorder: '#2563eb',
+      upstreamBorder: '#7c3aed',
+      downstreamBorder: '#c2410c',
+      bothBorder: '#b91c1c',
+      edgeMutedColor: 'rgba(71, 85, 105, 0.42)',
+      edgeFocusBoost: 1.55
+    },
+    dark: {
+      fadedNodeOpacity: 0.3,
+      fadedEdgeOpacity: 0.26,
+      nodeShadowColor: 'rgba(96, 165, 250, 0.28)',
+      nodeShadowSize: 12,
+      edgeShadowColor: 'rgba(96, 165, 250, 0.32)',
+      edgeShadowSize: 7,
+      selectedBorder: '#f8fafc',
+      focusBorder: '#93c5fd',
+      upstreamBorder: '#c4b5fd',
+      downstreamBorder: '#fdba74',
+      bothBorder: '#fda4af',
+      edgeMutedColor: 'rgba(148, 163, 184, 0.4)',
+      edgeFocusBoost: 1.75
+    }
   };
 
   const EDGE_LABEL_I18N = {
@@ -280,6 +333,21 @@ const GraphWorkspace = (() => {
     return DISCIPLINE_COLORS[domain] || DISCIPLINE_COLORS.common;
   }
 
+  function sortDomains(domains = []) {
+    const rank = new Map(DISCIPLINE_DISPLAY_ORDER.map((key, index) => [key, index]));
+    return [...domains].sort((a, b) => {
+      const ra = rank.has(a) ? rank.get(a) : Number.MAX_SAFE_INTEGER;
+      const rb = rank.has(b) ? rank.get(b) : Number.MAX_SAFE_INTEGER;
+      if (ra !== rb) return ra - rb;
+      return String(a).localeCompare(String(b));
+    });
+  }
+
+  function currentRenderPreset() {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    return THEME_RENDER_PRESETS[theme];
+  }
+
   function isKnowledgeNodeType(type = '') {
     return type === 'knowledge' || ['concept', 'method', 'law', 'theory', 'algorithm', 'model'].includes(type);
   }
@@ -312,7 +380,7 @@ const GraphWorkspace = (() => {
   }
 
   function syncTuningUI() {
-    if (!EL.tuningInputs || !EL.tuningValues) return;
+    if (!EL.tuningInputs) return;
 
     EL.tuningInputs.forEach((input) => {
       const key = input.dataset.tuningKey;
@@ -320,12 +388,18 @@ const GraphWorkspace = (() => {
       input.value = String(state.tuning[key]);
     });
 
-    EL.tuningValues.forEach((label) => {
-      const key = label.dataset.tuningValue;
+    EL.tuningNumberInputs?.forEach((input) => {
+      const key = input.dataset.tuningNumber;
       if (!key || !(key in state.tuning)) return;
-      const value = Number(state.tuning[key]);
-      label.textContent = Number.isInteger(value) ? String(value) : value.toFixed(2);
+      input.value = String(state.tuning[key]);
     });
+  }
+
+  function applyTuningValue(key, value) {
+    if (!key || !(key in state.tuning)) return;
+    state.tuning = normalizeTuning({ ...state.tuning, [key]: value });
+    syncTuningUI();
+    renderNetwork();
   }
 
   function getCurrentView() {
@@ -638,6 +712,7 @@ const GraphWorkspace = (() => {
   function buildDatasets() {
     const view = getCurrentView();
     const nodeMap = getNodeMap();
+    const renderPreset = currentRenderPreset();
     const { nodeIds: baseNodeIds, edges: baseEdges } = getFilteredBaseSubgraph(view);
 
     let visibleNodeIds = computeLocalGraph(baseNodeIds, baseEdges);
@@ -657,19 +732,35 @@ const GraphWorkspace = (() => {
       const domain = resolveDomain(node);
       const domainMatched = state.highlightedDomains.has(domain);
 
-      let color = nodeColorByType(node);
+      const color = disciplineColor(node);
+      let semanticBorder = disciplineColor(node);
+      let semanticShadowColor = renderPreset.nodeShadowColor;
+
       if (!isSelected) {
-        if (isUpstream && !isDownstream) color = '#7c3aed';
-        if (isDownstream && !isUpstream) color = '#c2410c';
-        if (isUpstream && isDownstream) color = '#9a3412';
+        if (isUpstream && !isDownstream) {
+          semanticBorder = renderPreset.upstreamBorder;
+          semanticShadowColor = renderPreset.upstreamBorder;
+        } else if (isDownstream && !isUpstream) {
+          semanticBorder = renderPreset.downstreamBorder;
+          semanticShadowColor = renderPreset.downstreamBorder;
+        } else if (isUpstream && isDownstream) {
+          semanticBorder = renderPreset.bothBorder;
+          semanticShadowColor = renderPreset.bothBorder;
+        }
       }
+
+      const borderWidth = isSelected
+        ? Math.max(visual.borderWidth + 1.4, 3)
+        : inFocus
+          ? Math.max(visual.borderWidth + 0.8, 2.2)
+          : visual.borderWidth;
 
       const visual = nodeVisualByType(node);
       const tooltip = buildKnowledgeTooltip(node);
 
       const fadedByFocus = hasSelectedFocus && !inFocus;
       const fadedByDomain = hasDomainHighlights && !domainMatched;
-      const opacity = (fadedByFocus || fadedByDomain) ? 0.18 : 1;
+      const opacity = (fadedByFocus || fadedByDomain) ? renderPreset.fadedNodeOpacity : 1;
 
       return {
         id,
@@ -680,15 +771,22 @@ const GraphWorkspace = (() => {
           (visual.baseSize || 16) * state.tuning.nodeSizeScale,
           (visual.baseSize || 16) * state.tuning.nodeSizeScale + Math.log2(1 + degree) * state.tuning.degreeGain
         ),
-        borderWidth: visual.borderWidth,
+        borderWidth,
         opacity,
         color: {
           background: color,
-          border: isSelected ? cssVar('--solid-bg', '#111827') : disciplineColor(node),
+          border: isSelected ? renderPreset.selectedBorder : semanticBorder,
           highlight: {
             background: color,
-            border: cssVar('--accent', '#2563eb')
+            border: renderPreset.focusBorder
           }
+        },
+        shadow: {
+          enabled: true,
+          color: isSelected ? renderPreset.focusBorder : semanticShadowColor,
+          size: isSelected ? (renderPreset.nodeShadowSize + 3) : renderPreset.nodeShadowSize,
+          x: 0,
+          y: 1
         },
         font: {
           color: cssVar('--text', '#18181b'),
@@ -708,19 +806,28 @@ const GraphWorkspace = (() => {
       const domainMatched = !hasDomainHighlights
         || state.highlightedDomains.has(sourceDomain)
         || state.highlightedDomains.has(targetDomain);
-      const opacity = (fadedByFocus || !domainMatched) ? 0.16 : 1;
+      const opacity = (fadedByFocus || !domainMatched) ? renderPreset.fadedEdgeOpacity : 1;
+      const inStrongFocus = inFocus && hasSelectedFocus;
+      const edgeColor = inStrongFocus ? edgeColorByType(edge.type) : renderPreset.edgeMutedColor;
 
       return {
         ...visual,
-        width: (visual.width || 1.8) * state.tuning.edgeWidthScale * (isDirect ? 1.9 : 1),
+        width: (visual.width || 1.8) * state.tuning.edgeWidthScale * (isDirect ? renderPreset.edgeFocusBoost : 1),
         id: edgeId,
         from: edge.source,
         to: edge.target,
         label: edgeLabel(edge.type),
         opacity,
         color: {
-          color: edgeColorByType(edge.type),
-          highlight: cssVar('--accent', '#2563eb')
+          color: edgeColor,
+          highlight: renderPreset.focusBorder
+        },
+        shadow: {
+          enabled: true,
+          color: renderPreset.edgeShadowColor,
+          size: renderPreset.edgeShadowSize,
+          x: 0,
+          y: 0
         },
         font: {
           size: 10,
@@ -918,22 +1025,57 @@ const GraphWorkspace = (() => {
   }
 
   function syncNetworkSelection() {
-    if (state.network && state.selectedNodeId) {
-      state.network.selectNodes([state.selectedNodeId]);
+    if (!state.network || !state.selectedNodeId) return;
+    state.network.selectNodes([state.selectedNodeId]);
+    if (state.shouldRefocus) {
       state.network.focus(state.selectedNodeId, { animation: { duration: 300 } });
+      state.shouldRefocus = false;
     }
+  }
+
+  function captureViewport() {
+    if (!state.network) return null;
+    return {
+      position: state.network.getViewPosition(),
+      scale: state.network.getScale()
+    };
+  }
+
+  function restoreViewport(viewport) {
+    if (!state.network || !viewport) return;
+    state.network.moveTo({
+      position: viewport.position,
+      scale: viewport.scale,
+      animation: false
+    });
+  }
+
+  function applyPreviousPositions(nodes, positions) {
+    if (!positions || !nodes?.length) return nodes;
+    return nodes.map((node) => {
+      const pos = positions[node.id];
+      if (!pos) return node;
+      return {
+        ...node,
+        x: pos.x,
+        y: pos.y
+      };
+    });
   }
 
   function renderNetwork() {
     if (!EL.canvas || !state.graphData) return;
+    const viewport = captureViewport();
     const datasets = buildDatasets();
     const options = getNetworkOptions();
+    const previousPositions = state.network ? state.network.getPositions() : null;
+    const positionedNodes = applyPreviousPositions(datasets.nodes, previousPositions);
 
     if (!state.network) {
       state.network = new vis.Network(
         EL.canvas,
         {
-          nodes: new vis.DataSet(datasets.nodes),
+          nodes: new vis.DataSet(positionedNodes),
           edges: new vis.DataSet(datasets.edges)
         },
         options
@@ -945,12 +1087,20 @@ const GraphWorkspace = (() => {
 
         renderDetail();
       });
+
+      state.network.on('stabilizationIterationsDone', () => {
+        if (!state.pendingViewport) return;
+        restoreViewport(state.pendingViewport);
+        state.pendingViewport = null;
+      });
     } else {
+      state.pendingViewport = viewport;
       state.network.setOptions(options);
       state.network.setData({
-        nodes: new vis.DataSet(datasets.nodes),
+        nodes: new vis.DataSet(positionedNodes),
         edges: new vis.DataSet(datasets.edges)
       });
+      restoreViewport(viewport);
     }
 
     renderDetail();
@@ -998,7 +1148,7 @@ const GraphWorkspace = (() => {
 
   function renderDomainFilters() {
     const view = getCurrentView();
-    const domains = [...new Set((view?.nodes || []).map((n) => resolveDomain(n)))].sort();
+    const domains = sortDomains([...new Set((view?.nodes || []).map((n) => resolveDomain(n)))]);
 
     if (!EL.domainFilters) return;
 
@@ -1126,6 +1276,7 @@ const GraphWorkspace = (() => {
       btn.addEventListener('click', () => {
         state.mode = 'knowledge';
         state.selectedNodeId = btn.dataset.focusNode;
+        state.shouldRefocus = true;
         state.localDepth = 1;
         EL.depth.value = '1';
         EL.depthLabel.textContent = '1';
@@ -1162,6 +1313,137 @@ const GraphWorkspace = (() => {
   }
 
   function bindControls() {
+    const clampDrawerPosition = (left, top) => {
+      if (!EL.settingsPanel) return { left, top };
+      const margin = 10;
+      const minTop = 76;
+      const panelRect = EL.settingsPanel.getBoundingClientRect();
+      const maxLeft = Math.max(margin, window.innerWidth - panelRect.width - margin);
+      const maxTop = Math.max(minTop, window.innerHeight - panelRect.height - margin);
+
+      return {
+        left: Math.max(margin, Math.min(left, maxLeft)),
+        top: Math.max(minTop, Math.min(top, maxTop))
+      };
+    };
+
+    const positionSettingsDrawer = () => {
+      if (!EL.settingsPanel || !EL.settingsToggle) return;
+
+      const toggleRect = EL.settingsToggle.getBoundingClientRect();
+      const panelRect = EL.settingsPanel.getBoundingClientRect();
+      const gap = 10;
+      const minTop = 76;
+      const margin = 10;
+
+      let top = Math.max(minTop, toggleRect.bottom + gap);
+      let left = toggleRect.right - panelRect.width;
+
+      const next = clampDrawerPosition(left, top);
+
+      EL.settingsPanel.style.top = `${next.top}px`;
+      EL.settingsPanel.style.left = `${next.left}px`;
+    };
+
+    const drag = {
+      active: false,
+      startX: 0,
+      startY: 0,
+      originLeft: 0,
+      originTop: 0
+    };
+
+    const onDragMove = (event) => {
+      if (!drag.active || !EL.settingsPanel) return;
+      const dx = event.clientX - drag.startX;
+      const dy = event.clientY - drag.startY;
+      const next = clampDrawerPosition(drag.originLeft + dx, drag.originTop + dy);
+      EL.settingsPanel.style.left = `${next.left}px`;
+      EL.settingsPanel.style.top = `${next.top}px`;
+    };
+
+    const stopDrag = () => {
+      if (!drag.active) return;
+      drag.active = false;
+      document.removeEventListener('mousemove', onDragMove);
+      document.removeEventListener('mouseup', stopDrag);
+      document.body.classList.remove('graph-settings-dragging');
+    };
+
+    EL.settingsHeader?.addEventListener('mousedown', (event) => {
+      if (event.button !== 0 || !EL.settingsPanel) return;
+      if (event.target.closest('[data-graph-settings-close]')) return;
+
+      const style = window.getComputedStyle(EL.settingsPanel);
+      const currentLeft = Number.parseFloat(style.left) || EL.settingsPanel.getBoundingClientRect().left;
+      const currentTop = Number.parseFloat(style.top) || EL.settingsPanel.getBoundingClientRect().top;
+
+      drag.active = true;
+      drag.startX = event.clientX;
+      drag.startY = event.clientY;
+      drag.originLeft = currentLeft;
+      drag.originTop = currentTop;
+      state.settingsDragged = true;
+
+      document.addEventListener('mousemove', onDragMove);
+      document.addEventListener('mouseup', stopDrag);
+      document.body.classList.add('graph-settings-dragging');
+      event.preventDefault();
+    });
+
+    const setSettingsOpen = (open) => {
+      if (EL.settingsToggle) {
+        EL.settingsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      if (EL.settingsPanel) {
+        EL.settingsPanel.hidden = !open;
+        EL.settingsPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+        if (open) {
+          state.settingsDragged = false;
+          requestAnimationFrame(positionSettingsDrawer);
+        } else {
+          stopDrag();
+          EL.settingsPanel.style.removeProperty('top');
+          EL.settingsPanel.style.removeProperty('left');
+        }
+      }
+      if (EL.settingsBackdrop) {
+        EL.settingsBackdrop.hidden = !open;
+      }
+      document.body.classList.toggle('graph-settings-open', open);
+    };
+
+    EL.settingsToggle?.addEventListener('click', () => {
+      const expanded = EL.settingsToggle.getAttribute('aria-expanded') === 'true';
+      setSettingsOpen(!expanded);
+    });
+
+    EL.settingsClose?.addEventListener('click', () => {
+      setSettingsOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const expanded = EL.settingsToggle?.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        setSettingsOpen(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      const expanded = EL.settingsToggle?.getAttribute('aria-expanded') === 'true';
+      if (expanded && state.settingsDragged) {
+        const style = window.getComputedStyle(EL.settingsPanel);
+        const currentLeft = Number.parseFloat(style.left) || EL.settingsPanel.getBoundingClientRect().left;
+        const currentTop = Number.parseFloat(style.top) || EL.settingsPanel.getBoundingClientRect().top;
+        const next = clampDrawerPosition(currentLeft, currentTop);
+        EL.settingsPanel.style.left = `${next.left}px`;
+        EL.settingsPanel.style.top = `${next.top}px`;
+      } else if (expanded) {
+        positionSettingsDrawer();
+      }
+    });
+
     EL.search.addEventListener('input', () => {
       state.search = EL.search.value;
       renderNetwork();
@@ -1215,11 +1497,17 @@ const GraphWorkspace = (() => {
     EL.tuningInputs?.forEach((input) => {
       input.addEventListener('input', () => {
         const key = input.dataset.tuningKey;
-        if (!key || !(key in state.tuning)) return;
-        state.tuning[key] = Number(input.value);
-        syncTuningUI();
-        renderNetwork();
+        applyTuningValue(key, Number(input.value));
       });
+    });
+
+    EL.tuningNumberInputs?.forEach((input) => {
+      const commitValue = () => {
+        const key = input.dataset.tuningNumber;
+        applyTuningValue(key, Number(input.value));
+      };
+      input.addEventListener('input', commitValue);
+      input.addEventListener('change', commitValue);
     });
 
     EL.tuningReset?.addEventListener('click', () => {
@@ -1243,8 +1531,13 @@ const GraphWorkspace = (() => {
     EL.queryResults = document.querySelector('[data-query-results]');
     EL.modeSwitch = document.querySelector('[data-graph-mode-switch]');
     EL.legend = document.querySelector('[data-graph-legend]');
+    EL.settingsToggle = document.querySelector('[data-graph-settings-toggle]');
+    EL.settingsPanel = document.querySelector('[data-graph-settings-panel]');
+    EL.settingsHeader = document.querySelector('.graph-settings-drawer-header');
+    EL.settingsClose = document.querySelector('[data-graph-settings-close]');
+    EL.settingsBackdrop = document.querySelector('[data-graph-settings-backdrop]');
     EL.tuningInputs = document.querySelectorAll('[data-tuning-key]');
-    EL.tuningValues = document.querySelectorAll('[data-tuning-value]');
+    EL.tuningNumberInputs = document.querySelectorAll('[data-tuning-number]');
     EL.tuningReset = document.querySelector('[data-tuning-reset]');
   }
 

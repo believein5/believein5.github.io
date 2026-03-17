@@ -205,6 +205,7 @@ const KnowledgeGraphSite = (() => {
     'psychology': ['psychology', 'cognitive', 'behavior', 'bias', '心理'],
     'computer-science': ['computer science', 'algorithm', 'system', 'software', 'ml', 'agent', '计算机'],
     'control-theory-cybernetics': ['control', 'control theory', 'cybernetics', 'feedback', 'stability', 'system identification', '控制', '控制论'],
+    'robotics-engineering': ['robotics', 'robot', 'robotic', 'control', 'perception', 'planning', 'manipulation', 'slam', 'navigation', '机器人', '机器人学', '机器人工程'],
     'linguistics': ['linguistics', 'semantics', 'syntax', 'pragmatics', '语义', '语法'],
     'artificial-intelligence': ['artificial intelligence', 'ai', 'machine learning', 'deep learning', 'llm', 'agent', '人工智能', '机器学习', '深度学习']
   };
@@ -217,6 +218,7 @@ const KnowledgeGraphSite = (() => {
     psychology: { zh: '心理学', en: 'Psychology' },
     'computer-science': { zh: '计算机科学', en: 'Computer Science' },
     'control-theory-cybernetics': { zh: '控制理论与控制论', en: 'Control Theory & Cybernetics' },
+    'robotics-engineering': { zh: '机器人工程', en: 'Robotics Engineering' },
     linguistics: { zh: '语言学', en: 'Linguistics' },
     philosophy: { zh: '哲学', en: 'Philosophy' },
     'artificial-intelligence': { zh: '人工智能', en: 'Artificial Intelligence' }
@@ -719,6 +721,13 @@ const KnowledgeGraphSite = (() => {
       const value = currentLang === 'zh' ? element.dataset.i18nPhZh : element.dataset.i18nPhEn;
       if (value !== undefined) {
         element.setAttribute('placeholder', value);
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-title-zh][data-i18n-title-en]').forEach((element) => {
+      const value = currentLang === 'zh' ? element.dataset.i18nTitleZh : element.dataset.i18nTitleEn;
+      if (value !== undefined) {
+        element.setAttribute('title', value);
       }
     });
 

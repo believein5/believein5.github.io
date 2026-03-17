@@ -52,6 +52,16 @@
         <nav class="domain-tree" aria-label="Knowledge taxonomy">
           <button class="domain-link is-active" type="button" data-domain-filter="all" data-i18n-zh="全部" data-i18n-en="All">全部</button>
 
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="人工智能" data-i18n-en="Artificial Intelligence">人工智能</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="artificial-intelligence" data-i18n-zh="机器学习、深度学习、智能体与推理系统" data-i18n-en="Machine learning, deep learning, agents and reasoning systems">机器学习、深度学习、智能体与推理系统</button></li>
+            </ul>
+          </section>
+
           <section class="domain-group is-open" data-domain-group>
             <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="true">
               <span class="domain-toggle-label" data-i18n-zh="哲学" data-i18n-en="Philosophy">哲学</span>
@@ -63,12 +73,17 @@
           </section>
 
           <section class="domain-group" data-domain-group>
-            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false" data-i18n-title-zh="线性代数、概率统计、优化、信息论" data-i18n-title-en="Linear algebra, probability and statistics, optimization, information theory">
               <span class="domain-toggle-label" data-i18n-zh="数学" data-i18n-en="Mathematics">数学</span>
               <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </button>
-            <ul class="domain-children" data-domain-panel>
-              <li><button class="domain-link" type="button" data-domain-filter="mathematics" data-i18n-zh="线性代数、概率统计、优化、信息论" data-i18n-en="Linear algebra, probability and statistics, optimization, information theory">线性代数、概率统计、优化、信息论</button></li>
+            <ul class="domain-children domain-subgrid" data-domain-panel>
+              <li><button class="domain-link domain-subitem" type="button" data-domain-filter="mathematics" data-i18n-title-zh="极限、连续、微积分与实分析" data-i18n-title-en="Limits, continuity, calculus and real analysis" data-i18n-zh="数学分析" data-i18n-en="Analysis">数学分析</button></li>
+              <li><button class="domain-link domain-subitem" type="button" data-domain-filter="mathematics" data-i18n-title-zh="线性代数、群环域与抽象代数" data-i18n-title-en="Linear algebra, groups/rings/fields and abstract algebra" data-i18n-zh="代数" data-i18n-en="Algebra">代数</button></li>
+              <li><button class="domain-link domain-subitem" type="button" data-domain-filter="mathematics" data-i18n-title-zh="欧氏几何、微分几何与拓扑结构" data-i18n-title-en="Euclidean/differential geometry and topological structures" data-i18n-zh="几何与拓扑" data-i18n-en="Geometry & Topology">几何与拓扑</button></li>
+              <li><button class="domain-link domain-subitem" type="button" data-domain-filter="mathematics" data-i18n-title-zh="概率模型、统计推断与随机过程" data-i18n-title-en="Probability models, statistical inference and stochastic processes" data-i18n-zh="概率统计" data-i18n-en="Probability & Statistics">概率统计</button></li>
+              <li><button class="domain-link domain-subitem" type="button" data-domain-filter="mathematics" data-i18n-title-zh="凸优化、变分法与最优化算法" data-i18n-title-en="Convex optimization, variational methods and optimization algorithms" data-i18n-zh="优化" data-i18n-en="Optimization">优化</button></li>
+              <li><button class="domain-link domain-subitem" type="button" data-domain-filter="mathematics" data-i18n-title-zh="数论、离散结构与组合方法" data-i18n-title-en="Number theory, discrete structures and combinatorics" data-i18n-zh="数论与离散" data-i18n-en="Number Theory & Discrete">数论与离散</button></li>
             </ul>
           </section>
 
@@ -134,6 +149,16 @@
 
           <section class="domain-group" data-domain-group>
             <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
+              <span class="domain-toggle-label" data-i18n-zh="机器人工程" data-i18n-en="Robotics Engineering">机器人工程</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <ul class="domain-children" data-domain-panel>
+              <li><button class="domain-link" type="button" data-domain-filter="robotics-engineering" data-i18n-zh="机器人控制、感知、规划与操作" data-i18n-en="Robot control, perception, planning, and manipulation">机器人控制、感知、规划与操作</button></li>
+            </ul>
+          </section>
+
+          <section class="domain-group" data-domain-group>
+            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
               <span class="domain-toggle-label" data-i18n-zh="语言学" data-i18n-en="Linguistics">语言学</span>
               <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </button>
@@ -142,15 +167,6 @@
             </ul>
           </section>
 
-          <section class="domain-group" data-domain-group>
-            <button class="domain-toggle" type="button" data-domain-toggle aria-expanded="false">
-              <span class="domain-toggle-label" data-i18n-zh="人工智能" data-i18n-en="Artificial Intelligence">人工智能</span>
-              <i class="fas fa-chevron-down" aria-hidden="true"></i>
-            </button>
-            <ul class="domain-children" data-domain-panel>
-              <li><button class="domain-link" type="button" data-domain-filter="artificial-intelligence" data-i18n-zh="机器学习、深度学习、智能体与推理系统" data-i18n-en="Machine learning, deep learning, agents and reasoning systems">机器学习、深度学习、智能体与推理系统</button></li>
-            </ul>
-          </section>
         </nav>
       </aside>
 
